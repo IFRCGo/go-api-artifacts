@@ -39742,6 +39742,7 @@ paths:
       - api
   /api/v2/region/:
     get:
+      description: Region endpoint with snippet visibility filtering.
       operationId: api_v2_region_list
       parameters:
       - description: A search term.
@@ -39794,6 +39795,7 @@ paths:
       - api
   /api/v2/region/{id}/:
     get:
+      description: Region endpoint with snippet visibility filtering.
       operationId: api_v2_region_retrieve
       parameters:
       - description: A unique integer value identifying this region.
