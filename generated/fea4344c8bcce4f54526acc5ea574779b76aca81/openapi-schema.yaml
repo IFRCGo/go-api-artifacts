@@ -3233,7 +3233,6 @@ components:
       type: object
     DeploymentsEruTypeEnumKey:
       description: |-
-        * `0` - Basecamp
         * `1` - IT & Telecom
         * `2` - Logistics
         * `3` - RCRC Emergency Hospital
@@ -3247,13 +3246,10 @@ components:
         * `11` - Cholera Case management at Community level
         * `12` - Safe and Dignified Burials
         * `13` - Community Based Surveillance
-        * `14` - Base Camp – S
-        * `15` - Base Camp – M
-        * `16` - Base Camp – L
         * `17` - Outpatient Department (OPD) Module
         * `18` - MHPSS
+        * `19` - Operations Support HUB
       enum:
-      - 0
       - 1
       - 2
       - 3
@@ -3267,11 +3263,9 @@ components:
       - 11
       - 12
       - 13
-      - 14
-      - 15
-      - 16
       - 17
       - 18
+      - 19
       type: integer
     DeploymentsPersonnelTypeEnum:
       properties:
@@ -4547,9 +4541,6 @@ components:
       type: object
     Dref3:
       properties:
-        affected_people:
-          readOnly: true
-          type: string
         allocation:
           readOnly: true
           type: string
@@ -4568,27 +4559,6 @@ components:
         approved:
           readOnly: true
           type: string
-        beneficiaries_assisted:
-          readOnly: true
-          type: string
-        community_engagement_and_accountability:
-          readOnly: true
-          type: string
-        community_engagement_and_accountability_budget:
-          readOnly: true
-          type: string
-        community_engagement_and_accountability_people_targeted:
-          readOnly: true
-          type: string
-        coordination_and_partnerships:
-          readOnly: true
-          type: string
-        coordination_and_partnerships_budget:
-          readOnly: true
-          type: string
-        coordination_and_partnerships_people_targeted:
-          readOnly: true
-          type: string
         country:
           readOnly: true
           type: string
@@ -4596,6 +4566,9 @@ components:
           readOnly: true
           type: string
         crisis_categorization:
+          readOnly: true
+          type: string
+        data_origin:
           readOnly: true
           type: string
         date_of_appeal_request_from_ns:
@@ -4622,127 +4595,187 @@ components:
         districts:
           readOnly: true
           type: string
-        education:
-          readOnly: true
-          type: string
-        education_budget:
-          readOnly: true
-          type: string
-        education_people_targeted:
-          readOnly: true
-          type: string
         end_date_of_operation:
           readOnly: true
           type: string
-        enviromental_sustainability:
+        id:
+          readOnly: true
+          type: integer
+        indicators_id:
           readOnly: true
           type: string
-        enviromental_sustainability_budget:
-          readOnly: true
-          type: string
-        enviromental_sustainability_people_targeted:
-          readOnly: true
-          type: string
-        health:
-          readOnly: true
-          type: string
-        health_budget:
-          readOnly: true
-          type: string
-        health_people_targeted:
-          readOnly: true
-          type: string
-        indicators_nested_table:
+        is_latest_stage:
           readOnly: true
           type: string
         link_to_emergency_page:
           readOnly: true
           type: string
-        livelihoods:
+        modified_at:
           readOnly: true
           type: string
-        livelihoods_budget:
-          readOnly: true
-          type: string
-        livelihoods_people_targeted:
-          readOnly: true
-          type: string
-        migration_and_displacement:
-          readOnly: true
-          type: string
-        migration_and_displacement_budget:
-          readOnly: true
-          type: string
-        migration_and_displacement_people_targeted:
-          readOnly: true
-          type: string
-        multi_purpose_cash_grants:
-          readOnly: true
-          type: string
-        multi_purpose_cash_grants_budget:
-          readOnly: true
-          type: string
-        multi_purpose_cash_grants_people_targeted:
-          readOnly: true
-          type: string
-        national_society_strengthening:
-          readOnly: true
-          type: string
-        national_society_strengthening_budget:
-          readOnly: true
-          type: string
-        national_society_strengthening_people_targeted:
+        operation_status:
           readOnly: true
           type: string
         operation_timeframe:
           readOnly: true
           type: string
+        people_affected:
+          readOnly: true
+          type: string
+        people_assisted:
+          readOnly: true
+          type: string
+        people_targeted:
+          readOnly: true
+          type: string
         pillar:
           readOnly: true
           type: string
-        protection_gender_and_inclusion:
+        population_disaggregation:
           readOnly: true
           type: string
-        protection_gender_and_inclusion_budget:
-          readOnly: true
-          type: string
-        protection_gender_and_inclusion_people_targeted:
+        public:
           readOnly: true
           type: string
         region:
           readOnly: true
           type: string
-        risk_reduction_climate_adaptation_and_recovery:
+        sector_community_engagement_and_accountability:
           readOnly: true
           type: string
-        risk_reduction_climate_adaptation_and_recovery_budget:
+        sector_community_engagement_and_accountability_budget:
           readOnly: true
           type: string
-        risk_reduction_climate_adaptation_and_recovery_people_targeted:
+        sector_community_engagement_and_accountability_people_targeted:
           readOnly: true
           type: string
-        secretariat_services:
+        sector_coordination_and_partnerships:
           readOnly: true
           type: string
-        secretariat_services_budget:
+        sector_coordination_and_partnerships_budget:
           readOnly: true
           type: string
-        secretariat_services_people_targeted:
+        sector_coordination_and_partnerships_people_targeted:
           readOnly: true
           type: string
-        shelter_and_basic_household_items:
+        sector_education:
           readOnly: true
           type: string
-        shelter_and_basic_household_items_budget:
+        sector_education_budget:
           readOnly: true
           type: string
-        shelter_and_basic_household_items_people_targeted:
+        sector_education_people_targeted:
+          readOnly: true
+          type: string
+        sector_environmental_sustainability:
+          readOnly: true
+          type: string
+        sector_environmental_sustainability_budget:
+          readOnly: true
+          type: string
+        sector_environmental_sustainability_people_targeted:
+          readOnly: true
+          type: string
+        sector_health:
+          readOnly: true
+          type: string
+        sector_health_budget:
+          readOnly: true
+          type: string
+        sector_health_people_targeted:
+          readOnly: true
+          type: string
+        sector_livelihoods:
+          readOnly: true
+          type: string
+        sector_livelihoods_budget:
+          readOnly: true
+          type: string
+        sector_livelihoods_people_targeted:
+          readOnly: true
+          type: string
+        sector_migration_and_displacement:
+          readOnly: true
+          type: string
+        sector_migration_and_displacement_budget:
+          readOnly: true
+          type: string
+        sector_migration_and_displacement_people_targeted:
+          readOnly: true
+          type: string
+        sector_multi_purpose_cash_grants:
+          readOnly: true
+          type: string
+        sector_multi_purpose_cash_grants_budget:
+          readOnly: true
+          type: string
+        sector_multi_purpose_cash_grants_people_targeted:
+          readOnly: true
+          type: string
+        sector_national_society_strengthening:
+          readOnly: true
+          type: string
+        sector_national_society_strengthening_budget:
+          readOnly: true
+          type: string
+        sector_national_society_strengthening_people_targeted:
+          readOnly: true
+          type: string
+        sector_protection_gender_and_inclusion:
+          readOnly: true
+          type: string
+        sector_protection_gender_and_inclusion_budget:
+          readOnly: true
+          type: string
+        sector_protection_gender_and_inclusion_people_targeted:
+          readOnly: true
+          type: string
+        sector_risk_reduction_climate_adaptation_and_recovery:
+          readOnly: true
+          type: string
+        sector_risk_reduction_climate_adaptation_and_recovery_budget:
+          readOnly: true
+          type: string
+        sector_risk_reduction_climate_adaptation_and_recovery_people_targeted:
+          readOnly: true
+          type: string
+        sector_secretariat_services:
+          readOnly: true
+          type: string
+        sector_secretariat_services_budget:
+          readOnly: true
+          type: string
+        sector_secretariat_services_people_targeted:
+          readOnly: true
+          type: string
+        sector_shelter_and_basic_household_items:
+          readOnly: true
+          type: string
+        sector_shelter_and_basic_household_items_budget:
+          readOnly: true
+          type: string
+        sector_shelter_and_basic_household_items_people_targeted:
+          readOnly: true
+          type: string
+        sector_water_sanitation_and_hygiene:
+          readOnly: true
+          type: string
+        sector_water_sanitation_and_hygiene_budget:
+          readOnly: true
+          type: string
+        sector_water_sanitation_and_hygiene_people_targeted:
           readOnly: true
           type: string
         stage:
           readOnly: true
           type: string
-        targeted_people:
+        start_date_of_operation:
+          readOnly: true
+          type: string
+        status:
+          readOnly: true
+          type: integer
+        status_display:
           readOnly: true
           type: string
         total_approved:
@@ -4751,33 +4784,17 @@ components:
         type_of_onset:
           readOnly: true
           type: string
-        water_sanitation_and_hygiene:
-          readOnly: true
-          type: string
-        water_sanitation_and_hygiene_budget:
-          readOnly: true
-          type: string
-        water_sanitation_and_hygiene_people_targeted:
-          readOnly: true
-          type: string
       required:
-      - affected_people
       - allocation
       - allocation_type
       - amount_approved
       - appeal_id
       - appeal_type
       - approved
-      - beneficiaries_assisted
-      - community_engagement_and_accountability
-      - community_engagement_and_accountability_budget
-      - community_engagement_and_accountability_people_targeted
-      - coordination_and_partnerships
-      - coordination_and_partnerships_budget
-      - coordination_and_partnerships_people_targeted
       - country
       - country_iso3
       - crisis_categorization
+      - data_origin
       - date_of_appeal_request_from_ns
       - date_of_approval
       - date_of_disaster
@@ -4786,52 +4803,69 @@ components:
       - disaster_name
       - district_codes
       - districts
-      - education
-      - education_budget
-      - education_people_targeted
       - end_date_of_operation
-      - enviromental_sustainability
-      - enviromental_sustainability_budget
-      - enviromental_sustainability_people_targeted
-      - health
-      - health_budget
-      - health_people_targeted
-      - indicators_nested_table
+      - id
+      - indicators_id
+      - is_latest_stage
       - link_to_emergency_page
-      - livelihoods
-      - livelihoods_budget
-      - livelihoods_people_targeted
-      - migration_and_displacement
-      - migration_and_displacement_budget
-      - migration_and_displacement_people_targeted
-      - multi_purpose_cash_grants
-      - multi_purpose_cash_grants_budget
-      - multi_purpose_cash_grants_people_targeted
-      - national_society_strengthening
-      - national_society_strengthening_budget
-      - national_society_strengthening_people_targeted
+      - modified_at
+      - operation_status
       - operation_timeframe
+      - people_affected
+      - people_assisted
+      - people_targeted
       - pillar
-      - protection_gender_and_inclusion
-      - protection_gender_and_inclusion_budget
-      - protection_gender_and_inclusion_people_targeted
+      - population_disaggregation
+      - public
       - region
-      - risk_reduction_climate_adaptation_and_recovery
-      - risk_reduction_climate_adaptation_and_recovery_budget
-      - risk_reduction_climate_adaptation_and_recovery_people_targeted
-      - secretariat_services
-      - secretariat_services_budget
-      - secretariat_services_people_targeted
-      - shelter_and_basic_household_items
-      - shelter_and_basic_household_items_budget
-      - shelter_and_basic_household_items_people_targeted
+      - sector_community_engagement_and_accountability
+      - sector_community_engagement_and_accountability_budget
+      - sector_community_engagement_and_accountability_people_targeted
+      - sector_coordination_and_partnerships
+      - sector_coordination_and_partnerships_budget
+      - sector_coordination_and_partnerships_people_targeted
+      - sector_education
+      - sector_education_budget
+      - sector_education_people_targeted
+      - sector_environmental_sustainability
+      - sector_environmental_sustainability_budget
+      - sector_environmental_sustainability_people_targeted
+      - sector_health
+      - sector_health_budget
+      - sector_health_people_targeted
+      - sector_livelihoods
+      - sector_livelihoods_budget
+      - sector_livelihoods_people_targeted
+      - sector_migration_and_displacement
+      - sector_migration_and_displacement_budget
+      - sector_migration_and_displacement_people_targeted
+      - sector_multi_purpose_cash_grants
+      - sector_multi_purpose_cash_grants_budget
+      - sector_multi_purpose_cash_grants_people_targeted
+      - sector_national_society_strengthening
+      - sector_national_society_strengthening_budget
+      - sector_national_society_strengthening_people_targeted
+      - sector_protection_gender_and_inclusion
+      - sector_protection_gender_and_inclusion_budget
+      - sector_protection_gender_and_inclusion_people_targeted
+      - sector_risk_reduction_climate_adaptation_and_recovery
+      - sector_risk_reduction_climate_adaptation_and_recovery_budget
+      - sector_risk_reduction_climate_adaptation_and_recovery_people_targeted
+      - sector_secretariat_services
+      - sector_secretariat_services_budget
+      - sector_secretariat_services_people_targeted
+      - sector_shelter_and_basic_household_items
+      - sector_shelter_and_basic_household_items_budget
+      - sector_shelter_and_basic_household_items_people_targeted
+      - sector_water_sanitation_and_hygiene
+      - sector_water_sanitation_and_hygiene_budget
+      - sector_water_sanitation_and_hygiene_people_targeted
       - stage
-      - targeted_people
+      - start_date_of_operation
+      - status
+      - status_display
       - total_approved
       - type_of_onset
-      - water_sanitation_and_hygiene
-      - water_sanitation_and_hygiene_budget
-      - water_sanitation_and_hygiene_people_targeted
       type: object
     DrefDrefDisasterCategoryEnum:
       properties:
@@ -5279,6 +5313,7 @@ components:
           type: string
         main_donors:
           nullable: true
+          title: Main Donors [en]
           type: string
         major_coordination_mechanism:
           nullable: true
@@ -5413,6 +5448,7 @@ components:
           type: string
         people_assisted:
           nullable: true
+          title: People assisted [en]
           type: string
         people_in_need:
           maximum: 2147483647
@@ -5966,6 +6002,7 @@ components:
         identified_gaps:
           description: Any identified gaps/limitations in the assessment
           nullable: true
+          title: Identified gaps [en]
           type: string
         ifrc:
           nullable: true
@@ -6287,6 +6324,7 @@ components:
           minimum: -2147483648
         summary_of_change:
           nullable: true
+          title: Summary of change [en]
           type: string
         surge_personnel_deployed:
           description: Will a Surge personnel be deployed?
@@ -6796,7 +6834,6 @@ components:
           description: |-
             <a target="_blank" href="/api/v2/erutype">Key/value pairs</a>
 
-            * `0` - Basecamp
             * `1` - IT & Telecom
             * `2` - Logistics
             * `3` - RCRC Emergency Hospital
@@ -6810,11 +6847,9 @@ components:
             * `11` - Cholera Case management at Community level
             * `12` - Safe and Dignified Burials
             * `13` - Community Based Surveillance
-            * `14` - Base Camp – S
-            * `15` - Base Camp – M
-            * `16` - Base Camp – L
             * `17` - Outpatient Department (OPD) Module
             * `18` - MHPSS
+            * `19` - Operations Support HUB
           maximum: 2147483647
           minimum: -2147483648
         type_display:
@@ -6863,7 +6898,6 @@ components:
           description: |-
             <a target="_blank" href="/api/v2/erutype">Key/value pairs</a>
 
-            * `0` - Basecamp
             * `1` - IT & Telecom
             * `2` - Logistics
             * `3` - RCRC Emergency Hospital
@@ -6877,11 +6911,9 @@ components:
             * `11` - Cholera Case management at Community level
             * `12` - Safe and Dignified Burials
             * `13` - Community Based Surveillance
-            * `14` - Base Camp – S
-            * `15` - Base Camp – M
-            * `16` - Base Camp – L
             * `17` - Outpatient Department (OPD) Module
             * `18` - MHPSS
+            * `19` - Operations Support HUB
           maximum: 2147483647
           minimum: -2147483648
         type_display:
@@ -7045,7 +7077,6 @@ components:
           description: |-
             <a target="_blank" href="/api/v2/erutype">Key/value pairs</a>
 
-            * `0` - Basecamp
             * `1` - IT & Telecom
             * `2` - Logistics
             * `3` - RCRC Emergency Hospital
@@ -7059,11 +7090,9 @@ components:
             * `11` - Cholera Case management at Community level
             * `12` - Safe and Dignified Burials
             * `13` - Community Based Surveillance
-            * `14` - Base Camp – S
-            * `15` - Base Camp – M
-            * `16` - Base Camp – L
             * `17` - Outpatient Department (OPD) Module
             * `18` - MHPSS
+            * `19` - Operations Support HUB
           maximum: 2147483647
           minimum: -2147483648
         type_display:
@@ -10776,7 +10805,7 @@ components:
       type: object
     LanguageBulkActionResponse:
       properties:
-        deleted_strings_keys:
+        deleted_string_ids:
           items: {}
           nullable: true
           type: array
@@ -16905,9 +16934,6 @@ components:
       type: object
     PatchedDref3:
       properties:
-        affected_people:
-          readOnly: true
-          type: string
         allocation:
           readOnly: true
           type: string
@@ -16926,27 +16952,6 @@ components:
         approved:
           readOnly: true
           type: string
-        beneficiaries_assisted:
-          readOnly: true
-          type: string
-        community_engagement_and_accountability:
-          readOnly: true
-          type: string
-        community_engagement_and_accountability_budget:
-          readOnly: true
-          type: string
-        community_engagement_and_accountability_people_targeted:
-          readOnly: true
-          type: string
-        coordination_and_partnerships:
-          readOnly: true
-          type: string
-        coordination_and_partnerships_budget:
-          readOnly: true
-          type: string
-        coordination_and_partnerships_people_targeted:
-          readOnly: true
-          type: string
         country:
           readOnly: true
           type: string
@@ -16954,6 +16959,9 @@ components:
           readOnly: true
           type: string
         crisis_categorization:
+          readOnly: true
+          type: string
+        data_origin:
           readOnly: true
           type: string
         date_of_appeal_request_from_ns:
@@ -16980,142 +16988,193 @@ components:
         districts:
           readOnly: true
           type: string
-        education:
-          readOnly: true
-          type: string
-        education_budget:
-          readOnly: true
-          type: string
-        education_people_targeted:
-          readOnly: true
-          type: string
         end_date_of_operation:
           readOnly: true
           type: string
-        enviromental_sustainability:
+        id:
+          readOnly: true
+          type: integer
+        indicators_id:
           readOnly: true
           type: string
-        enviromental_sustainability_budget:
-          readOnly: true
-          type: string
-        enviromental_sustainability_people_targeted:
-          readOnly: true
-          type: string
-        health:
-          readOnly: true
-          type: string
-        health_budget:
-          readOnly: true
-          type: string
-        health_people_targeted:
-          readOnly: true
-          type: string
-        indicators_nested_table:
+        is_latest_stage:
           readOnly: true
           type: string
         link_to_emergency_page:
           readOnly: true
           type: string
-        livelihoods:
+        modified_at:
           readOnly: true
           type: string
-        livelihoods_budget:
-          readOnly: true
-          type: string
-        livelihoods_people_targeted:
-          readOnly: true
-          type: string
-        migration_and_displacement:
-          readOnly: true
-          type: string
-        migration_and_displacement_budget:
-          readOnly: true
-          type: string
-        migration_and_displacement_people_targeted:
-          readOnly: true
-          type: string
-        multi_purpose_cash_grants:
-          readOnly: true
-          type: string
-        multi_purpose_cash_grants_budget:
-          readOnly: true
-          type: string
-        multi_purpose_cash_grants_people_targeted:
-          readOnly: true
-          type: string
-        national_society_strengthening:
-          readOnly: true
-          type: string
-        national_society_strengthening_budget:
-          readOnly: true
-          type: string
-        national_society_strengthening_people_targeted:
+        operation_status:
           readOnly: true
           type: string
         operation_timeframe:
           readOnly: true
           type: string
+        people_affected:
+          readOnly: true
+          type: string
+        people_assisted:
+          readOnly: true
+          type: string
+        people_targeted:
+          readOnly: true
+          type: string
         pillar:
           readOnly: true
           type: string
-        protection_gender_and_inclusion:
+        population_disaggregation:
           readOnly: true
           type: string
-        protection_gender_and_inclusion_budget:
-          readOnly: true
-          type: string
-        protection_gender_and_inclusion_people_targeted:
+        public:
           readOnly: true
           type: string
         region:
           readOnly: true
           type: string
-        risk_reduction_climate_adaptation_and_recovery:
+        sector_community_engagement_and_accountability:
           readOnly: true
           type: string
-        risk_reduction_climate_adaptation_and_recovery_budget:
+        sector_community_engagement_and_accountability_budget:
           readOnly: true
           type: string
-        risk_reduction_climate_adaptation_and_recovery_people_targeted:
+        sector_community_engagement_and_accountability_people_targeted:
           readOnly: true
           type: string
-        secretariat_services:
+        sector_coordination_and_partnerships:
           readOnly: true
           type: string
-        secretariat_services_budget:
+        sector_coordination_and_partnerships_budget:
           readOnly: true
           type: string
-        secretariat_services_people_targeted:
+        sector_coordination_and_partnerships_people_targeted:
           readOnly: true
           type: string
-        shelter_and_basic_household_items:
+        sector_education:
           readOnly: true
           type: string
-        shelter_and_basic_household_items_budget:
+        sector_education_budget:
           readOnly: true
           type: string
-        shelter_and_basic_household_items_people_targeted:
+        sector_education_people_targeted:
+          readOnly: true
+          type: string
+        sector_environmental_sustainability:
+          readOnly: true
+          type: string
+        sector_environmental_sustainability_budget:
+          readOnly: true
+          type: string
+        sector_environmental_sustainability_people_targeted:
+          readOnly: true
+          type: string
+        sector_health:
+          readOnly: true
+          type: string
+        sector_health_budget:
+          readOnly: true
+          type: string
+        sector_health_people_targeted:
+          readOnly: true
+          type: string
+        sector_livelihoods:
+          readOnly: true
+          type: string
+        sector_livelihoods_budget:
+          readOnly: true
+          type: string
+        sector_livelihoods_people_targeted:
+          readOnly: true
+          type: string
+        sector_migration_and_displacement:
+          readOnly: true
+          type: string
+        sector_migration_and_displacement_budget:
+          readOnly: true
+          type: string
+        sector_migration_and_displacement_people_targeted:
+          readOnly: true
+          type: string
+        sector_multi_purpose_cash_grants:
+          readOnly: true
+          type: string
+        sector_multi_purpose_cash_grants_budget:
+          readOnly: true
+          type: string
+        sector_multi_purpose_cash_grants_people_targeted:
+          readOnly: true
+          type: string
+        sector_national_society_strengthening:
+          readOnly: true
+          type: string
+        sector_national_society_strengthening_budget:
+          readOnly: true
+          type: string
+        sector_national_society_strengthening_people_targeted:
+          readOnly: true
+          type: string
+        sector_protection_gender_and_inclusion:
+          readOnly: true
+          type: string
+        sector_protection_gender_and_inclusion_budget:
+          readOnly: true
+          type: string
+        sector_protection_gender_and_inclusion_people_targeted:
+          readOnly: true
+          type: string
+        sector_risk_reduction_climate_adaptation_and_recovery:
+          readOnly: true
+          type: string
+        sector_risk_reduction_climate_adaptation_and_recovery_budget:
+          readOnly: true
+          type: string
+        sector_risk_reduction_climate_adaptation_and_recovery_people_targeted:
+          readOnly: true
+          type: string
+        sector_secretariat_services:
+          readOnly: true
+          type: string
+        sector_secretariat_services_budget:
+          readOnly: true
+          type: string
+        sector_secretariat_services_people_targeted:
+          readOnly: true
+          type: string
+        sector_shelter_and_basic_household_items:
+          readOnly: true
+          type: string
+        sector_shelter_and_basic_household_items_budget:
+          readOnly: true
+          type: string
+        sector_shelter_and_basic_household_items_people_targeted:
+          readOnly: true
+          type: string
+        sector_water_sanitation_and_hygiene:
+          readOnly: true
+          type: string
+        sector_water_sanitation_and_hygiene_budget:
+          readOnly: true
+          type: string
+        sector_water_sanitation_and_hygiene_people_targeted:
           readOnly: true
           type: string
         stage:
           readOnly: true
           type: string
-        targeted_people:
+        start_date_of_operation:
+          readOnly: true
+          type: string
+        status:
+          readOnly: true
+          type: integer
+        status_display:
           readOnly: true
           type: string
         total_approved:
           readOnly: true
           type: string
         type_of_onset:
-          readOnly: true
-          type: string
-        water_sanitation_and_hygiene:
-          readOnly: true
-          type: string
-        water_sanitation_and_hygiene_budget:
-          readOnly: true
-          type: string
-        water_sanitation_and_hygiene_people_targeted:
           readOnly: true
           type: string
       type: object
@@ -17443,6 +17502,7 @@ components:
           type: string
         main_donors:
           nullable: true
+          title: Main Donors [en]
           type: string
         major_coordination_mechanism:
           nullable: true
@@ -17577,6 +17637,7 @@ components:
           type: string
         people_assisted:
           nullable: true
+          title: People assisted [en]
           type: string
         people_in_need:
           maximum: 2147483647
@@ -18016,6 +18077,7 @@ components:
         identified_gaps:
           description: Any identified gaps/limitations in the assessment
           nullable: true
+          title: Identified gaps [en]
           type: string
         ifrc:
           nullable: true
@@ -18337,6 +18399,7 @@ components:
           minimum: -2147483648
         summary_of_change:
           nullable: true
+          title: Summary of change [en]
           type: string
         surge_personnel_deployed:
           description: Will a Surge personnel be deployed?
@@ -32126,7 +32189,6 @@ paths:
         schema:
           type: integer
       - description: |-
-          * `0` - Basecamp
           * `1` - IT & Telecom
           * `2` - Logistics
           * `3` - RCRC Emergency Hospital
@@ -32140,26 +32202,21 @@ paths:
           * `11` - Cholera Case management at Community level
           * `12` - Safe and Dignified Burials
           * `13` - Community Based Surveillance
-          * `14` - Base Camp – S
-          * `15` - Base Camp – M
-          * `16` - Base Camp – L
           * `17` - Outpatient Department (OPD) Module
           * `18` - MHPSS
+          * `19` - Operations Support HUB
         in: query
         name: eru_type__in
         schema:
           enum:
-          - 0
           - 1
           - 10
           - 11
           - 12
           - 13
-          - 14
-          - 15
-          - 16
           - 17
           - 18
+          - 19
           - 2
           - 3
           - 4
@@ -32587,7 +32644,6 @@ paths:
       - description: |-
           eru_type
 
-          * `0` - Basecamp
           * `1` - IT & Telecom
           * `2` - Logistics
           * `3` - RCRC Emergency Hospital
@@ -32601,28 +32657,23 @@ paths:
           * `11` - Cholera Case management at Community level
           * `12` - Safe and Dignified Burials
           * `13` - Community Based Surveillance
-          * `14` - Base Camp – S
-          * `15` - Base Camp – M
-          * `16` - Base Camp – L
           * `17` - Outpatient Department (OPD) Module
           * `18` - MHPSS
+          * `19` - Operations Support HUB
         explode: true
         in: query
         name: eru_type
         schema:
           items:
             enum:
-            - 0
             - 1
             - 10
             - 11
             - 12
             - 13
-            - 14
-            - 15
-            - 16
             - 17
             - 18
+            - 19
             - 2
             - 3
             - 4
@@ -32692,7 +32743,6 @@ paths:
       - description: |-
           eru_type
 
-          * `0` - Basecamp
           * `1` - IT & Telecom
           * `2` - Logistics
           * `3` - RCRC Emergency Hospital
@@ -32706,28 +32756,23 @@ paths:
           * `11` - Cholera Case management at Community level
           * `12` - Safe and Dignified Burials
           * `13` - Community Based Surveillance
-          * `14` - Base Camp – S
-          * `15` - Base Camp – M
-          * `16` - Base Camp – L
           * `17` - Outpatient Department (OPD) Module
           * `18` - MHPSS
+          * `19` - Operations Support HUB
         explode: true
         in: query
         name: eru_type
         schema:
           items:
             enum:
-            - 0
             - 1
             - 10
             - 11
             - 12
             - 13
-            - 14
-            - 15
-            - 16
             - 17
             - 18
+            - 19
             - 2
             - 3
             - 4
