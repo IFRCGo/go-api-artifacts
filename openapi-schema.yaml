@@ -36048,6 +36048,31 @@ paths:
       - cookieAuth: []
       tags:
       - api
+  /api/v2/per-assessments-processed:
+    get:
+      description: |-
+        Public consolidated PER assessments processed data.
+
+        Flattens component considerations flags and rating info per assessment for downstream use.
+      operationId: api_v2_per_assessments_processed_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          description: No response body
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
   /api/v2/per-country/:
     get:
       operationId: api_v2_per_country_list
@@ -36127,6 +36152,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/PublicPerCountry'
           description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
+  /api/v2/per-dashboard-data:
+    get:
+      description: |-
+        Public consolidated PER dashboard data.
+
+        Groups latest per country overview and attaches lightweight assessment entries.
+      operationId: api_v2_per_dashboard_data_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          description: No response body
       security:
       - tokenAuth: []
       - basicAuth: []
@@ -36993,6 +37043,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/FormQuestion'
           description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
+  /api/v2/per-map-data:
+    get:
+      description: |-
+        Public consolidated PER map data.
+
+        Joins latest Overview per country with minimal country info and normalized phase display.
+      operationId: api_v2_per_map_data_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          description: No response body
       security:
       - tokenAuth: []
       - basicAuth: []
@@ -39309,6 +39384,94 @@ paths:
       - {}
       tags:
       - api
+  /api/v2/public-per-assessment-2/:
+    get:
+      description: Adds affirmative flags & dashboard components (mirrors JS).
+      operationId: api_v2_public_per_assessment_2_list
+      parameters:
+      - description: A search term.
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+      - description: Which field to use when ordering the results.
+        in: query
+        name: ordering
+        required: false
+        schema:
+          type: string
+      - description: Number of results to return per page.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The initial index from which to return the results.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPublicPerAssessmentList'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PaginatedPublicPerAssessmentList'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
+  /api/v2/public-per-assessment-2/{id}/:
+    get:
+      description: Adds affirmative flags & dashboard components (mirrors JS).
+      operationId: api_v2_public_per_assessment_2_retrieve
+      parameters:
+      - description: A unique integer value identifying this per assessment.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicPerAssessment'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PublicPerAssessment'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
   /api/v2/public-per-assessment/:
     get:
       operationId: api_v2_public_per_assessment_list
@@ -39395,6 +39558,94 @@ paths:
       - {}
       tags:
       - api
+  /api/v2/public-per-prioritization-2/:
+    get:
+      description: Adds simplified prioritized components array (mirrors JS).
+      operationId: api_v2_public_per_prioritization_2_list
+      parameters:
+      - description: A search term.
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+      - description: Which field to use when ordering the results.
+        in: query
+        name: ordering
+        required: false
+        schema:
+          type: string
+      - description: Number of results to return per page.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The initial index from which to return the results.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedFormPrioritizationList'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PaginatedFormPrioritizationList'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
+  /api/v2/public-per-prioritization-2/{id}/:
+    get:
+      description: Adds simplified prioritized components array (mirrors JS).
+      operationId: api_v2_public_per_prioritization_2_retrieve
+      parameters:
+      - description: A unique integer value identifying this form prioritization.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormPrioritization'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/FormPrioritization'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
   /api/v2/public-per-prioritization/:
     get:
       operationId: api_v2_public_per_prioritization_list
@@ -39473,6 +39724,110 @@ paths:
             text/csv:
               schema:
                 $ref: '#/components/schemas/FormPrioritization'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
+  /api/v2/public-per-process-status-2/:
+    get:
+      description: Phase display normalization (mirrors JS).
+      operationId: api_v2_public_per_process_status_2_list
+      parameters:
+      - explode: true
+        in: query
+        name: country
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - in: query
+        name: region
+        schema:
+          type: integer
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - description: A search term.
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+      - description: Which field to use when ordering the results.
+        in: query
+        name: ordering
+        required: false
+        schema:
+          type: string
+      - description: Number of results to return per page.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The initial index from which to return the results.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPublicPerProcessList'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PaginatedPublicPerProcessList'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
+  /api/v2/public-per-process-status-2/{id}/:
+    get:
+      description: Phase display normalization (mirrors JS).
+      operationId: api_v2_public_per_process_status_2_retrieve
+      parameters:
+      - description: A unique integer value identifying this PER General Overview.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicPerProcess'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PublicPerProcess'
           description: ''
       security:
       - tokenAuth: []
