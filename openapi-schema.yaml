@@ -8206,10 +8206,6 @@ components:
           nullable: true
           readOnly: true
           type: string
-        diff:
-          default: false
-          type: boolean
-          writeOnly: true
         export_id:
           maximum: 2147483647
           minimum: -2147483648
@@ -8260,9 +8256,6 @@ components:
           nullable: true
           readOnly: true
           type: string
-        version:
-          type: integer
-          writeOnly: true
       required:
       - completed_at
       - export_id
@@ -8304,16 +8297,16 @@ components:
         * `dref-final-reports` - DREF Final Report
         * `old-dref-final-reports` - Old DREF Final Report
         * `per` - Per
-        * `simplified` - Simplified EAP
-        * `full` - Full EAP
+        * `simplified-eap` - Simplified EAP
+        * `full-eap` - Full EAP
       enum:
       - dref-applications
       - dref-operational-updates
       - dref-final-reports
       - old-dref-final-reports
       - per
-      - simplified
-      - full
+      - simplified-eap
+      - full-eap
       type: string
     ExternalPartner:
       description: Custom ModelSerializer with translaion logic (Also works for normal
@@ -19694,10 +19687,6 @@ components:
           nullable: true
           readOnly: true
           type: string
-        diff:
-          default: false
-          type: boolean
-          writeOnly: true
         export_id:
           maximum: 2147483647
           minimum: -2147483648
@@ -19748,9 +19737,6 @@ components:
           nullable: true
           readOnly: true
           type: string
-        version:
-          type: integer
-          writeOnly: true
       type: object
     PatchedExternallyManagedLocalUnit:
       properties:
@@ -45893,6 +45879,26 @@ paths:
       - {}
       tags:
       - change_recover_password
+  /dev/email-preview/eap/:
+    get:
+      operationId: dev_email_preview_eap_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          description: No response body
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - dev
   /dev/email-preview/local-units/:
     get:
       operationId: dev_email_preview_local_units_retrieve
