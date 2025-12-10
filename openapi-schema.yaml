@@ -10139,6 +10139,12 @@ components:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
           type: array
+        forecast_table_file:
+          type: integer
+        forecast_table_file_details:
+          allOf:
+          - $ref: '#/components/schemas/EAPFile'
+          readOnly: true
         hazard_selection:
           description: Provide a brief rationale for selecting this hazard for the
             FbF system.
@@ -10513,6 +10519,8 @@ components:
       - exposed_element_and_vulnerability_factor
       - feasibility
       - forecast_selection
+      - forecast_table_file
+      - forecast_table_file_details
       - hazard_selection
       - id
       - identification_of_the_intervention_area
@@ -20899,6 +20907,12 @@ components:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
           type: array
+        forecast_table_file:
+          type: integer
+        forecast_table_file_details:
+          allOf:
+          - $ref: '#/components/schemas/EAPFile'
+          readOnly: true
         hazard_selection:
           description: Provide a brief rationale for selecting this hazard for the
             FbF system.
