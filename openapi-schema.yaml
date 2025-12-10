@@ -6684,6 +6684,14 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        latest_full_eap:
+          nullable: true
+          readOnly: true
+          type: integer
+        latest_simplified_eap:
+          nullable: true
+          readOnly: true
+          type: integer
         modified_at:
           format: date-time
           readOnly: true
@@ -6728,8 +6736,8 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
-        pfa_signed_at:
-          description: Timestamp when the PFA was signed.
+        pending_pfa_at:
+          description: Timestamp when the EAP was marked as pending PFA.
           format: date-time
           nullable: true
           type: string
@@ -6753,8 +6761,8 @@ components:
             * `20` - Under Review
             * `30` - NS Addressing Comments
             * `40` - Technically Validated
-            * `50` - Approved
-            * `60` - PFA Signed
+            * `50` - Pending PFA
+            * `60` - Approved
             * `70` - Activated
           readOnly: true
           title: EAP Status
@@ -6783,6 +6791,8 @@ components:
       - eap_type_display
       - full_eap_details
       - id
+      - latest_full_eap
+      - latest_simplified_eap
       - modified_at
       - modified_by_details
       - national_society
@@ -6824,8 +6834,8 @@ components:
             * `20` - Under Review
             * `30` - NS Addressing Comments
             * `40` - Technically Validated
-            * `50` - Approved
-            * `60` - PFA Signed
+            * `50` - Pending PFA
+            * `60` - Approved
             * `70` - Activated
           maximum: 2147483647
           minimum: -2147483648
@@ -7264,8 +7274,8 @@ components:
         * `20` - Under Review
         * `30` - NS Addressing Comments
         * `40` - Technically Validated
-        * `50` - Approved
-        * `60` - PFA Signed
+        * `50` - Pending PFA
+        * `60` - Approved
         * `70` - Activated
       enum:
       - 10
@@ -8062,11 +8072,10 @@ components:
           type: array
         id:
           type: integer
-        indicator_target:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
+        indicators:
+          items:
+            $ref: '#/components/schemas/Indicator'
+          type: array
         prepositioning_activities:
           items:
             $ref: '#/components/schemas/OperationActivity'
@@ -8079,6 +8088,7 @@ components:
       - approach
       - budget_per_approach
       - early_action_activities
+      - indicators
       - prepositioning_activities
       - readiness_activities
       type: object
@@ -10073,6 +10083,10 @@ components:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
           type: array
+        early_actions:
+          items:
+            $ref: '#/components/schemas/Action'
+          type: array
         enable_approaches:
           items:
             $ref: '#/components/schemas/EnableApproach'
@@ -10096,6 +10110,11 @@ components:
           items:
             $ref: '#/components/schemas/SourceInformation'
           type: array
+        expected_submission_time:
+          description: Include the propose time of submission, accounting for the
+            time it will take to deliver the application.
+          format: date
+          type: string
         exposed_element_and_vulnerability_factor:
           description: Explain which people are most likely to experience the impacts
             of this hazard.
@@ -10255,6 +10274,10 @@ components:
           items:
             $ref: '#/components/schemas/KeyActor'
           type: array
+        lead_time:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: integer
         meal:
           title: MEAL Plan Description
           type: string
@@ -10294,6 +10317,11 @@ components:
         national_society_contact_title:
           maxLength: 255
           nullable: true
+          type: string
+        objective:
+          description: Provide an objective statement that describe the main goal
+            of intervention.
+          title: Overall Objective of the EAP.
           type: string
         operational_administrative_capacity:
           description: Describe how the NS has operative and administrative capacity
@@ -10345,6 +10373,10 @@ components:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
+          type: array
+        prioritized_impacts:
+          items:
+            $ref: '#/components/schemas/Impact'
           type: array
         readiness_budget:
           maximum: 2147483647
@@ -10450,6 +10482,7 @@ components:
           title: Usefulness of actions in case the event does not occur
           type: string
         version:
+          default: 1
           description: Version identifier for the Full EAP.
           maximum: 2147483647
           minimum: -2147483648
@@ -10476,6 +10509,7 @@ components:
       - early_action_selection_process
       - evidence_base
       - evidence_base_relevant_files_details
+      - expected_submission_time
       - exposed_element_and_vulnerability_factor
       - feasibility
       - forecast_selection
@@ -10483,10 +10517,12 @@ components:
       - id
       - identification_of_the_intervention_area
       - key_actors
+      - lead_time
       - meal
       - meal_relevant_files_details
       - modified_at
       - modified_by_details
+      - objective
       - operational_administrative_capacity
       - people_targeted
       - pre_positioning_budget
@@ -11472,6 +11508,33 @@ components:
       - image_url
       - title_display
       - translation_module_original_language
+      type: object
+    Impact:
+      properties:
+        id:
+          type: integer
+        impact:
+          maxLength: 255
+          type: string
+      required:
+      - impact
+      type: object
+    Indicator:
+      properties:
+        id:
+          type: integer
+        target:
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Indicator Target
+          type: integer
+        title:
+          maxLength: 255
+          title: Indicator Title
+          type: string
+      required:
+      - target
+      - title
       type: object
     KeyActor:
       properties:
@@ -13240,8 +13303,8 @@ components:
             * `20` - Under Review
             * `30` - NS Addressing Comments
             * `40` - Technically Validated
-            * `50` - Approved
-            * `60` - PFA Signed
+            * `50` - Pending PFA
+            * `60` - Approved
             * `70` - Activated
           maximum: 2147483647
           minimum: -2147483648
@@ -13832,6 +13895,7 @@ components:
           nullable: true
           type: string
         version:
+          default: 1
           description: Version identifier for the Full EAP.
           maximum: 2147483647
           minimum: -2147483648
@@ -14118,6 +14182,7 @@ components:
           nullable: true
           type: string
         version:
+          default: 1
           description: Version identifier for the Simplified EAP.
           maximum: 2147483647
           minimum: -2147483648
@@ -19457,6 +19522,14 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        latest_full_eap:
+          nullable: true
+          readOnly: true
+          type: integer
+        latest_simplified_eap:
+          nullable: true
+          readOnly: true
+          type: integer
         modified_at:
           format: date-time
           readOnly: true
@@ -19501,8 +19574,8 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
-        pfa_signed_at:
-          description: Timestamp when the PFA was signed.
+        pending_pfa_at:
+          description: Timestamp when the EAP was marked as pending PFA.
           format: date-time
           nullable: true
           type: string
@@ -19526,8 +19599,8 @@ components:
             * `20` - Under Review
             * `30` - NS Addressing Comments
             * `40` - Technically Validated
-            * `50` - Approved
-            * `60` - PFA Signed
+            * `50` - Pending PFA
+            * `60` - Approved
             * `70` - Activated
           readOnly: true
           title: EAP Status
@@ -20770,6 +20843,10 @@ components:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
           type: array
+        early_actions:
+          items:
+            $ref: '#/components/schemas/Action'
+          type: array
         enable_approaches:
           items:
             $ref: '#/components/schemas/EnableApproach'
@@ -20793,6 +20870,11 @@ components:
           items:
             $ref: '#/components/schemas/SourceInformation'
           type: array
+        expected_submission_time:
+          description: Include the propose time of submission, accounting for the
+            time it will take to deliver the application.
+          format: date
+          type: string
         exposed_element_and_vulnerability_factor:
           description: Explain which people are most likely to experience the impacts
             of this hazard.
@@ -20952,6 +21034,10 @@ components:
           items:
             $ref: '#/components/schemas/KeyActor'
           type: array
+        lead_time:
+          maximum: 2147483647
+          minimum: -2147483648
+          type: integer
         meal:
           title: MEAL Plan Description
           type: string
@@ -20991,6 +21077,11 @@ components:
         national_society_contact_title:
           maxLength: 255
           nullable: true
+          type: string
+        objective:
+          description: Provide an objective statement that describe the main goal
+            of intervention.
+          title: Overall Objective of the EAP.
           type: string
         operational_administrative_capacity:
           description: Describe how the NS has operative and administrative capacity
@@ -21042,6 +21133,10 @@ components:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
+          type: array
+        prioritized_impacts:
+          items:
+            $ref: '#/components/schemas/Impact'
           type: array
         readiness_budget:
           maximum: 2147483647
@@ -21147,6 +21242,7 @@ components:
           title: Usefulness of actions in case the event does not occur
           type: string
         version:
+          default: 1
           description: Version identifier for the Full EAP.
           maximum: 2147483647
           minimum: -2147483648
@@ -22093,7 +22189,6 @@ components:
           readOnly: true
           type: array
         assisted_through_operation:
-          nullable: true
           title: Assisted through the operation
           type: string
         budget_file:
@@ -22143,7 +22238,6 @@ components:
         early_action_capability:
           description: Assumptions or minimum conditions needed to deliver the early
             actions.
-          nullable: true
           title: Experience or Capacity to implement Early Action.
           type: string
         enable_approaches:
@@ -22307,7 +22401,6 @@ components:
         overall_objective_intervention:
           description: Provide an objective statement that describe the main of the
             intervention.
-          nullable: true
           title: Overall objective of the intervention
           type: string
         parent:
@@ -22341,7 +22434,6 @@ components:
             $ref: '#/components/schemas/PlannedOperation'
           type: array
         potential_geographical_high_risk_areas:
-          nullable: true
           type: string
         pre_positioning_budget:
           maximum: 2147483647
@@ -22349,12 +22441,10 @@ components:
           title: Pre-positioning Budget (CHF)
           type: integer
         prioritized_hazard_and_impact:
-          nullable: true
           title: Prioritized Hazard and its  historical impact.
           type: string
         rcrc_movement_involvement:
           description: RCRC Movement partners, Governmental/other agencies consulted/involved.
-          nullable: true
           title: RCRC Movement Involvement.
           type: string
         readiness_budget:
@@ -22367,7 +22457,6 @@ components:
             $ref: '#/components/schemas/EAPFileUpdate'
           type: array
         risks_selected_protocols:
-          nullable: true
           title: Risk selected for the protocols.
           type: string
         seap_lead_time:
@@ -22389,7 +22478,6 @@ components:
           title: Timeframe (Years) of the EAP
           type: integer
         selected_early_actions:
-          nullable: true
           type: string
         selected_early_actions_images:
           items:
@@ -22410,13 +22498,13 @@ components:
           type: string
         trigger_threshold_justification:
           description: Explain how the trigger were set and provide information
-          nullable: true
           type: string
         updated_checklist_file:
           format: uri
           nullable: true
           type: string
         version:
+          default: 1
           description: Version identifier for the Simplified EAP.
           readOnly: true
           type: integer
@@ -23413,6 +23501,10 @@ components:
           type: array
         id:
           type: integer
+        indicators:
+          items:
+            $ref: '#/components/schemas/Indicator'
+          type: array
         people_targeted:
           maximum: 2147483647
           minimum: -2147483648
@@ -23433,6 +23525,7 @@ components:
       required:
       - budget_per_sector
       - early_action_activities
+      - indicators
       - people_targeted
       - prepositioning_activities
       - readiness_activities
@@ -25650,7 +25743,6 @@ components:
           readOnly: true
           type: array
         assisted_through_operation:
-          nullable: true
           title: Assisted through the operation
           type: string
         budget_file:
@@ -25700,7 +25792,6 @@ components:
         early_action_capability:
           description: Assumptions or minimum conditions needed to deliver the early
             actions.
-          nullable: true
           title: Experience or Capacity to implement Early Action.
           type: string
         enable_approaches:
@@ -25864,7 +25955,6 @@ components:
         overall_objective_intervention:
           description: Provide an objective statement that describe the main of the
             intervention.
-          nullable: true
           title: Overall objective of the intervention
           type: string
         parent:
@@ -25898,7 +25988,6 @@ components:
             $ref: '#/components/schemas/PlannedOperation'
           type: array
         potential_geographical_high_risk_areas:
-          nullable: true
           type: string
         pre_positioning_budget:
           maximum: 2147483647
@@ -25906,12 +25995,10 @@ components:
           title: Pre-positioning Budget (CHF)
           type: integer
         prioritized_hazard_and_impact:
-          nullable: true
           title: Prioritized Hazard and its  historical impact.
           type: string
         rcrc_movement_involvement:
           description: RCRC Movement partners, Governmental/other agencies consulted/involved.
-          nullable: true
           title: RCRC Movement Involvement.
           type: string
         readiness_budget:
@@ -25924,7 +26011,6 @@ components:
             $ref: '#/components/schemas/EAPFileUpdate'
           type: array
         risks_selected_protocols:
-          nullable: true
           title: Risk selected for the protocols.
           type: string
         seap_lead_time:
@@ -25946,7 +26032,6 @@ components:
           title: Timeframe (Years) of the EAP
           type: integer
         selected_early_actions:
-          nullable: true
           type: string
         selected_early_actions_images:
           items:
@@ -25967,24 +26052,26 @@ components:
           type: string
         trigger_threshold_justification:
           description: Explain how the trigger were set and provide information
-          nullable: true
           type: string
         updated_checklist_file:
           format: uri
           nullable: true
           type: string
         version:
+          default: 1
           description: Version identifier for the Simplified EAP.
           readOnly: true
           type: integer
       required:
       - admin2_details
+      - assisted_through_operation
       - budget_file
       - budget_file_details
       - created_at
       - created_by_details
       - eap_registration
       - early_action_budget
+      - early_action_capability
       - id
       - is_locked
       - modified_at
@@ -25992,14 +26079,21 @@ components:
       - next_step_towards_full_eap
       - operational_timeframe
       - operational_timeframe_unit_display
+      - overall_objective_intervention
       - people_targeted
+      - potential_geographical_high_risk_areas
       - pre_positioning_budget
+      - prioritized_hazard_and_impact
+      - rcrc_movement_involvement
       - readiness_budget
+      - risks_selected_protocols
       - seap_lead_time
       - seap_lead_timeframe_unit
       - seap_lead_timeframe_unit_display
       - seap_timeframe
+      - selected_early_actions
       - total_budget
+      - trigger_threshold_justification
       - version
       type: object
     SituationReport:
@@ -27334,8 +27428,8 @@ paths:
           * `20` - Under Review
           * `30` - NS Addressing Comments
           * `40` - Technically Validated
-          * `50` - Approved
-          * `60` - PFA Signed
+          * `50` - Pending PFA
+          * `60` - Approved
           * `70` - Activated
         in: query
         name: status
@@ -32714,8 +32808,8 @@ paths:
           * `20` - Under Review
           * `30` - NS Addressing Comments
           * `40` - Technically Validated
-          * `50` - Approved
-          * `60` - PFA Signed
+          * `50` - Pending PFA
+          * `60` - Approved
           * `70` - Activated
         in: query
         name: status
@@ -45879,26 +45973,6 @@ paths:
       - {}
       tags:
       - change_recover_password
-  /dev/email-preview/eap/:
-    get:
-      operationId: dev_email_preview_eap_retrieve
-      parameters:
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          description: No response body
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - dev
   /dev/email-preview/local-units/:
     get:
       operationId: dev_email_preview_local_units_retrieve
