@@ -24986,6 +24986,31 @@ paths:
       tags:
       - api
   /api/v2/alert-subscription/{id}/:
+    delete:
+      operationId: api_v2_alert_subscription_destroy
+      parameters:
+      - description: A unique integer value identifying this Alert Subscription.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '204':
+          description: No response body
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - api
     get:
       operationId: api_v2_alert_subscription_retrieve
       parameters:
