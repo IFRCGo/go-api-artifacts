@@ -24751,22 +24751,6 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -24818,12 +24802,11 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -37577,22 +37560,6 @@ paths:
     get:
       operationId: api_v2_per_overview_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -37681,12 +37648,11 @@ paths:
     delete:
       operationId: api_v2_per_overview_destroy
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -37706,12 +37672,11 @@ paths:
     get:
       operationId: api_v2_per_overview_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -37738,12 +37703,11 @@ paths:
     patch:
       operationId: api_v2_per_overview_partial_update
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -37781,12 +37745,11 @@ paths:
     put:
       operationId: api_v2_per_overview_update
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -38061,22 +38024,6 @@ paths:
     get:
       operationId: api_v2_per_process_status_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -38128,12 +38075,11 @@ paths:
     get:
       operationId: api_v2_per_process_status_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -42153,6 +42099,26 @@ paths:
       - {}
       tags:
       - change_recover_password
+  /dev/email-preview/eap/:
+    get:
+      operationId: dev_email_preview_eap_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          description: No response body
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - dev
   /dev/email-preview/local-units/:
     get:
       operationId: dev_email_preview_local_units_retrieve
