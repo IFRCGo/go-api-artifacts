@@ -8242,6 +8242,10 @@ components:
           nullable: true
           readOnly: true
           type: string
+        diff:
+          default: false
+          type: boolean
+          writeOnly: true
         export_id:
           maximum: 2147483647
           minimum: -2147483648
@@ -8292,6 +8296,9 @@ components:
           nullable: true
           readOnly: true
           type: string
+        version:
+          type: integer
+          writeOnly: true
       required:
       - completed_at
       - export_id
@@ -8333,16 +8340,16 @@ components:
         * `dref-final-reports` - DREF Final Report
         * `old-dref-final-reports` - Old DREF Final Report
         * `per` - Per
-        * `simplified-eap` - Simplified EAP
-        * `full-eap` - Full EAP
+        * `simplified` - Simplified EAP
+        * `full` - Full EAP
       enum:
       - dref-applications
       - dref-operational-updates
       - dref-final-reports
       - old-dref-final-reports
       - per
-      - simplified-eap
-      - full-eap
+      - simplified
+      - full
       type: string
     ExternalPartner:
       description: Custom ModelSerializer with translaion logic (Also works for normal
@@ -19794,6 +19801,10 @@ components:
           nullable: true
           readOnly: true
           type: string
+        diff:
+          default: false
+          type: boolean
+          writeOnly: true
         export_id:
           maximum: 2147483647
           minimum: -2147483648
@@ -19844,6 +19855,9 @@ components:
           nullable: true
           readOnly: true
           type: string
+        version:
+          type: integer
+          writeOnly: true
       type: object
     PatchedExternallyManagedLocalUnit:
       properties:
@@ -27846,22 +27860,6 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -27913,12 +27911,11 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -41176,22 +41173,6 @@ paths:
     get:
       operationId: api_v2_per_overview_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -41280,12 +41261,11 @@ paths:
     delete:
       operationId: api_v2_per_overview_destroy
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -41305,12 +41285,11 @@ paths:
     get:
       operationId: api_v2_per_overview_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -41337,12 +41316,11 @@ paths:
     patch:
       operationId: api_v2_per_overview_partial_update
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -41380,12 +41358,11 @@ paths:
     put:
       operationId: api_v2_per_overview_update
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -41660,22 +41637,6 @@ paths:
     get:
       operationId: api_v2_per_process_status_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -41727,12 +41688,11 @@ paths:
     get:
       operationId: api_v2_per_process_status_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
