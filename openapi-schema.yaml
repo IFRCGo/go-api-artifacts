@@ -6500,6 +6500,17 @@ components:
       - id
       - users_details
       type: object
+    EAPAction:
+      properties:
+        action:
+          maxLength: 255
+          title: Early Action
+          type: string
+        id:
+          type: integer
+      required:
+      - action
+      type: object
     EAPFile:
       properties:
         caption:
@@ -6803,6 +6814,21 @@ components:
       - status
       - status_display
       - validated_budget_file
+      type: object
+    EAPSourceInformation:
+      properties:
+        id:
+          type: integer
+        source_link:
+          format: uri
+          maxLength: 255
+          type: string
+        source_name:
+          maxLength: 255
+          type: string
+      required:
+      - source_link
+      - source_name
       type: object
     EAPStatus:
       properties:
@@ -9978,7 +10004,7 @@ components:
           type: array
         activation_process_source_of_information:
           items:
-            $ref: '#/components/schemas/SourceInformation'
+            $ref: '#/components/schemas/EAPSourceInformation'
           type: array
         admin2:
           items:
@@ -10085,7 +10111,7 @@ components:
           type: array
         early_actions:
           items:
-            $ref: '#/components/schemas/Action'
+            $ref: '#/components/schemas/EAPAction'
           type: array
         enable_approaches:
           items:
@@ -10108,7 +10134,7 @@ components:
           type: array
         evidence_base_source_of_information:
           items:
-            $ref: '#/components/schemas/SourceInformation'
+            $ref: '#/components/schemas/EAPSourceInformation'
           type: array
         expected_submission_time:
           description: Include the propose time of submission, accounting for the
@@ -10402,7 +10428,7 @@ components:
           type: array
         risk_analysis_source_of_information:
           items:
-            $ref: '#/components/schemas/SourceInformation'
+            $ref: '#/components/schemas/EAPSourceInformation'
           type: array
         seap_timeframe:
           description: Timeframe of the EAP in years.
@@ -10468,7 +10494,7 @@ components:
           type: array
         trigger_model_source_of_information:
           items:
-            $ref: '#/components/schemas/SourceInformation'
+            $ref: '#/components/schemas/EAPSourceInformation'
           type: array
         trigger_statement:
           description: Explain in one sentence what exactly the trigger of your EAP
@@ -10476,7 +10502,7 @@ components:
           type: string
         trigger_statement_source_of_information:
           items:
-            $ref: '#/components/schemas/SourceInformation'
+            $ref: '#/components/schemas/EAPSourceInformation'
           type: array
         updated_checklist_file:
           format: uri
@@ -20746,7 +20772,7 @@ components:
           type: array
         activation_process_source_of_information:
           items:
-            $ref: '#/components/schemas/SourceInformation'
+            $ref: '#/components/schemas/EAPSourceInformation'
           type: array
         admin2:
           items:
@@ -20853,7 +20879,7 @@ components:
           type: array
         early_actions:
           items:
-            $ref: '#/components/schemas/Action'
+            $ref: '#/components/schemas/EAPAction'
           type: array
         enable_approaches:
           items:
@@ -20876,7 +20902,7 @@ components:
           type: array
         evidence_base_source_of_information:
           items:
-            $ref: '#/components/schemas/SourceInformation'
+            $ref: '#/components/schemas/EAPSourceInformation'
           type: array
         expected_submission_time:
           description: Include the propose time of submission, accounting for the
@@ -21170,7 +21196,7 @@ components:
           type: array
         risk_analysis_source_of_information:
           items:
-            $ref: '#/components/schemas/SourceInformation'
+            $ref: '#/components/schemas/EAPSourceInformation'
           type: array
         seap_timeframe:
           description: Timeframe of the EAP in years.
@@ -21236,7 +21262,7 @@ components:
           type: array
         trigger_model_source_of_information:
           items:
-            $ref: '#/components/schemas/SourceInformation'
+            $ref: '#/components/schemas/EAPSourceInformation'
           type: array
         trigger_statement:
           description: Explain in one sentence what exactly the trigger of your EAP
@@ -21244,7 +21270,7 @@ components:
           type: string
         trigger_statement_source_of_information:
           items:
-            $ref: '#/components/schemas/SourceInformation'
+            $ref: '#/components/schemas/EAPSourceInformation'
           type: array
         updated_checklist_file:
           format: uri
