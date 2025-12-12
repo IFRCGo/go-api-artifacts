@@ -13307,6 +13307,10 @@ components:
           allOf:
           - $ref: '#/components/schemas/MiniCountry'
           readOnly: true
+        created_at:
+          format: date-time
+          readOnly: true
+          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -13331,6 +13335,10 @@ components:
         id:
           readOnly: true
           type: integer
+        modified_at:
+          format: date-time
+          readOnly: true
+          type: string
         requirement_cost:
           readOnly: true
           type: integer
@@ -13356,10 +13364,12 @@ components:
       required:
       - country
       - country_details
+      - created_at
       - disaster_type
       - disaster_type_details
       - eap_type_display
       - id
+      - modified_at
       - requirement_cost
       - status_display
       type: object
@@ -13895,6 +13905,10 @@ components:
       properties:
         budget_file:
           type: integer
+        created_at:
+          format: date-time
+          readOnly: true
+          type: string
         eap_registration:
           title: EAP Development Registration
           type: integer
@@ -13910,6 +13924,10 @@ components:
           description: Indicates whether the Full EAP is locked for editing.
           title: Is Locked?
           type: boolean
+        modified_at:
+          format: date-time
+          readOnly: true
+          type: string
         pre_positioning_budget:
           maximum: 2147483647
           minimum: -2147483648
@@ -13943,9 +13961,11 @@ components:
           type: integer
       required:
       - budget_file
+      - created_at
       - eap_registration
       - early_action_budget
       - id
+      - modified_at
       - pre_positioning_budget
       - readiness_budget
       - seap_timeframe
@@ -14182,6 +14202,10 @@ components:
       properties:
         budget_file:
           type: integer
+        created_at:
+          format: date-time
+          readOnly: true
+          type: string
         eap_registration:
           title: EAP Development Registration
           type: integer
@@ -14197,6 +14221,10 @@ components:
           description: Indicates whether the Simplified EAP is locked for editing.
           title: Is Locked?
           type: boolean
+        modified_at:
+          format: date-time
+          readOnly: true
+          type: string
         pre_positioning_budget:
           maximum: 2147483647
           minimum: -2147483648
@@ -14230,9 +14258,11 @@ components:
           type: integer
       required:
       - budget_file
+      - created_at
       - eap_registration
       - early_action_budget
       - id
+      - modified_at
       - pre_positioning_budget
       - readiness_budget
       - seap_timeframe
