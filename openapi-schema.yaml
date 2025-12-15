@@ -11146,12 +11146,20 @@ components:
           nullable: true
           type: boolean
         other_profiles:
-          maxLength: 200
-          nullable: true
-          type: string
+          items:
+            $ref: '#/components/schemas/OtherProfile'
+          type: array
         other_services:
           nullable: true
           type: string
+        other_training_facilities:
+          nullable: true
+          type: string
+        pharmacists:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
         primary_health_care_center:
           nullable: true
           type: integer
@@ -14879,6 +14887,21 @@ components:
       - id
       - title
       - value
+      type: object
+    OtherProfile:
+      description: Mixin adds nested create feature
+      properties:
+        id:
+          type: integer
+        number:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+        position:
+          type: string
+      required:
+      - number
+      - position
       type: object
     OverviewProjectsPerProgrammeType:
       properties:
