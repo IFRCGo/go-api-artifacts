@@ -10512,9 +10512,9 @@ components:
             $ref: '#/components/schemas/EAPSourceInformation'
           type: array
         updated_checklist_file:
-          format: uri
           nullable: true
-          type: string
+          title: Updated Review Checklist File
+          type: integer
         usefulness_of_actions:
           description: Describe how actions will still benefit the population if the
             expected event does not occur.
@@ -13950,9 +13950,9 @@ components:
           title: Total Budget (CHF)
           type: integer
         updated_checklist_file:
-          format: uri
           nullable: true
-          type: string
+          title: Updated Review Checklist File
+          type: integer
         version:
           default: 1
           description: Version identifier for the Full EAP.
@@ -14247,9 +14247,9 @@ components:
           title: Total Budget (CHF)
           type: integer
         updated_checklist_file:
-          format: uri
           nullable: true
-          type: string
+          title: Updated Review Checklist File
+          type: integer
         version:
           default: 1
           description: Version identifier for the Simplified EAP.
@@ -21317,9 +21317,9 @@ components:
             $ref: '#/components/schemas/EAPSourceInformation'
           type: array
         updated_checklist_file:
-          format: uri
           nullable: true
-          type: string
+          title: Updated Review Checklist File
+          type: integer
         usefulness_of_actions:
           description: Describe how actions will still benefit the population if the
             expected event does not occur.
@@ -22584,9 +22584,9 @@ components:
           description: Explain how the trigger were set and provide information
           type: string
         updated_checklist_file:
-          format: uri
           nullable: true
-          type: string
+          title: Updated Review Checklist File
+          type: integer
         version:
           default: 1
           description: Version identifier for the Simplified EAP.
@@ -26138,9 +26138,9 @@ components:
           description: Explain how the trigger were set and provide information
           type: string
         updated_checklist_file:
-          format: uri
           nullable: true
-          type: string
+          title: Updated Review Checklist File
+          type: integer
         version:
           default: 1
           description: Version identifier for the Simplified EAP.
