@@ -46057,6 +46057,26 @@ paths:
       - {}
       tags:
       - change_recover_password
+  /dev/email-preview/eap/:
+    get:
+      operationId: dev_email_preview_eap_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          description: No response body
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - dev
   /dev/email-preview/local-units/:
     get:
       operationId: dev_email_preview_local_units_retrieve
