@@ -10202,11 +10202,9 @@ components:
           type: array
         ifrc_delegation_focal_point_email:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_delegation_focal_point_name:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_delegation_focal_point_phone_number:
           maxLength: 100
@@ -10234,11 +10232,9 @@ components:
           type: string
         ifrc_head_of_delegation_email:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_head_of_delegation_name:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_head_of_delegation_phone_number:
           maxLength: 100
@@ -10345,11 +10341,9 @@ components:
           readOnly: true
         national_society_contact_email:
           maxLength: 255
-          nullable: true
           type: string
         national_society_contact_name:
           maxLength: 255
-          nullable: true
           type: string
         national_society_contact_phone_number:
           maxLength: 100
@@ -10552,12 +10546,18 @@ components:
       - hazard_selection
       - id
       - identification_of_the_intervention_area
+      - ifrc_delegation_focal_point_email
+      - ifrc_delegation_focal_point_name
+      - ifrc_head_of_delegation_email
+      - ifrc_head_of_delegation_name
       - key_actors
       - lead_time
       - meal
       - meal_relevant_files_details
       - modified_at
       - modified_by_details
+      - national_society_contact_email
+      - national_society_contact_name
       - objective
       - operational_administrative_capacity
       - people_targeted
@@ -20993,11 +20993,9 @@ components:
           type: array
         ifrc_delegation_focal_point_email:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_delegation_focal_point_name:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_delegation_focal_point_phone_number:
           maxLength: 100
@@ -21025,11 +21023,9 @@ components:
           type: string
         ifrc_head_of_delegation_email:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_head_of_delegation_name:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_head_of_delegation_phone_number:
           maxLength: 100
@@ -21136,11 +21132,9 @@ components:
           readOnly: true
         national_society_contact_email:
           maxLength: 255
-          nullable: true
           type: string
         national_society_contact_name:
           maxLength: 255
-          nullable: true
           type: string
         national_society_contact_phone_number:
           maxLength: 100
@@ -22318,11 +22312,9 @@ components:
           type: integer
         ifrc_delegation_focal_point_email:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_delegation_focal_point_name:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_delegation_focal_point_phone_number:
           maxLength: 100
@@ -22350,11 +22342,9 @@ components:
           type: string
         ifrc_head_of_delegation_email:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_head_of_delegation_name:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_head_of_delegation_phone_number:
           maxLength: 100
@@ -22433,11 +22423,9 @@ components:
           readOnly: true
         national_society_contact_email:
           maxLength: 255
-          nullable: true
           type: string
         national_society_contact_name:
           maxLength: 255
-          nullable: true
           type: string
         national_society_contact_phone_number:
           maxLength: 100
@@ -25874,11 +25862,9 @@ components:
           type: integer
         ifrc_delegation_focal_point_email:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_delegation_focal_point_name:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_delegation_focal_point_phone_number:
           maxLength: 100
@@ -25906,11 +25892,9 @@ components:
           type: string
         ifrc_head_of_delegation_email:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_head_of_delegation_name:
           maxLength: 255
-          nullable: true
           type: string
         ifrc_head_of_delegation_phone_number:
           maxLength: 100
@@ -25989,11 +25973,9 @@ components:
           readOnly: true
         national_society_contact_email:
           maxLength: 255
-          nullable: true
           type: string
         national_society_contact_name:
           maxLength: 255
-          nullable: true
           type: string
         national_society_contact_phone_number:
           maxLength: 100
@@ -26142,9 +26124,15 @@ components:
       - early_action_budget
       - early_action_capability
       - id
+      - ifrc_delegation_focal_point_email
+      - ifrc_delegation_focal_point_name
+      - ifrc_head_of_delegation_email
+      - ifrc_head_of_delegation_name
       - is_locked
       - modified_at
       - modified_by_details
+      - national_society_contact_email
+      - national_society_contact_name
       - next_step_towards_full_eap
       - operational_timeframe
       - operational_timeframe_unit_display
