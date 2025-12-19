@@ -6719,11 +6719,9 @@ components:
           type: integer
         national_society_contact_email:
           maxLength: 255
-          nullable: true
           type: string
         national_society_contact_name:
           maxLength: 255
-          nullable: true
           type: string
         national_society_contact_phone_number:
           maxLength: 100
@@ -6807,6 +6805,8 @@ components:
       - modified_at
       - modified_by_details
       - national_society
+      - national_society_contact_email
+      - national_society_contact_name
       - national_society_details
       - partners_details
       - review_checklist_file
@@ -19603,11 +19603,9 @@ components:
           type: integer
         national_society_contact_email:
           maxLength: 255
-          nullable: true
           type: string
         national_society_contact_name:
           maxLength: 255
-          nullable: true
           type: string
         national_society_contact_phone_number:
           maxLength: 100
