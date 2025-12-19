@@ -21364,20 +21364,39 @@ components:
       - primary_sector_display
       type: object
     ProjectPrimarySectors:
+      description: Custom ModelSerializer with translaion logic (Also works for normal
+        models)
       properties:
         color:
+          maxLength: 7
+          nullable: true
           type: string
-        is_deprecated:
-          type: boolean
-        key:
+        id:
+          readOnly: true
           type: integer
-        label:
+        is_deprecated:
+          description: Is this a deprecated sector?
+          type: boolean
+        order:
+          maximum: 32767
+          minimum: -32768
+          type: integer
+        title:
+          maxLength: 255
+          nullable: true
+          title: Title [en]
           type: string
+        translation_module_original_language:
+          allOf:
+          - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
+          readOnly: true
+        translation_module_skip_auto_translation:
+          description: Skip auto translation operation for this entity?
+          title: Skip auto translation
+          type: boolean
       required:
-      - color
-      - is_deprecated
-      - key
-      - label
+      - id
+      - translation_module_original_language
       type: object
     ProjectRegionMovementActivities:
       properties:
