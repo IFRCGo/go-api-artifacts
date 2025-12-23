@@ -6628,13 +6628,6 @@ components:
           allOf:
           - $ref: '#/components/schemas/UserName'
           readOnly: true
-        dead_line:
-          description: Date by which the EAP submission must be completed.
-          format: date
-          nullable: true
-          readOnly: true
-          title: Deadline
-          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -6802,7 +6795,6 @@ components:
       - country_details
       - created_at
       - created_by_details
-      - dead_line
       - disaster_type
       - disaster_type_details
       - eap_type_display
@@ -6882,6 +6874,15 @@ components:
       - id
       - modified_by_details
       - status_display
+      type: object
+    EAPTemplateFiles:
+      properties:
+        template_url:
+          format: uri
+          readOnly: true
+          type: string
+      required:
+      - template_url
       type: object
     EAPValidatedBudgetFile:
       properties:
@@ -19520,13 +19521,6 @@ components:
           allOf:
           - $ref: '#/components/schemas/UserName'
           readOnly: true
-        dead_line:
-          description: Date by which the EAP submission must be completed.
-          format: date
-          nullable: true
-          readOnly: true
-          title: Deadline
-          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -32736,6 +32730,42 @@ paths:
             text/csv:
               schema:
                 $ref: '#/components/schemas/EAPFile'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - api
+  /api/v2/eap-file/get-template-files/:
+    get:
+      operationId: api_v2_eap_file_get_template_files_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      - description: Type of template to download
+        in: query
+        name: get_template_files
+        schema:
+          enum:
+          - eap_budget
+          - full_eap_forecast_table
+          - full_eap_theory_of_change_table
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EAPTemplateFiles'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/EAPTemplateFiles'
           description: ''
       security:
       - tokenAuth: []
@@ -46043,26 +46073,6 @@ paths:
       - {}
       tags:
       - change_recover_password
-  /dev/email-preview/eap/:
-    get:
-      operationId: dev_email_preview_eap_retrieve
-      parameters:
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          description: No response body
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - dev
   /dev/email-preview/local-units/:
     get:
       operationId: dev_email_preview_local_units_retrieve
