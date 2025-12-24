@@ -6599,12 +6599,12 @@ components:
       type: object
     EAPGlobalFiles:
       properties:
-        template_url:
+        url:
           format: uri
           readOnly: true
           type: string
       required:
-      - template_url
+      - url
       type: object
     EAPRegistration:
       description: Mixin adds update nested feature
@@ -32737,42 +32737,6 @@ paths:
       - cookieAuth: []
       tags:
       - api
-  /api/v2/eap-file/global-files/:
-    get:
-      operationId: api_v2_eap_file_global_files_retrieve
-      parameters:
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      - description: Type of template to download
-        in: query
-        name: template_type
-        schema:
-          enum:
-          - eap_budget
-          - full_eap_forecast_table
-          - full_eap_theory_of_change_table
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EAPGlobalFiles'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/EAPGlobalFiles'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
   /api/v2/eap-file/multiple/:
     post:
       operationId: api_v2_eap_file_multiple_create
@@ -33253,6 +33217,43 @@ paths:
             text/csv:
               schema:
                 $ref: '#/components/schemas/EAPValidatedBudgetFile'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - api
+  /api/v2/eap/global-files/{template_type}/:
+    get:
+      operationId: api_v2_eap_global_files_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      - description: Type of EAP template to download
+        in: path
+        name: template_type
+        required: true
+        schema:
+          enum:
+          - budget_template
+          - forecast_table
+          - theory_of_change_table
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EAPGlobalFiles'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/EAPGlobalFiles'
           description: ''
       security:
       - tokenAuth: []
