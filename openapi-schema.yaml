@@ -6511,6 +6511,28 @@ components:
       required:
       - action
       type: object
+    EAPContact:
+      properties:
+        email:
+          format: email
+          maxLength: 255
+          title: Contact Email
+          type: string
+        id:
+          type: integer
+        name:
+          maxLength: 255
+          title: Contact Name
+          type: string
+        phone_number:
+          maxLength: 100
+          nullable: true
+          title: Contact Phone Number
+          type: string
+      required:
+      - email
+      - name
+      type: object
     EAPFile:
       properties:
         caption:
@@ -10377,22 +10399,16 @@ components:
           nullable: true
           title: Parent FUll EAP
           type: integer
-        partner_ns_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        partner_ns_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        partner_ns_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        partner_ns_title:
-          maxLength: 255
-          nullable: true
-          type: string
+        partner_contact:
+          items:
+            title: Partner NS Contacts
+            type: integer
+          title: Partner NS Contacts
+          type: array
+        partner_contacts:
+          items:
+            $ref: '#/components/schemas/EAPContact'
+          type: array
         people_targeted:
           maximum: 2147483647
           minimum: -2147483648
@@ -21166,22 +21182,16 @@ components:
           nullable: true
           title: Parent FUll EAP
           type: integer
-        partner_ns_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        partner_ns_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        partner_ns_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        partner_ns_title:
-          maxLength: 255
-          nullable: true
-          type: string
+        partner_contact:
+          items:
+            title: Partner NS Contacts
+            type: integer
+          title: Partner NS Contacts
+          type: array
+        partner_contacts:
+          items:
+            $ref: '#/components/schemas/EAPContact'
+          type: array
         people_targeted:
           maximum: 2147483647
           minimum: -2147483648
@@ -22468,22 +22478,16 @@ components:
           nullable: true
           title: Parent Simplified EAP
           type: integer
-        partner_ns_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        partner_ns_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        partner_ns_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        partner_ns_title:
-          maxLength: 255
-          nullable: true
-          type: string
+        partner_contact:
+          items:
+            title: Partner NS Contacts
+            type: integer
+          title: Partner NS Contacts
+          type: array
+        partner_contacts:
+          items:
+            $ref: '#/components/schemas/EAPContact'
+          type: array
         people_targeted:
           maximum: 2147483647
           minimum: -2147483648
@@ -26018,22 +26022,16 @@ components:
           nullable: true
           title: Parent Simplified EAP
           type: integer
-        partner_ns_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        partner_ns_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        partner_ns_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        partner_ns_title:
-          maxLength: 255
-          nullable: true
-          type: string
+        partner_contact:
+          items:
+            title: Partner NS Contacts
+            type: integer
+          title: Partner NS Contacts
+          type: array
+        partner_contacts:
+          items:
+            $ref: '#/components/schemas/EAPContact'
+          type: array
         people_targeted:
           maximum: 2147483647
           minimum: -2147483648
