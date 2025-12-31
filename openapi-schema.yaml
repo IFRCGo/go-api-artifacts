@@ -8275,6 +8275,7 @@ components:
           type: string
         diff:
           default: false
+          description: Only applicable for EAP exports
           type: boolean
           writeOnly: true
         export_id:
@@ -8318,6 +8319,11 @@ components:
         status_display:
           readOnly: true
           type: string
+        summary:
+          default: false
+          description: Only applicable for Full EAP exports
+          type: boolean
+          writeOnly: true
         token:
           format: uuid
           readOnly: true
@@ -8328,6 +8334,7 @@ components:
           readOnly: true
           type: string
         version:
+          description: Only applicable for EAP exports
           type: integer
           writeOnly: true
       required:
@@ -10399,12 +10406,6 @@ components:
           nullable: true
           title: Parent FUll EAP
           type: integer
-        partner_contact:
-          items:
-            title: Partner NS Contacts
-            type: integer
-          title: Partner NS Contacts
-          type: array
         partner_contacts:
           items:
             $ref: '#/components/schemas/EAPContact'
@@ -19842,6 +19843,7 @@ components:
           type: string
         diff:
           default: false
+          description: Only applicable for EAP exports
           type: boolean
           writeOnly: true
         export_id:
@@ -19885,6 +19887,11 @@ components:
         status_display:
           readOnly: true
           type: string
+        summary:
+          default: false
+          description: Only applicable for Full EAP exports
+          type: boolean
+          writeOnly: true
         token:
           format: uuid
           readOnly: true
@@ -19895,6 +19902,7 @@ components:
           readOnly: true
           type: string
         version:
+          description: Only applicable for EAP exports
           type: integer
           writeOnly: true
       type: object
@@ -21182,12 +21190,6 @@ components:
           nullable: true
           title: Parent FUll EAP
           type: integer
-        partner_contact:
-          items:
-            title: Partner NS Contacts
-            type: integer
-          title: Partner NS Contacts
-          type: array
         partner_contacts:
           items:
             $ref: '#/components/schemas/EAPContact'
@@ -22478,12 +22480,6 @@ components:
           nullable: true
           title: Parent Simplified EAP
           type: integer
-        partner_contact:
-          items:
-            title: Partner NS Contacts
-            type: integer
-          title: Partner NS Contacts
-          type: array
         partner_contacts:
           items:
             $ref: '#/components/schemas/EAPContact'
@@ -26022,12 +26018,6 @@ components:
           nullable: true
           title: Parent Simplified EAP
           type: integer
-        partner_contact:
-          items:
-            title: Partner NS Contacts
-            type: integer
-          title: Partner NS Contacts
-          type: array
         partner_contacts:
           items:
             $ref: '#/components/schemas/EAPContact'
