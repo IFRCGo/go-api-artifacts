@@ -10579,6 +10579,8 @@ components:
       - early_action_cost_description
       - early_action_implementation_process
       - early_action_selection_process
+      - early_actions
+      - enable_approaches
       - evidence_base
       - evidence_base_relevant_files_details
       - expected_submission_time
@@ -10605,9 +10607,11 @@ components:
       - objective
       - operational_administrative_capacity
       - people_targeted
+      - planned_operations
       - pre_positioning_budget
       - prepositioning_cost_description
       - prioritized_impact
+      - prioritized_impacts
       - readiness_budget
       - readiness_cost_description
       - risk_analysis_relevant_files_details
@@ -26232,6 +26236,7 @@ components:
       - eap_registration
       - early_action_budget
       - early_action_capability
+      - enable_approaches
       - id
       - ifrc_delegation_focal_point_email
       - ifrc_delegation_focal_point_name
@@ -26247,6 +26252,7 @@ components:
       - operational_timeframe_unit_display
       - overall_objective_intervention
       - people_targeted
+      - planned_operations
       - potential_geographical_high_risk_areas
       - pre_positioning_budget
       - prioritized_hazard_and_impact
