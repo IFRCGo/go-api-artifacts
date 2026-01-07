@@ -6508,45 +6508,8 @@ components:
           type: string
         id:
           type: integer
-        previous_id:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
       required:
       - action
-      type: object
-    EAPContact:
-      properties:
-        email:
-          format: email
-          maxLength: 255
-          title: Contact Email
-          type: string
-        id:
-          type: integer
-        name:
-          maxLength: 255
-          title: Contact Name
-          type: string
-        phone_number:
-          maxLength: 100
-          nullable: true
-          title: Contact Phone Number
-          type: string
-        previous_id:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
-        title:
-          maxLength: 255
-          nullable: true
-          title: Contact Title
-          type: string
-      required:
-      - email
-      - name
       type: object
     EAPFile:
       properties:
@@ -6674,6 +6637,18 @@ components:
           allOf:
           - $ref: '#/components/schemas/UserName'
           readOnly: true
+        deadline:
+          description: Date by which the EAP submission must be completed.
+          format: date
+          nullable: true
+          readOnly: true
+          type: string
+        deadline_remainder_sent_at:
+          description: Timestamp when the deadline reminder email was sent.
+          format: date-time
+          nullable: true
+          title: Deadline reminder email sent at
+          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -6796,6 +6771,11 @@ components:
           format: date-time
           nullable: true
           type: string
+        review_checklist_file:
+          format: uri
+          nullable: true
+          readOnly: true
+          type: string
         simplified_eap_details:
           items:
             $ref: '#/components/schemas/MiniSimplifiedEAP'
@@ -6819,11 +6799,6 @@ components:
         status_display:
           readOnly: true
           type: string
-        summary_file:
-          format: uri
-          nullable: true
-          title: EAP Summary PDF
-          type: string
         technically_validated_at:
           description: Timestamp when the EAP was technically validated.
           format: date-time
@@ -6841,6 +6816,7 @@ components:
       - country_details
       - created_at
       - created_by_details
+      - deadline
       - disaster_type
       - disaster_type_details
       - eap_type_display
@@ -6855,6 +6831,7 @@ components:
       - national_society_contact_name
       - national_society_details
       - partners_details
+      - review_checklist_file
       - simplified_eap_details
       - status
       - status_display
@@ -6863,11 +6840,6 @@ components:
     EAPSourceInformation:
       properties:
         id:
-          type: integer
-        previous_id:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
           type: integer
         source_link:
           format: uri
@@ -8137,9 +8109,6 @@ components:
           - $ref: '#/components/schemas/EapApproachEnumKey'
           maximum: 2147483647
           minimum: -2147483648
-        approach_display:
-          readOnly: true
-          type: string
         budget_per_approach:
           maximum: 2147483647
           minimum: -2147483648
@@ -8159,18 +8128,12 @@ components:
           items:
             $ref: '#/components/schemas/OperationActivity'
           type: array
-        previous_id:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
         readiness_activities:
           items:
             $ref: '#/components/schemas/OperationActivity'
           type: array
       required:
       - approach
-      - approach_display
       - budget_per_approach
       - early_action_activities
       - indicators
@@ -8303,7 +8266,6 @@ components:
           type: string
         diff:
           default: false
-          description: Only applicable for EAP exports
           type: boolean
           writeOnly: true
         export_id:
@@ -8347,11 +8309,6 @@ components:
         status_display:
           readOnly: true
           type: string
-        summary:
-          default: false
-          description: Only applicable for FUll EAP
-          type: boolean
-          writeOnly: true
         token:
           format: uuid
           readOnly: true
@@ -8362,7 +8319,6 @@ components:
           readOnly: true
           type: string
         version:
-          description: Only applicable for EAP exports
           type: integer
           writeOnly: true
       required:
@@ -10138,11 +10094,6 @@ components:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
           type: array
-        diff_file:
-          format: uri
-          nullable: true
-          title: EAP Diff PDF file
-          type: string
         dref_focal_point_email:
           maxLength: 255
           nullable: true
@@ -10220,11 +10171,6 @@ components:
           description: Include the propose time of submission, accounting for the
             time it will take to deliver the application.
           format: date
-          type: string
-        export_file:
-          format: uri
-          nullable: true
-          title: EAP Export File
           type: string
         exposed_element_and_vulnerability_factor:
           description: Explain which people are most likely to experience the impacts
@@ -10444,10 +10390,22 @@ components:
           nullable: true
           title: Parent FUll EAP
           type: integer
-        partner_contacts:
-          items:
-            $ref: '#/components/schemas/EAPContact'
-          type: array
+        partner_ns_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        partner_ns_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        partner_ns_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        partner_ns_title:
+          maxLength: 255
+          nullable: true
+          type: string
         people_targeted:
           maximum: 2147483647
           minimum: -2147483648
@@ -10483,10 +10441,6 @@ components:
           title: Readiness Budget (CHF)
           type: integer
         readiness_cost_description:
-          type: string
-        review_checklist_file:
-          format: uri
-          nullable: true
           type: string
         risk_analysis_relevant_files:
           items:
@@ -10603,8 +10557,6 @@ components:
       - early_action_cost_description
       - early_action_implementation_process
       - early_action_selection_process
-      - early_actions
-      - enable_approaches
       - evidence_base
       - evidence_base_relevant_files_details
       - expected_submission_time
@@ -10631,11 +10583,9 @@ components:
       - objective
       - operational_administrative_capacity
       - people_targeted
-      - planned_operations
       - pre_positioning_budget
       - prepositioning_cost_description
       - prioritized_impact
-      - prioritized_impacts
       - readiness_budget
       - readiness_cost_description
       - risk_analysis_relevant_files_details
@@ -11630,22 +11580,12 @@ components:
         impact:
           maxLength: 255
           type: string
-        previous_id:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
       required:
       - impact
       type: object
     Indicator:
       properties:
         id:
-          type: integer
-        previous_id:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
           type: integer
         target:
           maximum: 2147483647
@@ -11675,11 +11615,6 @@ components:
           allOf:
           - $ref: '#/components/schemas/MiniCountry'
           readOnly: true
-        previous_id:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
       required:
       - description
       - national_society
@@ -14611,11 +14546,6 @@ components:
           maxLength: 255
           type: string
         id:
-          type: integer
-        previous_id:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
           type: integer
         time_value:
           items:
@@ -19627,6 +19557,18 @@ components:
           allOf:
           - $ref: '#/components/schemas/UserName'
           readOnly: true
+        deadline:
+          description: Date by which the EAP submission must be completed.
+          format: date
+          nullable: true
+          readOnly: true
+          type: string
+        deadline_remainder_sent_at:
+          description: Timestamp when the deadline reminder email was sent.
+          format: date-time
+          nullable: true
+          title: Deadline reminder email sent at
+          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -19749,6 +19691,11 @@ components:
           format: date-time
           nullable: true
           type: string
+        review_checklist_file:
+          format: uri
+          nullable: true
+          readOnly: true
+          type: string
         simplified_eap_details:
           items:
             $ref: '#/components/schemas/MiniSimplifiedEAP'
@@ -19771,11 +19718,6 @@ components:
           title: EAP Status
         status_display:
           readOnly: true
-          type: string
-        summary_file:
-          format: uri
-          nullable: true
-          title: EAP Summary PDF
           type: string
         technically_validated_at:
           description: Timestamp when the EAP was technically validated.
@@ -19932,7 +19874,6 @@ components:
           type: string
         diff:
           default: false
-          description: Only applicable for EAP exports
           type: boolean
           writeOnly: true
         export_id:
@@ -19976,11 +19917,6 @@ components:
         status_display:
           readOnly: true
           type: string
-        summary:
-          default: false
-          description: Only applicable for FUll EAP
-          type: boolean
-          writeOnly: true
         token:
           format: uuid
           readOnly: true
@@ -19991,7 +19927,6 @@ components:
           readOnly: true
           type: string
         version:
-          description: Only applicable for EAP exports
           type: integer
           writeOnly: true
       type: object
@@ -20983,11 +20918,6 @@ components:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
           type: array
-        diff_file:
-          format: uri
-          nullable: true
-          title: EAP Diff PDF file
-          type: string
         dref_focal_point_email:
           maxLength: 255
           nullable: true
@@ -21065,11 +20995,6 @@ components:
           description: Include the propose time of submission, accounting for the
             time it will take to deliver the application.
           format: date
-          type: string
-        export_file:
-          format: uri
-          nullable: true
-          title: EAP Export File
           type: string
         exposed_element_and_vulnerability_factor:
           description: Explain which people are most likely to experience the impacts
@@ -21289,10 +21214,22 @@ components:
           nullable: true
           title: Parent FUll EAP
           type: integer
-        partner_contacts:
-          items:
-            $ref: '#/components/schemas/EAPContact'
-          type: array
+        partner_ns_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        partner_ns_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        partner_ns_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        partner_ns_title:
+          maxLength: 255
+          nullable: true
+          type: string
         people_targeted:
           maximum: 2147483647
           minimum: -2147483648
@@ -21328,10 +21265,6 @@ components:
           title: Readiness Budget (CHF)
           type: integer
         readiness_cost_description:
-          type: string
-        review_checklist_file:
-          format: uri
-          nullable: true
           type: string
         risk_analysis_relevant_files:
           items:
@@ -22392,11 +22325,6 @@ components:
           allOf:
           - $ref: '#/components/schemas/UserName'
           readOnly: true
-        diff_file:
-          format: uri
-          nullable: true
-          title: EAP Diff PDF file
-          type: string
         dref_focal_point_email:
           maxLength: 255
           nullable: true
@@ -22430,11 +22358,6 @@ components:
           items:
             $ref: '#/components/schemas/EnableApproach'
           type: array
-        export_file:
-          format: uri
-          nullable: true
-          title: EAP Export File
-          type: string
         hazard_impact_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
@@ -22593,10 +22516,22 @@ components:
           nullable: true
           title: Parent Simplified EAP
           type: integer
-        partner_contacts:
-          items:
-            $ref: '#/components/schemas/EAPContact'
-          type: array
+        partner_ns_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        partner_ns_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        partner_ns_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        partner_ns_title:
+          maxLength: 255
+          nullable: true
+          type: string
         people_targeted:
           maximum: 2147483647
           minimum: -2147483648
@@ -22625,10 +22560,6 @@ components:
           minimum: -2147483648
           title: Readiness Budget (CHF)
           type: integer
-        review_checklist_file:
-          format: uri
-          nullable: true
-          type: string
         risk_selected_protocols_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
@@ -23692,11 +23623,6 @@ components:
           items:
             $ref: '#/components/schemas/OperationActivity'
           type: array
-        previous_id:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
         readiness_activities:
           items:
             $ref: '#/components/schemas/OperationActivity'
@@ -23706,9 +23632,6 @@ components:
           - $ref: '#/components/schemas/EapSectorEnumKey'
           maximum: 2147483647
           minimum: -2147483648
-        sector_display:
-          readOnly: true
-          type: string
       required:
       - budget_per_sector
       - early_action_activities
@@ -23717,7 +23640,6 @@ components:
       - prepositioning_activities
       - readiness_activities
       - sector
-      - sector_display
       type: object
     PrimaryHCC:
       properties:
@@ -25984,11 +25906,6 @@ components:
           allOf:
           - $ref: '#/components/schemas/UserName'
           readOnly: true
-        diff_file:
-          format: uri
-          nullable: true
-          title: EAP Diff PDF file
-          type: string
         dref_focal_point_email:
           maxLength: 255
           nullable: true
@@ -26022,11 +25939,6 @@ components:
           items:
             $ref: '#/components/schemas/EnableApproach'
           type: array
-        export_file:
-          format: uri
-          nullable: true
-          title: EAP Export File
-          type: string
         hazard_impact_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
@@ -26185,10 +26097,22 @@ components:
           nullable: true
           title: Parent Simplified EAP
           type: integer
-        partner_contacts:
-          items:
-            $ref: '#/components/schemas/EAPContact'
-          type: array
+        partner_ns_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        partner_ns_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        partner_ns_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        partner_ns_title:
+          maxLength: 255
+          nullable: true
+          type: string
         people_targeted:
           maximum: 2147483647
           minimum: -2147483648
@@ -26217,10 +26141,6 @@ components:
           minimum: -2147483648
           title: Readiness Budget (CHF)
           type: integer
-        review_checklist_file:
-          format: uri
-          nullable: true
-          type: string
         risk_selected_protocols_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
@@ -26289,7 +26209,6 @@ components:
       - eap_registration
       - early_action_budget
       - early_action_capability
-      - enable_approaches
       - id
       - ifrc_delegation_focal_point_email
       - ifrc_delegation_focal_point_name
@@ -26305,7 +26224,6 @@ components:
       - operational_timeframe_unit_display
       - overall_objective_intervention
       - people_targeted
-      - planned_operations
       - potential_geographical_high_risk_areas
       - pre_positioning_budget
       - prioritized_hazard_and_impact
@@ -28031,22 +27949,6 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -28098,12 +28000,11 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -41398,22 +41299,6 @@ paths:
     get:
       operationId: api_v2_per_overview_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -41502,12 +41387,11 @@ paths:
     delete:
       operationId: api_v2_per_overview_destroy
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -41527,12 +41411,11 @@ paths:
     get:
       operationId: api_v2_per_overview_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -41559,12 +41442,11 @@ paths:
     patch:
       operationId: api_v2_per_overview_partial_update
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -41602,12 +41484,11 @@ paths:
     put:
       operationId: api_v2_per_overview_update
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -41882,22 +41763,6 @@ paths:
     get:
       operationId: api_v2_per_process_status_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -41949,12 +41814,11 @@ paths:
     get:
       operationId: api_v2_per_process_status_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -46235,6 +46099,26 @@ paths:
       - {}
       tags:
       - change_recover_password
+  /dev/email-preview/eap/:
+    get:
+      operationId: dev_email_preview_eap_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          description: No response body
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - dev
   /dev/email-preview/local-units/:
     get:
       operationId: dev_email_preview_local_units_retrieve
