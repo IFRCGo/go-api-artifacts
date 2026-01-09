@@ -6509,11 +6509,12 @@ components:
         id:
           type: integer
         previous_id:
-          readOnly: true
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
           type: integer
       required:
       - action
-      - previous_id
       type: object
     EAPContact:
       properties:
@@ -6534,7 +6535,9 @@ components:
           title: Contact Phone Number
           type: string
         previous_id:
-          readOnly: true
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
           type: integer
         title:
           maxLength: 255
@@ -6544,7 +6547,6 @@ components:
       required:
       - email
       - name
-      - previous_id
       type: object
     EAPFile:
       properties:
@@ -6672,6 +6674,18 @@ components:
           allOf:
           - $ref: '#/components/schemas/UserName'
           readOnly: true
+        deadline:
+          description: Date by which the EAP submission must be completed.
+          format: date
+          nullable: true
+          readOnly: true
+          type: string
+        deadline_remainder_sent_at:
+          description: Timestamp when the deadline reminder email was sent.
+          format: date-time
+          nullable: true
+          title: Deadline reminder email sent at
+          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -6820,7 +6834,6 @@ components:
         summary_file:
           format: uri
           nullable: true
-          readOnly: true
           title: EAP Summary PDF
           type: string
         technically_validated_at:
@@ -6840,6 +6853,7 @@ components:
       - country_details
       - created_at
       - created_by_details
+      - deadline
       - disaster_type
       - disaster_type_details
       - eap_type_display
@@ -6857,7 +6871,6 @@ components:
       - simplified_eap_details
       - status
       - status_display
-      - summary_file
       - validated_budget_file
       type: object
     EAPSourceInformation:
@@ -6865,7 +6878,9 @@ components:
         id:
           type: integer
         previous_id:
-          readOnly: true
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
           type: integer
         source_link:
           format: uri
@@ -6875,7 +6890,6 @@ components:
           maxLength: 255
           type: string
       required:
-      - previous_id
       - source_link
       - source_name
       type: object
@@ -8159,7 +8173,9 @@ components:
             $ref: '#/components/schemas/OperationActivity'
           type: array
         previous_id:
-          readOnly: true
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
           type: integer
         readiness_activities:
           items:
@@ -8172,7 +8188,6 @@ components:
       - early_action_activities
       - indicators
       - prepositioning_activities
-      - previous_id
       - readiness_activities
       type: object
     EventContact:
@@ -10570,10 +10585,6 @@ components:
           nullable: true
           title: Updated Review Checklist File
           type: integer
-        updated_checklist_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
         usefulness_of_actions:
           description: Describe how actions will still benefit the population if the
             expected event does not occur.
@@ -10650,7 +10661,6 @@ components:
       - trigger_activation_system
       - trigger_model_relevant_files_details
       - trigger_statement
-      - updated_checklist_file_details
       - usefulness_of_actions
       - worked_with_government_description
       type: object
@@ -11634,18 +11644,21 @@ components:
           maxLength: 255
           type: string
         previous_id:
-          readOnly: true
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
           type: integer
       required:
       - impact
-      - previous_id
       type: object
     Indicator:
       properties:
         id:
           type: integer
         previous_id:
-          readOnly: true
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
           type: integer
         target:
           maximum: 2147483647
@@ -11657,7 +11670,6 @@ components:
           title: Indicator Title
           type: string
       required:
-      - previous_id
       - target
       - title
       type: object
@@ -11677,13 +11689,14 @@ components:
           - $ref: '#/components/schemas/MiniCountry'
           readOnly: true
         previous_id:
-          readOnly: true
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
           type: integer
       required:
       - description
       - national_society
       - national_society_details
-      - previous_id
       type: object
     KeyClimateEvent:
       properties:
@@ -13993,14 +14006,13 @@ components:
       properties:
         budget_file:
           type: integer
-        budget_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
         created_at:
           format: date-time
           readOnly: true
           type: string
+        eap_registration:
+          title: EAP Development Registration
+          type: integer
         early_action_budget:
           maximum: 2147483647
           minimum: -2147483648
@@ -14027,35 +14039,31 @@ components:
           minimum: -2147483648
           title: Readiness Budget (CHF)
           type: integer
-        review_checklist_file:
-          format: uri
-          nullable: true
-          type: string
         total_budget:
           maximum: 2147483647
           minimum: -2147483648
           title: Total Budget (CHF)
           type: integer
-        updated_checklist_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
+        updated_checklist_file:
+          nullable: true
+          title: Updated Review Checklist File
+          type: integer
         version:
+          default: 1
           description: Version identifier for the Full EAP.
           maximum: 2147483647
           minimum: -2147483648
           type: integer
       required:
       - budget_file
-      - budget_file_details
       - created_at
+      - eap_registration
       - early_action_budget
       - id
       - modified_at
       - pre_positioning_budget
       - readiness_budget
       - total_budget
-      - updated_checklist_file_details
       type: object
     MiniHealthData:
       properties:
@@ -14288,14 +14296,13 @@ components:
       properties:
         budget_file:
           type: integer
-        budget_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
         created_at:
           format: date-time
           readOnly: true
           type: string
+        eap_registration:
+          title: EAP Development Registration
+          type: integer
         early_action_budget:
           maximum: 2147483647
           minimum: -2147483648
@@ -14322,10 +14329,6 @@ components:
           minimum: -2147483648
           title: Readiness Budget (CHF)
           type: integer
-        review_checklist_file:
-          format: uri
-          nullable: true
-          type: string
         seap_timeframe:
           description: Timeframe of the EAP in years.
           maximum: 2147483647
@@ -14337,19 +14340,20 @@ components:
           minimum: -2147483648
           title: Total Budget (CHF)
           type: integer
-        updated_checklist_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
+        updated_checklist_file:
+          nullable: true
+          title: Updated Review Checklist File
+          type: integer
         version:
+          default: 1
           description: Version identifier for the Simplified EAP.
           maximum: 2147483647
           minimum: -2147483648
           type: integer
       required:
       - budget_file
-      - budget_file_details
       - created_at
+      - eap_registration
       - early_action_budget
       - id
       - modified_at
@@ -14357,7 +14361,6 @@ components:
       - readiness_budget
       - seap_timeframe
       - total_budget
-      - updated_checklist_file_details
       type: object
     MiniSubscription:
       description: Custom ModelSerializer with translaion logic (Also works for normal
@@ -14623,7 +14626,9 @@ components:
         id:
           type: integer
         previous_id:
-          readOnly: true
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
           type: integer
         time_value:
           items:
@@ -14636,7 +14641,6 @@ components:
           type: string
       required:
       - activity
-      - previous_id
       - time_value
       - timeframe
       - timeframe_display
@@ -19636,6 +19640,18 @@ components:
           allOf:
           - $ref: '#/components/schemas/UserName'
           readOnly: true
+        deadline:
+          description: Date by which the EAP submission must be completed.
+          format: date
+          nullable: true
+          readOnly: true
+          type: string
+        deadline_remainder_sent_at:
+          description: Timestamp when the deadline reminder email was sent.
+          format: date-time
+          nullable: true
+          title: Deadline reminder email sent at
+          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -19784,7 +19800,6 @@ components:
         summary_file:
           format: uri
           nullable: true
-          readOnly: true
           title: EAP Summary PDF
           type: string
         technically_validated_at:
@@ -21427,10 +21442,6 @@ components:
           nullable: true
           title: Updated Review Checklist File
           type: integer
-        updated_checklist_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
         usefulness_of_actions:
           description: Describe how actions will still benefit the population if the
             expected event does not occur.
@@ -22696,10 +22707,6 @@ components:
           nullable: true
           title: Updated Review Checklist File
           type: integer
-        updated_checklist_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
         version:
           default: 1
           description: Version identifier for the Simplified EAP.
@@ -23711,7 +23718,9 @@ components:
             $ref: '#/components/schemas/OperationActivity'
           type: array
         previous_id:
-          readOnly: true
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
           type: integer
         readiness_activities:
           items:
@@ -23731,7 +23740,6 @@ components:
       - indicators
       - people_targeted
       - prepositioning_activities
-      - previous_id
       - readiness_activities
       - sector
       - sector_display
@@ -26291,10 +26299,6 @@ components:
           nullable: true
           title: Updated Review Checklist File
           type: integer
-        updated_checklist_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
         version:
           default: 1
           description: Version identifier for the Simplified EAP.
@@ -26340,7 +26344,6 @@ components:
       - selected_early_actions
       - total_budget
       - trigger_threshold_justification
-      - updated_checklist_file_details
       - version
       type: object
     SituationReport:
@@ -46257,6 +46260,26 @@ paths:
       - {}
       tags:
       - change_recover_password
+  /dev/email-preview/eap/:
+    get:
+      operationId: dev_email_preview_eap_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          description: No response body
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - dev
   /dev/email-preview/local-units/:
     get:
       operationId: dev_email_preview_local_units_retrieve
