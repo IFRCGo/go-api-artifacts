@@ -23711,9 +23711,7 @@ components:
             $ref: '#/components/schemas/OperationActivity'
           type: array
         previous_id:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
+          readOnly: true
           type: integer
         readiness_activities:
           items:
@@ -23733,6 +23731,7 @@ components:
       - indicators
       - people_targeted
       - prepositioning_activities
+      - previous_id
       - readiness_activities
       - sector
       - sector_display
