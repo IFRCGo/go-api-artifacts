@@ -10570,6 +10570,10 @@ components:
           nullable: true
           title: Updated Review Checklist File
           type: integer
+        updated_checklist_file_details:
+          allOf:
+          - $ref: '#/components/schemas/EAPFile'
+          readOnly: true
         usefulness_of_actions:
           description: Describe how actions will still benefit the population if the
             expected event does not occur.
@@ -10646,6 +10650,7 @@ components:
       - trigger_activation_system
       - trigger_model_relevant_files_details
       - trigger_statement
+      - updated_checklist_file_details
       - usefulness_of_actions
       - worked_with_government_description
       type: object
@@ -21422,6 +21427,10 @@ components:
           nullable: true
           title: Updated Review Checklist File
           type: integer
+        updated_checklist_file_details:
+          allOf:
+          - $ref: '#/components/schemas/EAPFile'
+          readOnly: true
         usefulness_of_actions:
           description: Describe how actions will still benefit the population if the
             expected event does not occur.
@@ -22687,6 +22696,10 @@ components:
           nullable: true
           title: Updated Review Checklist File
           type: integer
+        updated_checklist_file_details:
+          allOf:
+          - $ref: '#/components/schemas/EAPFile'
+          readOnly: true
         version:
           default: 1
           description: Version identifier for the Simplified EAP.
@@ -26279,6 +26292,10 @@ components:
           nullable: true
           title: Updated Review Checklist File
           type: integer
+        updated_checklist_file_details:
+          allOf:
+          - $ref: '#/components/schemas/EAPFile'
+          readOnly: true
         version:
           default: 1
           description: Version identifier for the Simplified EAP.
@@ -26324,6 +26341,7 @@ components:
       - selected_early_actions
       - total_budget
       - trigger_threshold_justification
+      - updated_checklist_file_details
       - version
       type: object
     SituationReport:
