@@ -10527,6 +10527,7 @@ components:
           title: National Society Strategies and plans
           type: string
         technical_working_groups_in_place_description:
+          nullable: true
           title: Technical working groups description
           type: string
         technically_working_group_title:
@@ -10599,6 +10600,7 @@ components:
           minimum: -2147483648
           type: integer
         worked_with_government_description:
+          nullable: true
           title: Government and actors engagement description
           type: string
       required:
@@ -10657,7 +10659,6 @@ components:
       - selection_of_target_population
       - stop_mechanism
       - strategies_and_plans
-      - technical_working_groups_in_place_description
       - theory_of_change_table_file_details
       - total_budget
       - trigger_activation_system
@@ -10665,7 +10666,6 @@ components:
       - trigger_statement
       - updated_checklist_file_details
       - usefulness_of_actions
-      - worked_with_government_description
       type: object
     Functionality:
       properties:
@@ -21396,6 +21396,7 @@ components:
           title: National Society Strategies and plans
           type: string
         technical_working_groups_in_place_description:
+          nullable: true
           title: Technical working groups description
           type: string
         technically_working_group_title:
@@ -21468,6 +21469,7 @@ components:
           minimum: -2147483648
           type: integer
         worked_with_government_description:
+          nullable: true
           title: Government and actors engagement description
           type: string
       type: object
