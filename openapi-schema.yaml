@@ -157,9 +157,6 @@ components:
         district_id:
           readOnly: true
           type: integer
-        district_name:
-          readOnly: true
-          type: integer
         id:
           readOnly: true
           type: integer
@@ -174,7 +171,6 @@ components:
       - centroid
       - code
       - district_id
-      - district_name
       - id
       - name
       type: object
@@ -8140,7 +8136,7 @@ components:
       - actions
       - sectors
       type: object
-    EnableApproach:
+    EnablingApproach:
       description: Mixin adds update nested feature
       properties:
         ap_code:
@@ -10207,9 +10203,9 @@ components:
           items:
             $ref: '#/components/schemas/EAPAction'
           type: array
-        enable_approaches:
+        enabling_approaches:
           items:
-            $ref: '#/components/schemas/EnableApproach'
+            $ref: '#/components/schemas/EnablingApproach'
           type: array
         evidence_base:
           description: Explain how the selected actions will reduce the expected disaster
@@ -10625,7 +10621,7 @@ components:
       - early_action_implementation_process
       - early_action_selection_process
       - early_actions
-      - enable_approaches
+      - enabling_approaches
       - evidence_base
       - evidence_base_relevant_files_details
       - expected_submission_time
@@ -12943,9 +12939,6 @@ components:
         district_id:
           readOnly: true
           type: integer
-        district_name:
-          readOnly: true
-          type: integer
         id:
           readOnly: true
           type: integer
@@ -12955,7 +12948,6 @@ components:
       required:
       - code
       - district_id
-      - district_name
       - id
       - name
       type: object
@@ -21080,9 +21072,9 @@ components:
           items:
             $ref: '#/components/schemas/EAPAction'
           type: array
-        enable_approaches:
+        enabling_approaches:
           items:
-            $ref: '#/components/schemas/EnableApproach'
+            $ref: '#/components/schemas/EnablingApproach'
           type: array
         evidence_base:
           description: Explain how the selected actions will reduce the expected disaster
@@ -22475,9 +22467,9 @@ components:
             actions.
           title: Experience or Capacity to implement Early Action.
           type: string
-        enable_approaches:
+        enabling_approaches:
           items:
-            $ref: '#/components/schemas/EnableApproach'
+            $ref: '#/components/schemas/EnablingApproach'
           type: array
         export_file:
           format: uri
@@ -26070,9 +26062,9 @@ components:
             actions.
           title: Experience or Capacity to implement Early Action.
           type: string
-        enable_approaches:
+        enabling_approaches:
           items:
-            $ref: '#/components/schemas/EnableApproach'
+            $ref: '#/components/schemas/EnablingApproach'
           type: array
         export_file:
           format: uri
@@ -26345,7 +26337,7 @@ components:
       - eap_registration
       - early_action_budget
       - early_action_capability
-      - enable_approaches
+      - enabling_approaches
       - id
       - ifrc_delegation_focal_point_email
       - ifrc_delegation_focal_point_name
@@ -27916,10 +27908,6 @@ paths:
             type: string
           type: array
         style: form
-      - in: query
-        name: ids__in
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
