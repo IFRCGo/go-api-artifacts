@@ -157,6 +157,9 @@ components:
         district_id:
           readOnly: true
           type: integer
+        district_name:
+          readOnly: true
+          type: string
         id:
           readOnly: true
           type: integer
@@ -171,6 +174,7 @@ components:
       - centroid
       - code
       - district_id
+      - district_name
       - id
       - name
       type: object
@@ -8136,7 +8140,7 @@ components:
       - actions
       - sectors
       type: object
-    EnablingApproach:
+    EnableApproach:
       description: Mixin adds update nested feature
       properties:
         ap_code:
@@ -10203,9 +10207,9 @@ components:
           items:
             $ref: '#/components/schemas/EAPAction'
           type: array
-        enabling_approaches:
+        enable_approaches:
           items:
-            $ref: '#/components/schemas/EnablingApproach'
+            $ref: '#/components/schemas/EnableApproach'
           type: array
         evidence_base:
           description: Explain how the selected actions will reduce the expected disaster
@@ -10621,7 +10625,7 @@ components:
       - early_action_implementation_process
       - early_action_selection_process
       - early_actions
-      - enabling_approaches
+      - enable_approaches
       - evidence_base
       - evidence_base_relevant_files_details
       - expected_submission_time
@@ -12939,6 +12943,9 @@ components:
         district_id:
           readOnly: true
           type: integer
+        district_name:
+          readOnly: true
+          type: string
         id:
           readOnly: true
           type: integer
@@ -12948,6 +12955,7 @@ components:
       required:
       - code
       - district_id
+      - district_name
       - id
       - name
       type: object
@@ -21072,9 +21080,9 @@ components:
           items:
             $ref: '#/components/schemas/EAPAction'
           type: array
-        enabling_approaches:
+        enable_approaches:
           items:
-            $ref: '#/components/schemas/EnablingApproach'
+            $ref: '#/components/schemas/EnableApproach'
           type: array
         evidence_base:
           description: Explain how the selected actions will reduce the expected disaster
@@ -22467,9 +22475,9 @@ components:
             actions.
           title: Experience or Capacity to implement Early Action.
           type: string
-        enabling_approaches:
+        enable_approaches:
           items:
-            $ref: '#/components/schemas/EnablingApproach'
+            $ref: '#/components/schemas/EnableApproach'
           type: array
         export_file:
           format: uri
@@ -26062,9 +26070,9 @@ components:
             actions.
           title: Experience or Capacity to implement Early Action.
           type: string
-        enabling_approaches:
+        enable_approaches:
           items:
-            $ref: '#/components/schemas/EnablingApproach'
+            $ref: '#/components/schemas/EnableApproach'
           type: array
         export_file:
           format: uri
@@ -26337,7 +26345,7 @@ components:
       - eap_registration
       - early_action_budget
       - early_action_capability
-      - enabling_approaches
+      - enable_approaches
       - id
       - ifrc_delegation_focal_point_email
       - ifrc_delegation_focal_point_name
@@ -28080,22 +28088,6 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -28147,12 +28139,11 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -41447,22 +41438,6 @@ paths:
     get:
       operationId: api_v2_per_overview_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -41551,12 +41526,11 @@ paths:
     delete:
       operationId: api_v2_per_overview_destroy
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -41576,12 +41550,11 @@ paths:
     get:
       operationId: api_v2_per_overview_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -41608,12 +41581,11 @@ paths:
     patch:
       operationId: api_v2_per_overview_partial_update
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -41651,12 +41623,11 @@ paths:
     put:
       operationId: api_v2_per_overview_update
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -41931,22 +41902,6 @@ paths:
     get:
       operationId: api_v2_per_process_status_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -41998,12 +41953,11 @@ paths:
     get:
       operationId: api_v2_per_process_status_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
