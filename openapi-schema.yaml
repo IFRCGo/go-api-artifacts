@@ -27865,6 +27865,19 @@ paths:
           type: array
         style: form
       - in: query
+        name: code
+        schema:
+          type: string
+      - description: Multiple values may be separated by commas.
+        explode: false
+        in: query
+        name: code__in
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - in: query
         name: admin1
         schema:
           type: integer
