@@ -9783,12 +9783,20 @@ components:
           nullable: true
           type: boolean
         other_profiles:
-          maxLength: 200
-          nullable: true
-          type: string
+          items:
+            $ref: '#/components/schemas/OtherProfile'
+          type: array
         other_services:
           nullable: true
           type: string
+        other_training_facilities:
+          nullable: true
+          type: string
+        pharmacists:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
         primary_health_care_center:
           nullable: true
           type: integer
@@ -13205,6 +13213,21 @@ components:
       - id
       - title
       - value
+      type: object
+    OtherProfile:
+      description: Mixin adds nested create feature
+      properties:
+        id:
+          type: integer
+        number:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+        position:
+          type: string
+      required:
+      - number
+      - position
       type: object
     OverviewProjectsPerProgrammeType:
       properties:
@@ -19473,7 +19496,11 @@ components:
           nullable: true
           type: string
         country:
-          $ref: '#/components/schemas/MiniCountry'
+          type: integer
+        country_details:
+          allOf:
+          - $ref: '#/components/schemas/MiniCountry'
+          readOnly: true
         department:
           maxLength: 100
           nullable: true
@@ -21040,7 +21067,11 @@ components:
           nullable: true
           type: string
         country:
-          $ref: '#/components/schemas/MiniCountry'
+          type: integer
+        country_details:
+          allOf:
+          - $ref: '#/components/schemas/MiniCountry'
+          readOnly: true
         department:
           maxLength: 100
           nullable: true
@@ -21063,6 +21094,7 @@ components:
           type: string
       required:
       - country
+      - country_details
       type: object
     Project:
       description: Mixin adds update nested feature
@@ -21558,10 +21590,41 @@ components:
         activity:
           nullable: true
           type: string
+        activity_ar:
+          nullable: true
+          title: Activity [ar]
+          type: string
+        activity_en:
+          nullable: true
+          title: Activity [en]
+          type: string
+        activity_es:
+          nullable: true
+          title: Activity [es]
+          type: string
+        activity_fr:
+          nullable: true
+          title: Activity [fr]
+          type: string
         id:
           type: integer
         sector:
           type: integer
+        translation_module_original_language:
+          allOf:
+          - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
+          description: |-
+            Language used to create this entity
+
+            * `en` - English
+            * `es` - Spanish
+            * `fr` - French
+            * `ar` - Arabic
+          title: Entity Original language
+        translation_module_skip_auto_translation:
+          description: Skip auto translation operation for this entity?
+          title: Skip auto translation
+          type: boolean
       required:
       - sector
       type: object
