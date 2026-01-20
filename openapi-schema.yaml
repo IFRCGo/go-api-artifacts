@@ -19496,11 +19496,7 @@ components:
           nullable: true
           type: string
         country:
-          type: integer
-        country_details:
-          allOf:
-          - $ref: '#/components/schemas/MiniCountry'
-          readOnly: true
+          $ref: '#/components/schemas/MiniCountry'
         department:
           maxLength: 100
           nullable: true
@@ -21067,11 +21063,7 @@ components:
           nullable: true
           type: string
         country:
-          type: integer
-        country_details:
-          allOf:
-          - $ref: '#/components/schemas/MiniCountry'
-          readOnly: true
+          $ref: '#/components/schemas/MiniCountry'
         department:
           maxLength: 100
           nullable: true
@@ -21094,7 +21086,6 @@ components:
           type: string
       required:
       - country
-      - country_details
       type: object
     Project:
       description: Mixin adds update nested feature
@@ -31452,6 +31443,38 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExportFlashUpdateView'
           description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - api
+  /api/v2/export-local-unit/:
+    get:
+      operationId: api_v2_export_local_unit_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      - description: Country ID for which local units need to be exported
+        in: query
+        name: country
+        required: true
+        schema:
+          type: integer
+      - description: Local Unit Type ID for which local units need to be exported
+        in: query
+        name: local_unit_type
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: No response body
       security:
       - tokenAuth: []
       - basicAuth: []
