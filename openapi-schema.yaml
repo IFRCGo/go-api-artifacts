@@ -9783,20 +9783,12 @@ components:
           nullable: true
           type: boolean
         other_profiles:
-          items:
-            $ref: '#/components/schemas/OtherProfile'
-          type: array
+          maxLength: 200
+          nullable: true
+          type: string
         other_services:
           nullable: true
           type: string
-        other_training_facilities:
-          nullable: true
-          type: string
-        pharmacists:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
         primary_health_care_center:
           nullable: true
           type: integer
@@ -13213,21 +13205,6 @@ components:
       - id
       - title
       - value
-      type: object
-    OtherProfile:
-      description: Mixin adds nested create feature
-      properties:
-        id:
-          type: integer
-        number:
-          maximum: 2147483647
-          minimum: 0
-          type: integer
-        position:
-          type: string
-      required:
-      - number
-      - position
       type: object
     OverviewProjectsPerProgrammeType:
       properties:
@@ -19496,11 +19473,7 @@ components:
           nullable: true
           type: string
         country:
-          type: integer
-        country_details:
-          allOf:
-          - $ref: '#/components/schemas/MiniCountry'
-          readOnly: true
+          $ref: '#/components/schemas/MiniCountry'
         department:
           maxLength: 100
           nullable: true
@@ -21067,11 +21040,7 @@ components:
           nullable: true
           type: string
         country:
-          type: integer
-        country_details:
-          allOf:
-          - $ref: '#/components/schemas/MiniCountry'
-          readOnly: true
+          $ref: '#/components/schemas/MiniCountry'
         department:
           maxLength: 100
           nullable: true
@@ -21094,7 +21063,6 @@ components:
           type: string
       required:
       - country
-      - country_details
       type: object
     Project:
       description: Mixin adds update nested feature
@@ -21590,41 +21558,10 @@ components:
         activity:
           nullable: true
           type: string
-        activity_ar:
-          nullable: true
-          title: Activity [ar]
-          type: string
-        activity_en:
-          nullable: true
-          title: Activity [en]
-          type: string
-        activity_es:
-          nullable: true
-          title: Activity [es]
-          type: string
-        activity_fr:
-          nullable: true
-          title: Activity [fr]
-          type: string
         id:
           type: integer
         sector:
           type: integer
-        translation_module_original_language:
-          allOf:
-          - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
-          description: |-
-            Language used to create this entity
-
-            * `en` - English
-            * `es` - Spanish
-            * `fr` - French
-            * `ar` - Arabic
-          title: Entity Original language
-        translation_module_skip_auto_translation:
-          description: Skip auto translation operation for this entity?
-          title: Skip auto translation
-          type: boolean
       required:
       - sector
       type: object
@@ -36111,6 +36048,31 @@ paths:
       - cookieAuth: []
       tags:
       - api
+  /api/v2/per-assessments-processed:
+    get:
+      description: |-
+        Public consolidated PER assessments processed data.
+
+        Flattens component considerations flags and rating info per assessment for downstream use.
+      operationId: api_v2_per_assessments_processed_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          description: No response body
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
   /api/v2/per-country/:
     get:
       operationId: api_v2_per_country_list
@@ -36190,6 +36152,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/PublicPerCountry'
           description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
+  /api/v2/per-dashboard-data:
+    get:
+      description: |-
+        Public consolidated PER dashboard data.
+
+        Aggregates by PER components (not countries) and attaches assessments.
+      operationId: api_v2_per_dashboard_data_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          description: No response body
       security:
       - tokenAuth: []
       - basicAuth: []
@@ -37056,6 +37043,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/FormQuestion'
           description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
+  /api/v2/per-map-data:
+    get:
+      description: |-
+        Public consolidated PER map data.
+
+        Joins latest Overview per country with minimal country info and normalized phase display.
+      operationId: api_v2_per_map_data_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          description: No response body
       security:
       - tokenAuth: []
       - basicAuth: []
