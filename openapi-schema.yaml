@@ -328,15 +328,15 @@ components:
           allOf:
           - $ref: '#/components/schemas/NotificationsAlertPerDayEnumKey'
           description: |-
-            Maximum number of alerts sent to the user per day.
+            Maximum number of alerts sent to the user per day. Leave empty to allow unlimited alerts.
 
-            * `100` - Five
-            * `200` - Ten
-            * `300` - Twenty
-            * `400` - Fifty
-            * `500` - Unlimited
+            * `5` - Five
+            * `10` - Ten
+            * `20` - Twenty
+            * `50` - Fifty
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Alerts Per Day
         alert_per_day_display:
           readOnly: true
@@ -362,7 +362,7 @@ components:
           type: array
         hazard_types_detail:
           items:
-            $ref: '#/components/schemas/HazardType'
+            $ref: '#/components/schemas/DisasterType'
           readOnly: true
           type: array
         id:
@@ -9555,10 +9555,6 @@ components:
           items:
             $ref: '#/components/schemas/NotificationsAlertSourceEnum'
           type: array
-        notifications_hazard_type:
-          items:
-            $ref: '#/components/schemas/NotificationsHazardTypeEnum'
-          type: array
         notifications_surge_alert_status:
           items:
             $ref: '#/components/schemas/NotificationsSurgeAlertStatusEnum'
@@ -9706,27 +9702,6 @@ components:
       - dtype
       - id
       - translation_module_original_language
-      type: object
-    HazardType:
-      description: Custom ModelSerializer with translaion logic (Also works for normal
-        models)
-      properties:
-        id:
-          readOnly: true
-          type: integer
-        type:
-          allOf:
-          - $ref: '#/components/schemas/NotificationsHazardTypeEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-          title: Hazard Type
-        type_display:
-          readOnly: true
-          type: string
-      required:
-      - id
-      - type
-      - type_display
       type: object
     HealthData:
       description: Mixin adds nested create feature
@@ -12969,17 +12944,15 @@ components:
       type: object
     NotificationsAlertPerDayEnumKey:
       description: |-
-        * `100` - Five
-        * `200` - Ten
-        * `300` - Twenty
-        * `400` - Fifty
-        * `500` - Unlimited
+        * `5` - Five
+        * `10` - Ten
+        * `20` - Twenty
+        * `50` - Fifty
       enum:
-      - 100
-      - 200
-      - 300
-      - 400
-      - 500
+      - 5
+      - 10
+      - 20
+      - 50
       type: integer
     NotificationsAlertSourceEnum:
       properties:
@@ -12995,26 +12968,6 @@ components:
       description: '* `100` - Montandon'
       enum:
       - 100
-      type: integer
-    NotificationsHazardTypeEnum:
-      properties:
-        key:
-          $ref: '#/components/schemas/NotificationsHazardTypeEnumKey'
-        value:
-          type: string
-      required:
-      - key
-      - value
-      type: object
-    NotificationsHazardTypeEnumKey:
-      description: |-
-        * `100` - Earthquake
-        * `200` - Flood
-        * `300` - Cyclone
-      enum:
-      - 100
-      - 200
-      - 300
       type: integer
     NotificationsSurgeAlertStatusEnum:
       properties:
@@ -15584,15 +15537,15 @@ components:
           allOf:
           - $ref: '#/components/schemas/NotificationsAlertPerDayEnumKey'
           description: |-
-            Maximum number of alerts sent to the user per day.
+            Maximum number of alerts sent to the user per day. Leave empty to allow unlimited alerts.
 
-            * `100` - Five
-            * `200` - Ten
-            * `300` - Twenty
-            * `400` - Fifty
-            * `500` - Unlimited
+            * `5` - Five
+            * `10` - Ten
+            * `20` - Twenty
+            * `50` - Fifty
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Alerts Per Day
         alert_per_day_display:
           readOnly: true
@@ -15618,7 +15571,7 @@ components:
           type: array
         hazard_types_detail:
           items:
-            $ref: '#/components/schemas/HazardType'
+            $ref: '#/components/schemas/DisasterType'
           readOnly: true
           type: array
         id:
@@ -24921,20 +24874,19 @@ paths:
       - description: |-
           Alert Per Day
 
-          * `100` - Five
-          * `200` - Ten
-          * `300` - Twenty
-          * `400` - Fifty
-          * `500` - Unlimited
+          * `5` - Five
+          * `10` - Ten
+          * `20` - Twenty
+          * `50` - Fifty
         in: query
         name: alert_per_day
         schema:
           enum:
-          - 100
-          - 200
-          - 300
-          - 400
-          - 500
+          - 10
+          - 20
+          - 5
+          - 50
+          nullable: true
           title: Alerts Per Day
           type: integer
       - explode: true
@@ -24962,7 +24914,7 @@ paths:
         in: query
         name: hazard_type
         schema:
-          type: integer
+          type: string
       - description: A search term.
         in: query
         name: search
@@ -42291,6 +42243,26 @@ paths:
       - {}
       tags:
       - change_recover_password
+  /dev/email-preview/alert-system/:
+    get:
+      operationId: dev_email_preview_alert_system_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          description: No response body
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - dev
   /dev/email-preview/local-units/:
     get:
       operationId: dev_email_preview_local_units_retrieve
