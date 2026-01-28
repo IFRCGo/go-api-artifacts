@@ -6881,7 +6881,7 @@ components:
       - summary_file
       - validated_budget_file
       type: object
-    EAPShareUserSerailizer:
+    EAPShareUser:
       properties:
         users:
           items:
@@ -15713,7 +15713,7 @@ components:
       - count
       - results
       type: object
-    PaginatedEAPShareUserSerailizerList:
+    PaginatedEAPShareUserList:
       properties:
         count:
           example: 123
@@ -15730,7 +15730,7 @@ components:
           type: string
         results:
           items:
-            $ref: '#/components/schemas/EAPShareUserSerailizer'
+            $ref: '#/components/schemas/EAPShareUser'
           type: array
       required:
       - count
@@ -33441,13 +33441,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EAPShareUserSerailizer'
+              $ref: '#/components/schemas/EAPShareUser'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/EAPShareUserSerailizer'
+              $ref: '#/components/schemas/EAPShareUser'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/EAPShareUserSerailizer'
+              $ref: '#/components/schemas/EAPShareUser'
         required: true
       responses:
         '200':
@@ -33593,10 +33593,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedEAPShareUserSerailizerList'
+                $ref: '#/components/schemas/PaginatedEAPShareUserList'
             text/csv:
               schema:
-                $ref: '#/components/schemas/PaginatedEAPShareUserSerailizerList'
+                $ref: '#/components/schemas/PaginatedEAPShareUserList'
           description: ''
       security:
       - tokenAuth: []
@@ -33627,10 +33627,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EAPShareUserSerailizer'
+                $ref: '#/components/schemas/EAPShareUser'
             text/csv:
               schema:
-                $ref: '#/components/schemas/EAPShareUserSerailizer'
+                $ref: '#/components/schemas/EAPShareUser'
           description: ''
       security:
       - tokenAuth: []
