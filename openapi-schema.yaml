@@ -6844,10 +6844,6 @@ components:
           format: date-time
           nullable: true
           type: string
-        users:
-          items:
-            type: integer
-          type: array
         validated_budget_file:
           description: Upload the validated budget file once the EAP is technically
             validated.
@@ -6880,21 +6876,6 @@ components:
       - status_display
       - summary_file
       - validated_budget_file
-      type: object
-    EAPShareUser:
-      properties:
-        users:
-          items:
-            type: integer
-          type: array
-        users_details:
-          items:
-            $ref: '#/components/schemas/UserName'
-          readOnly: true
-          type: array
-      required:
-      - users
-      - users_details
       type: object
     EAPSourceInformation:
       properties:
@@ -10128,9 +10109,11 @@ components:
         advance_financial_capacity:
           description: Indicate whether the NS has capacity to advance funds to start
             early actions.
+          nullable: true
           title: National Society Financial capacity to advance funds
           type: string
         budget_description:
+          nullable: true
           title: Full EAP Budget Description
           type: string
         budget_file:
@@ -10165,6 +10148,7 @@ components:
           - $ref: '#/components/schemas/UserName'
           readOnly: true
         definition_and_justification_impact_level:
+          nullable: true
           title: Definition and Justification of Impact Level
           type: string
         definition_and_justification_impact_level_images:
@@ -10195,6 +10179,7 @@ components:
           type: string
         eap_endorsement:
           description: Describe by whom,how and when the EAP was agreed and endorsed.
+          nullable: true
           title: EAP Endorsement Description
           type: string
         eap_registration:
@@ -10203,9 +10188,11 @@ components:
         early_action_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Early Actions Budget (CHF)
           type: integer
         early_action_cost_description:
+          nullable: true
           type: string
         early_action_implementation_images:
           items:
@@ -10214,8 +10201,10 @@ components:
           type: array
         early_action_implementation_process:
           description: Describe the process for implementing early actions.
+          nullable: true
           type: string
         early_action_selection_process:
+          nullable: true
           type: string
         early_action_selection_process_images:
           items:
@@ -10233,6 +10222,7 @@ components:
         evidence_base:
           description: Explain how the selected actions will reduce the expected disaster
             impacts.
+          nullable: true
           type: string
         evidence_base_relevant_files:
           items:
@@ -10263,6 +10253,7 @@ components:
         exposed_element_and_vulnerability_factor:
           description: Explain which people are most likely to experience the impacts
             of this hazard.
+          nullable: true
           title: Exposed elements and vulnerability factors
           type: string
         exposed_element_and_vulnerability_factor_images:
@@ -10273,11 +10264,13 @@ components:
         feasibility:
           description: Explain how feasible it is to implement the proposed early
             actions in the planned timeframe.
+          nullable: true
           title: Feasibility of selected actions
           type: string
         forecast_selection:
           description: Explain which forecast's and observations will be used and
             why they are chosen
+          nullable: true
           type: string
         forecast_selection_images:
           items:
@@ -10293,6 +10286,7 @@ components:
         hazard_selection:
           description: Provide a brief rationale for selecting this hazard for the
             FbF system.
+          nullable: true
           type: string
         hazard_selection_images:
           items:
@@ -10303,6 +10297,7 @@ components:
           readOnly: true
           type: integer
         identification_of_the_intervention_area:
+          nullable: true
           title: Identification of Intervention Area
           type: string
         identification_of_the_intervention_area_images:
@@ -10312,9 +10307,11 @@ components:
           type: array
         ifrc_delegation_focal_point_email:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_delegation_focal_point_name:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_delegation_focal_point_phone_number:
           maxLength: 100
@@ -10342,9 +10339,11 @@ components:
           type: string
         ifrc_head_of_delegation_email:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_head_of_delegation_name:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_head_of_delegation_phone_number:
           maxLength: 100
@@ -10424,8 +10423,10 @@ components:
         lead_time:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           type: integer
         meal:
+          nullable: true
           title: MEAL Plan Description
           type: string
         meal_relevant_files:
@@ -10441,7 +10442,6 @@ components:
           type: array
         modified_at:
           format: date-time
-          readOnly: true
           type: string
         modified_by:
           type: integer
@@ -10471,6 +10471,7 @@ components:
         operational_administrative_capacity:
           description: Describe how the NS has operative and administrative capacity
             to implement the EAPs.
+          nullable: true
           title: National Society Operational, thematic and administrative capacity
           type: string
         parent:
@@ -10494,13 +10495,16 @@ components:
         pre_positioning_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
         prepositioning_cost_description:
+          nullable: true
           type: string
         prioritized_impact:
           description: Describe the impacts that have been prioritized and who is
             most likely to be affected.
+          nullable: true
           type: string
         prioritized_impact_images:
           items:
@@ -10514,9 +10518,11 @@ components:
         readiness_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Readiness Budget (CHF)
           type: integer
         readiness_cost_description:
+          nullable: true
           type: string
         review_checklist_file:
           format: uri
@@ -10539,14 +10545,17 @@ components:
         selection_of_target_population:
           description: Describe the process used to select the target population for
             early actions.
+          nullable: true
           type: string
         stop_mechanism:
           description: Explain how it would be communicated to communities and stakeholders
             that the activities are being stopped.
+          nullable: true
           type: string
         strategies_and_plans:
           description: Describe how the EAP aligned with disaster risk management
             strategy of NS.
+          nullable: true
           title: National Society Strategies and plans
           type: string
         technical_working_groups_in_place_description:
@@ -10568,10 +10577,12 @@ components:
         total_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Total Budget (CHF)
           type: integer
         trigger_activation_system:
           description: Describe the automatic system used to monitor the forecasts.
+          nullable: true
           type: string
         trigger_activation_system_images:
           items:
@@ -10597,6 +10608,7 @@ components:
         trigger_statement:
           description: Explain in one sentence what exactly the trigger of your EAP
             will be.
+          nullable: true
           type: string
         trigger_statement_source_of_information:
           items:
@@ -10614,6 +10626,7 @@ components:
         usefulness_of_actions:
           description: Describe how actions will still benefit the population if the
             expected event does not occur.
+          nullable: true
           title: Usefulness of actions in case the event does not occur
           type: string
         version:
@@ -10629,66 +10642,29 @@ components:
       required:
       - activation_process_relevant_files_details
       - admin2_details
-      - advance_financial_capacity
-      - budget_description
-      - budget_file
       - budget_file_details
       - capacity_relevant_files_details
       - created_at
       - created_by_details
-      - definition_and_justification_impact_level
-      - eap_endorsement
       - eap_registration
-      - early_action_budget
-      - early_action_cost_description
-      - early_action_implementation_process
-      - early_action_selection_process
       - early_actions
-      - enabling_approaches
-      - evidence_base
       - evidence_base_relevant_files_details
       - expected_submission_time
-      - exposed_element_and_vulnerability_factor
-      - feasibility
-      - forecast_selection
       - forecast_table_file
       - forecast_table_file_details
-      - hazard_selection
       - id
-      - identification_of_the_intervention_area
-      - ifrc_delegation_focal_point_email
-      - ifrc_delegation_focal_point_name
-      - ifrc_head_of_delegation_email
-      - ifrc_head_of_delegation_name
       - key_actors
-      - lead_time
-      - meal
       - meal_relevant_files_details
-      - modified_at
       - modified_by_details
       - national_society_contact_email
       - national_society_contact_name
       - objective
-      - operational_administrative_capacity
       - people_targeted
-      - planned_operations
-      - pre_positioning_budget
-      - prepositioning_cost_description
-      - prioritized_impact
       - prioritized_impacts
-      - readiness_budget
-      - readiness_cost_description
       - risk_analysis_relevant_files_details
-      - selection_of_target_population
-      - stop_mechanism
-      - strategies_and_plans
       - theory_of_change_table_file_details
-      - total_budget
-      - trigger_activation_system
       - trigger_model_relevant_files_details
-      - trigger_statement
       - updated_checklist_file_details
-      - usefulness_of_actions
       type: object
     Functionality:
       properties:
@@ -14032,6 +14008,7 @@ components:
     MiniFullEAP:
       properties:
         budget_file:
+          nullable: true
           type: integer
         budget_file_details:
           allOf:
@@ -14044,6 +14021,7 @@ components:
         early_action_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Early Actions Budget (CHF)
           type: integer
         id:
@@ -14055,16 +14033,17 @@ components:
           type: boolean
         modified_at:
           format: date-time
-          readOnly: true
           type: string
         pre_positioning_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
         readiness_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Readiness Budget (CHF)
           type: integer
         review_checklist_file:
@@ -14074,6 +14053,7 @@ components:
         total_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Total Budget (CHF)
           type: integer
         updated_checklist_file_details:
@@ -14086,15 +14066,9 @@ components:
           minimum: -2147483648
           type: integer
       required:
-      - budget_file
       - budget_file_details
       - created_at
-      - early_action_budget
       - id
-      - modified_at
-      - pre_positioning_budget
-      - readiness_budget
-      - total_budget
       - updated_checklist_file_details
       type: object
     MiniHealthData:
@@ -14327,6 +14301,7 @@ components:
     MiniSimplifiedEAP:
       properties:
         budget_file:
+          nullable: true
           type: integer
         budget_file_details:
           allOf:
@@ -14339,6 +14314,7 @@ components:
         early_action_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Early Actions Budget (CHF)
           type: integer
         id:
@@ -14350,16 +14326,17 @@ components:
           type: boolean
         modified_at:
           format: date-time
-          readOnly: true
           type: string
         pre_positioning_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
         readiness_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Readiness Budget (CHF)
           type: integer
         review_checklist_file:
@@ -14375,6 +14352,7 @@ components:
         total_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Total Budget (CHF)
           type: integer
         updated_checklist_file_details:
@@ -14387,16 +14365,10 @@ components:
           minimum: -2147483648
           type: integer
       required:
-      - budget_file
       - budget_file_details
       - created_at
-      - early_action_budget
       - id
-      - modified_at
-      - pre_positioning_budget
-      - readiness_budget
       - seap_timeframe
-      - total_budget
       - updated_checklist_file_details
       type: object
     MiniSubscription:
@@ -15708,29 +15680,6 @@ components:
         results:
           items:
             $ref: '#/components/schemas/EAPRegistration'
-          type: array
-      required:
-      - count
-      - results
-      type: object
-    PaginatedEAPShareUserList:
-      properties:
-        count:
-          example: 123
-          type: integer
-        next:
-          example: http://api.example.org/accounts/?offset=400&limit=100
-          format: uri
-          nullable: true
-          type: string
-        previous:
-          example: http://api.example.org/accounts/?offset=200&limit=100
-          format: uri
-          nullable: true
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/EAPShareUser'
           type: array
       required:
       - count
@@ -19867,10 +19816,6 @@ components:
           format: date-time
           nullable: true
           type: string
-        users:
-          items:
-            type: integer
-          type: array
         validated_budget_file:
           description: Upload the validated budget file once the EAP is technically
             validated.
@@ -21028,9 +20973,11 @@ components:
         advance_financial_capacity:
           description: Indicate whether the NS has capacity to advance funds to start
             early actions.
+          nullable: true
           title: National Society Financial capacity to advance funds
           type: string
         budget_description:
+          nullable: true
           title: Full EAP Budget Description
           type: string
         budget_file:
@@ -21065,6 +21012,7 @@ components:
           - $ref: '#/components/schemas/UserName'
           readOnly: true
         definition_and_justification_impact_level:
+          nullable: true
           title: Definition and Justification of Impact Level
           type: string
         definition_and_justification_impact_level_images:
@@ -21095,6 +21043,7 @@ components:
           type: string
         eap_endorsement:
           description: Describe by whom,how and when the EAP was agreed and endorsed.
+          nullable: true
           title: EAP Endorsement Description
           type: string
         eap_registration:
@@ -21103,9 +21052,11 @@ components:
         early_action_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Early Actions Budget (CHF)
           type: integer
         early_action_cost_description:
+          nullable: true
           type: string
         early_action_implementation_images:
           items:
@@ -21114,8 +21065,10 @@ components:
           type: array
         early_action_implementation_process:
           description: Describe the process for implementing early actions.
+          nullable: true
           type: string
         early_action_selection_process:
+          nullable: true
           type: string
         early_action_selection_process_images:
           items:
@@ -21133,6 +21086,7 @@ components:
         evidence_base:
           description: Explain how the selected actions will reduce the expected disaster
             impacts.
+          nullable: true
           type: string
         evidence_base_relevant_files:
           items:
@@ -21163,6 +21117,7 @@ components:
         exposed_element_and_vulnerability_factor:
           description: Explain which people are most likely to experience the impacts
             of this hazard.
+          nullable: true
           title: Exposed elements and vulnerability factors
           type: string
         exposed_element_and_vulnerability_factor_images:
@@ -21173,11 +21128,13 @@ components:
         feasibility:
           description: Explain how feasible it is to implement the proposed early
             actions in the planned timeframe.
+          nullable: true
           title: Feasibility of selected actions
           type: string
         forecast_selection:
           description: Explain which forecast's and observations will be used and
             why they are chosen
+          nullable: true
           type: string
         forecast_selection_images:
           items:
@@ -21193,6 +21150,7 @@ components:
         hazard_selection:
           description: Provide a brief rationale for selecting this hazard for the
             FbF system.
+          nullable: true
           type: string
         hazard_selection_images:
           items:
@@ -21203,6 +21161,7 @@ components:
           readOnly: true
           type: integer
         identification_of_the_intervention_area:
+          nullable: true
           title: Identification of Intervention Area
           type: string
         identification_of_the_intervention_area_images:
@@ -21212,9 +21171,11 @@ components:
           type: array
         ifrc_delegation_focal_point_email:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_delegation_focal_point_name:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_delegation_focal_point_phone_number:
           maxLength: 100
@@ -21242,9 +21203,11 @@ components:
           type: string
         ifrc_head_of_delegation_email:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_head_of_delegation_name:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_head_of_delegation_phone_number:
           maxLength: 100
@@ -21324,8 +21287,10 @@ components:
         lead_time:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           type: integer
         meal:
+          nullable: true
           title: MEAL Plan Description
           type: string
         meal_relevant_files:
@@ -21341,7 +21306,6 @@ components:
           type: array
         modified_at:
           format: date-time
-          readOnly: true
           type: string
         modified_by:
           type: integer
@@ -21371,6 +21335,7 @@ components:
         operational_administrative_capacity:
           description: Describe how the NS has operative and administrative capacity
             to implement the EAPs.
+          nullable: true
           title: National Society Operational, thematic and administrative capacity
           type: string
         parent:
@@ -21394,13 +21359,16 @@ components:
         pre_positioning_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
         prepositioning_cost_description:
+          nullable: true
           type: string
         prioritized_impact:
           description: Describe the impacts that have been prioritized and who is
             most likely to be affected.
+          nullable: true
           type: string
         prioritized_impact_images:
           items:
@@ -21414,9 +21382,11 @@ components:
         readiness_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Readiness Budget (CHF)
           type: integer
         readiness_cost_description:
+          nullable: true
           type: string
         review_checklist_file:
           format: uri
@@ -21439,14 +21409,17 @@ components:
         selection_of_target_population:
           description: Describe the process used to select the target population for
             early actions.
+          nullable: true
           type: string
         stop_mechanism:
           description: Explain how it would be communicated to communities and stakeholders
             that the activities are being stopped.
+          nullable: true
           type: string
         strategies_and_plans:
           description: Describe how the EAP aligned with disaster risk management
             strategy of NS.
+          nullable: true
           title: National Society Strategies and plans
           type: string
         technical_working_groups_in_place_description:
@@ -21468,10 +21441,12 @@ components:
         total_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Total Budget (CHF)
           type: integer
         trigger_activation_system:
           description: Describe the automatic system used to monitor the forecasts.
+          nullable: true
           type: string
         trigger_activation_system_images:
           items:
@@ -21497,6 +21472,7 @@ components:
         trigger_statement:
           description: Explain in one sentence what exactly the trigger of your EAP
             will be.
+          nullable: true
           type: string
         trigger_statement_source_of_information:
           items:
@@ -21514,6 +21490,7 @@ components:
         usefulness_of_actions:
           description: Describe how actions will still benefit the population if the
             expected event does not occur.
+          nullable: true
           title: Usefulness of actions in case the event does not occur
           type: string
         version:
@@ -22469,6 +22446,7 @@ components:
           readOnly: true
           type: array
         assisted_through_operation:
+          nullable: true
           title: Assisted through the operation
           type: string
         budget_file:
@@ -22518,11 +22496,13 @@ components:
         early_action_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Early Actions Budget (CHF)
           type: integer
         early_action_capability:
           description: Assumptions or minimum conditions needed to deliver the early
             actions.
+          nullable: true
           title: Experience or Capacity to implement Early Action.
           type: string
         enabling_approaches:
@@ -22543,9 +22523,11 @@ components:
           type: integer
         ifrc_delegation_focal_point_email:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_delegation_focal_point_name:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_delegation_focal_point_phone_number:
           maxLength: 100
@@ -22573,9 +22555,11 @@ components:
           type: string
         ifrc_head_of_delegation_email:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_head_of_delegation_name:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_head_of_delegation_phone_number:
           maxLength: 100
@@ -22644,7 +22628,6 @@ components:
           type: boolean
         modified_at:
           format: date-time
-          readOnly: true
           type: string
         modified_by:
           type: integer
@@ -22667,11 +22650,13 @@ components:
           nullable: true
           type: string
         next_step_towards_full_eap:
+          nullable: true
           title: Next Steps towards Full EAP
           type: string
         operational_timeframe:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Operational Time
           type: integer
         operational_timeframe_unit:
@@ -22679,12 +22664,14 @@ components:
           - $ref: '#/components/schemas/EapTimeframeEnumKey'
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
         operational_timeframe_unit_display:
           readOnly: true
           type: string
         overall_objective_intervention:
           description: Provide an objective statement that describe the main of the
             intervention.
+          nullable: true
           title: Overall objective of the intervention
           type: string
         parent:
@@ -22706,22 +22693,27 @@ components:
             $ref: '#/components/schemas/PlannedOperation'
           type: array
         potential_geographical_high_risk_areas:
+          nullable: true
           type: string
         pre_positioning_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
         prioritized_hazard_and_impact:
+          nullable: true
           title: Prioritized Hazard and its  historical impact.
           type: string
         rcrc_movement_involvement:
           description: RCRC Movement partners, Governmental/other agencies consulted/involved.
+          nullable: true
           title: RCRC Movement Involvement.
           type: string
         readiness_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Readiness Budget (CHF)
           type: integer
         review_checklist_file:
@@ -22734,17 +22726,20 @@ components:
           nullable: true
           type: array
         risks_selected_protocols:
+          nullable: true
           title: Risk selected for the protocols.
           type: string
         seap_lead_time:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           type: integer
         seap_lead_timeframe_unit:
           allOf:
           - $ref: '#/components/schemas/EapTimeframeEnumKey'
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
         seap_lead_timeframe_unit_display:
           readOnly: true
           type: string
@@ -22755,6 +22750,7 @@ components:
           title: Timeframe (Years) of the EAP
           type: integer
         selected_early_actions:
+          nullable: true
           type: string
         selected_early_actions_images:
           items:
@@ -22769,6 +22765,7 @@ components:
         total_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Total Budget (CHF)
           type: integer
         trigger_statement:
@@ -22776,6 +22773,7 @@ components:
           type: string
         trigger_threshold_justification:
           description: Explain how the trigger were set and provide information
+          nullable: true
           type: string
         updated_checklist_file:
           nullable: true
@@ -26069,6 +26067,7 @@ components:
           readOnly: true
           type: array
         assisted_through_operation:
+          nullable: true
           title: Assisted through the operation
           type: string
         budget_file:
@@ -26118,11 +26117,13 @@ components:
         early_action_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Early Actions Budget (CHF)
           type: integer
         early_action_capability:
           description: Assumptions or minimum conditions needed to deliver the early
             actions.
+          nullable: true
           title: Experience or Capacity to implement Early Action.
           type: string
         enabling_approaches:
@@ -26143,9 +26144,11 @@ components:
           type: integer
         ifrc_delegation_focal_point_email:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_delegation_focal_point_name:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_delegation_focal_point_phone_number:
           maxLength: 100
@@ -26173,9 +26176,11 @@ components:
           type: string
         ifrc_head_of_delegation_email:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_head_of_delegation_name:
           maxLength: 255
+          nullable: true
           type: string
         ifrc_head_of_delegation_phone_number:
           maxLength: 100
@@ -26244,7 +26249,6 @@ components:
           type: boolean
         modified_at:
           format: date-time
-          readOnly: true
           type: string
         modified_by:
           type: integer
@@ -26267,11 +26271,13 @@ components:
           nullable: true
           type: string
         next_step_towards_full_eap:
+          nullable: true
           title: Next Steps towards Full EAP
           type: string
         operational_timeframe:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Operational Time
           type: integer
         operational_timeframe_unit:
@@ -26279,12 +26285,14 @@ components:
           - $ref: '#/components/schemas/EapTimeframeEnumKey'
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
         operational_timeframe_unit_display:
           readOnly: true
           type: string
         overall_objective_intervention:
           description: Provide an objective statement that describe the main of the
             intervention.
+          nullable: true
           title: Overall objective of the intervention
           type: string
         parent:
@@ -26306,22 +26314,27 @@ components:
             $ref: '#/components/schemas/PlannedOperation'
           type: array
         potential_geographical_high_risk_areas:
+          nullable: true
           type: string
         pre_positioning_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
         prioritized_hazard_and_impact:
+          nullable: true
           title: Prioritized Hazard and its  historical impact.
           type: string
         rcrc_movement_involvement:
           description: RCRC Movement partners, Governmental/other agencies consulted/involved.
+          nullable: true
           title: RCRC Movement Involvement.
           type: string
         readiness_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Readiness Budget (CHF)
           type: integer
         review_checklist_file:
@@ -26334,17 +26347,20 @@ components:
           nullable: true
           type: array
         risks_selected_protocols:
+          nullable: true
           title: Risk selected for the protocols.
           type: string
         seap_lead_time:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           type: integer
         seap_lead_timeframe_unit:
           allOf:
           - $ref: '#/components/schemas/EapTimeframeEnumKey'
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
         seap_lead_timeframe_unit_display:
           readOnly: true
           type: string
@@ -26355,6 +26371,7 @@ components:
           title: Timeframe (Years) of the EAP
           type: integer
         selected_early_actions:
+          nullable: true
           type: string
         selected_early_actions_images:
           items:
@@ -26369,6 +26386,7 @@ components:
         total_budget:
           maximum: 2147483647
           minimum: -2147483648
+          nullable: true
           title: Total Budget (CHF)
           type: integer
         trigger_statement:
@@ -26376,6 +26394,7 @@ components:
           type: string
         trigger_threshold_justification:
           description: Explain how the trigger were set and provide information
+          nullable: true
           type: string
         updated_checklist_file:
           nullable: true
@@ -26392,44 +26411,19 @@ components:
           type: integer
       required:
       - admin2_details
-      - assisted_through_operation
-      - budget_file
       - budget_file_details
       - created_at
       - created_by_details
       - eap_registration
-      - early_action_budget
-      - early_action_capability
-      - enabling_approaches
       - id
-      - ifrc_delegation_focal_point_email
-      - ifrc_delegation_focal_point_name
-      - ifrc_head_of_delegation_email
-      - ifrc_head_of_delegation_name
       - is_locked
-      - modified_at
       - modified_by_details
       - national_society_contact_email
       - national_society_contact_name
-      - next_step_towards_full_eap
-      - operational_timeframe
       - operational_timeframe_unit_display
-      - overall_objective_intervention
       - people_targeted
-      - planned_operations
-      - potential_geographical_high_risk_areas
-      - pre_positioning_budget
-      - prioritized_hazard_and_impact
-      - rcrc_movement_involvement
-      - readiness_budget
-      - risks_selected_protocols
-      - seap_lead_time
-      - seap_lead_timeframe_unit
       - seap_lead_timeframe_unit_display
       - seap_timeframe
-      - selected_early_actions
-      - total_budget
-      - trigger_threshold_justification
       - updated_checklist_file_details
       - version
       type: object
@@ -33419,45 +33413,6 @@ paths:
       - cookieAuth: []
       tags:
       - api
-  /api/v2/eap-registration/{id}/share/:
-    post:
-      operationId: api_v2_eap_registration_share_create
-      parameters:
-      - description: A unique integer value identifying this Development Registration
-          EAP.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EAPShareUser'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/EAPShareUser'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/EAPShareUser'
-        required: true
-      responses:
-        '200':
-          description: No response body
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
   /api/v2/eap-registration/{id}/status/:
     post:
       operationId: api_v2_eap_registration_status_create
@@ -33542,95 +33497,6 @@ paths:
             text/csv:
               schema:
                 $ref: '#/components/schemas/EAPValidatedBudgetFile'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-  /api/v2/eap-share-users/:
-    get:
-      operationId: api_v2_eap_share_users_list
-      parameters:
-      - in: query
-        name: id
-        schema:
-          type: integer
-      - description: A search term.
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Which field to use when ordering the results.
-        in: query
-        name: ordering
-        required: false
-        schema:
-          type: string
-      - description: Number of results to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-      - description: The initial index from which to return the results.
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedEAPShareUserList'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/PaginatedEAPShareUserList'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-  /api/v2/eap-share-users/{id}/:
-    get:
-      operationId: api_v2_eap_share_users_retrieve
-      parameters:
-      - description: A unique integer value identifying this Development Registration
-          EAP.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EAPShareUser'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/EAPShareUser'
           description: ''
       security:
       - tokenAuth: []
