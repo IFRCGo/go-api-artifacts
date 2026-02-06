@@ -157,9 +157,6 @@ components:
         district_id:
           readOnly: true
           type: integer
-        district_name:
-          readOnly: true
-          type: string
         id:
           readOnly: true
           type: integer
@@ -174,7 +171,6 @@ components:
       - centroid
       - code
       - district_id
-      - district_name
       - id
       - name
       type: object
@@ -323,6 +319,86 @@ components:
       - id
       - ifrc_severity_level_display
       - translation_module_original_language
+      type: object
+    AlertSubscriptionSerialize:
+      description: Custom ModelSerializer with translaion logic (Also works for normal
+        models)
+      properties:
+        alert_per_day:
+          allOf:
+          - $ref: '#/components/schemas/NotificationsAlertPerDayEnumKey'
+          description: |-
+            Maximum number of alerts sent to the user per day. Leave empty to allow unlimited alerts.
+
+            * `5` - Five
+            * `10` - Ten
+            * `20` - Twenty
+            * `50` - Fifty
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Alerts Per Day
+        alert_per_day_display:
+          readOnly: true
+          type: string
+        countries:
+          items:
+            type: integer
+          type: array
+        countries_detail:
+          items:
+            $ref: '#/components/schemas/MiniCountry'
+          readOnly: true
+          type: array
+        created_at:
+          format: date-time
+          readOnly: true
+          type: string
+        hazard_types:
+          description: Types of hazards the user is subscribed to.
+          items:
+            title: Hazard Types
+            type: integer
+          type: array
+        hazard_types_detail:
+          items:
+            $ref: '#/components/schemas/DisasterType'
+          readOnly: true
+          type: array
+        id:
+          readOnly: true
+          type: integer
+        regions:
+          items:
+            type: integer
+          type: array
+        regions_detail:
+          items:
+            $ref: '#/components/schemas/MiniRegionSerialzier'
+          readOnly: true
+          type: array
+        updated_at:
+          format: date-time
+          readOnly: true
+          type: string
+        user:
+          type: integer
+        user_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserName'
+          readOnly: true
+      required:
+      - alert_per_day_display
+      - countries
+      - countries_detail
+      - created_at
+      - hazard_types
+      - hazard_types_detail
+      - id
+      - regions_detail
+      - updated_at
+      - user
+      - user_detail
       type: object
     AnnualSplit:
       description: Custom ModelSerializer with translaion logic (Also works for normal
@@ -6504,455 +6580,6 @@ components:
       - id
       - users_details
       type: object
-    EAPAction:
-      properties:
-        action:
-          maxLength: 255
-          title: Early Action
-          type: string
-        id:
-          type: integer
-        previous_id:
-          readOnly: true
-          type: integer
-      required:
-      - action
-      - previous_id
-      type: object
-    EAPContact:
-      properties:
-        email:
-          format: email
-          maxLength: 255
-          title: Contact Email
-          type: string
-        id:
-          type: integer
-        name:
-          maxLength: 255
-          title: Contact Name
-          type: string
-        phone_number:
-          maxLength: 100
-          nullable: true
-          title: Contact Phone Number
-          type: string
-        previous_id:
-          readOnly: true
-          type: integer
-        title:
-          maxLength: 255
-          nullable: true
-          title: Contact Title
-          type: string
-      required:
-      - email
-      - name
-      - previous_id
-      type: object
-    EAPFile:
-      properties:
-        caption:
-          maxLength: 225
-          nullable: true
-          type: string
-        created_at:
-          format: date-time
-          readOnly: true
-          type: string
-        created_by:
-          type: integer
-        created_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        file:
-          format: uri
-          type: string
-        id:
-          type: integer
-        modified_at:
-          format: date-time
-          readOnly: true
-          type: string
-        modified_by:
-          type: integer
-        modified_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-      required:
-      - created_at
-      - created_by_details
-      - file
-      - modified_at
-      - modified_by_details
-      type: object
-    EAPFileInput:
-      properties:
-        file:
-          items:
-            format: uri
-            type: string
-          type: array
-      required:
-      - file
-      type: object
-    EAPFileUpdate:
-      properties:
-        caption:
-          maxLength: 225
-          nullable: true
-          type: string
-        created_at:
-          format: date-time
-          readOnly: true
-          type: string
-        created_by:
-          type: integer
-        created_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        file:
-          format: uri
-          type: string
-        id:
-          type: integer
-        modified_at:
-          format: date-time
-          readOnly: true
-          type: string
-        modified_by:
-          type: integer
-        modified_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-      required:
-      - created_at
-      - created_by_details
-      - id
-      - modified_at
-      - modified_by_details
-      type: object
-    EAPGlobalFiles:
-      properties:
-        url:
-          format: uri
-          readOnly: true
-          type: string
-      required:
-      - url
-      type: object
-    EAPRegistration:
-      description: Mixin adds update nested feature
-      properties:
-        activated_at:
-          description: Timestamp when the EAP was activated.
-          format: date-time
-          nullable: true
-          type: string
-        approved_at:
-          description: Timestamp when the EAP was approved.
-          format: date-time
-          nullable: true
-          type: string
-        country:
-          description: The country will be pre-populated based on the NS selection,
-            but can be adapted as needed.
-          type: integer
-        country_details:
-          allOf:
-          - $ref: '#/components/schemas/MiniCountry'
-          readOnly: true
-        created_at:
-          format: date-time
-          readOnly: true
-          type: string
-        created_by:
-          type: integer
-        created_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        deadline:
-          description: Date by which the EAP submission must be completed.
-          format: date
-          nullable: true
-          readOnly: true
-          type: string
-        deadline_remainder_sent_at:
-          description: Timestamp when the deadline reminder email was sent.
-          format: date-time
-          nullable: true
-          title: Deadline reminder email sent at
-          type: string
-        disaster_type:
-          description: Select the disaster type for which the EAP is needed
-          type: integer
-        disaster_type_details:
-          allOf:
-          - $ref: '#/components/schemas/DisasterType'
-          readOnly: true
-        dref_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        dref_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        dref_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        dref_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        eap_type:
-          allOf:
-          - $ref: '#/components/schemas/EapEapTypeEnumKey'
-          description: |-
-            Select the type of EAP.
-
-            * `10` - Full EAP
-            * `20` - Simplified EAP
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-        eap_type_display:
-          readOnly: true
-          type: string
-        expected_submission_time:
-          description: Include the propose time of submission, accounting for the
-            time it will take to deliver the application.Leave blank if not sure.
-          format: date
-          nullable: true
-          type: string
-        full_eap_details:
-          items:
-            $ref: '#/components/schemas/MiniFullEAP'
-          readOnly: true
-          type: array
-        id:
-          readOnly: true
-          type: integer
-        ifrc_contact_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_contact_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_contact_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_contact_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        latest_full_eap:
-          nullable: true
-          readOnly: true
-          type: integer
-        latest_simplified_eap:
-          nullable: true
-          readOnly: true
-          type: integer
-        modified_at:
-          format: date-time
-          readOnly: true
-          type: string
-        modified_by:
-          type: integer
-        modified_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        national_society:
-          description: Select National Society that is planning to apply for the EAP
-          title: National Society (NS)
-          type: integer
-        national_society_contact_email:
-          maxLength: 255
-          type: string
-        national_society_contact_name:
-          maxLength: 255
-          type: string
-        national_society_contact_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        national_society_contact_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        national_society_details:
-          allOf:
-          - $ref: '#/components/schemas/MiniCountry'
-          readOnly: true
-        partners:
-          description: Select any partner NS involved in the EAP development.
-          items:
-            type: integer
-          type: array
-        partners_details:
-          items:
-            $ref: '#/components/schemas/MiniCountry'
-          readOnly: true
-          type: array
-        pending_pfa_at:
-          description: Timestamp when the EAP was marked as pending PFA.
-          format: date-time
-          nullable: true
-          type: string
-        simplified_eap_details:
-          items:
-            $ref: '#/components/schemas/MiniSimplifiedEAP'
-          readOnly: true
-          type: array
-        status:
-          allOf:
-          - $ref: '#/components/schemas/EapEapStatusEnumKey'
-          description: |-
-            Select the current status of the EAP development process.
-
-            * `10` - Under Development
-            * `20` - Under Review
-            * `30` - NS Addressing Comments
-            * `40` - Technically Validated
-            * `50` - Pending PFA
-            * `60` - Approved
-            * `70` - Activated
-          readOnly: true
-          title: EAP Status
-        status_display:
-          readOnly: true
-          type: string
-        summary_file:
-          format: uri
-          nullable: true
-          readOnly: true
-          title: EAP Summary PDF
-          type: string
-        technically_validated_at:
-          description: Timestamp when the EAP was technically validated.
-          format: date-time
-          nullable: true
-          type: string
-        validated_budget_file:
-          description: Upload the validated budget file once the EAP is technically
-            validated.
-          format: uri
-          nullable: true
-          readOnly: true
-          type: string
-      required:
-      - country
-      - country_details
-      - created_at
-      - created_by_details
-      - deadline
-      - disaster_type
-      - disaster_type_details
-      - eap_type_display
-      - full_eap_details
-      - id
-      - latest_full_eap
-      - latest_simplified_eap
-      - modified_at
-      - modified_by_details
-      - national_society
-      - national_society_contact_email
-      - national_society_contact_name
-      - national_society_details
-      - partners_details
-      - simplified_eap_details
-      - status
-      - status_display
-      - summary_file
-      - validated_budget_file
-      type: object
-    EAPSourceInformation:
-      properties:
-        id:
-          type: integer
-        previous_id:
-          readOnly: true
-          type: integer
-        source_link:
-          format: uri
-          maxLength: 255
-          type: string
-        source_name:
-          maxLength: 255
-          type: string
-      required:
-      - previous_id
-      - source_link
-      - source_name
-      type: object
-    EAPStatus:
-      properties:
-        created_by:
-          type: integer
-        created_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        id:
-          readOnly: true
-          type: integer
-        modified_by:
-          type: integer
-        modified_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        review_checklist_file:
-          format: uri
-          type: string
-        status:
-          allOf:
-          - $ref: '#/components/schemas/EapEapStatusEnumKey'
-          description: |-
-            Select the current status of the EAP development process.
-
-            * `10` - Under Development
-            * `20` - Under Review
-            * `30` - NS Addressing Comments
-            * `40` - Technically Validated
-            * `50` - Pending PFA
-            * `60` - Approved
-            * `70` - Activated
-          maximum: 2147483647
-          minimum: -2147483648
-          title: EAP Status
-        status_display:
-          readOnly: true
-          type: string
-      required:
-      - created_by_details
-      - id
-      - modified_by_details
-      - status_display
-      type: object
-    EAPValidatedBudgetFile:
-      properties:
-        id:
-          readOnly: true
-          type: integer
-        validated_budget_file:
-          format: uri
-          type: string
-      required:
-      - id
-      - validated_budget_file
-      type: object
     ERU:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
@@ -7254,300 +6881,6 @@ components:
       - id
       - type_display
       type: object
-    EapApproachEnum:
-      properties:
-        key:
-          $ref: '#/components/schemas/EapApproachEnumKey'
-        value:
-          type: string
-      required:
-      - key
-      - value
-      type: object
-    EapApproachEnumKey:
-      description: |-
-        * `10` - Secretariat Services
-        * `20` - National Society Strengthening
-        * `30` - Partnership And Coordination
-      enum:
-      - 10
-      - 20
-      - 30
-      type: integer
-    EapDaysTimeframeValueEnum:
-      properties:
-        key:
-          $ref: '#/components/schemas/EapDaysTimeframeValueEnumKey'
-        value:
-          type: string
-      required:
-      - key
-      - value
-      type: object
-    EapDaysTimeframeValueEnumKey:
-      description: |-
-        * `1` - 1
-        * `2` - 2
-        * `3` - 3
-        * `4` - 4
-        * `5` - 5
-        * `6` - 6
-        * `7` - 7
-        * `8` - 8
-        * `9` - 9
-        * `10` - 10
-        * `11` - 11
-        * `12` - 12
-        * `13` - 13
-        * `14` - 14
-        * `15` - 15
-        * `16` - 16
-        * `17` - 17
-        * `18` - 18
-        * `19` - 19
-        * `20` - 20
-        * `21` - 21
-        * `22` - 22
-        * `23` - 23
-        * `24` - 24
-        * `25` - 25
-        * `26` - 26
-        * `27` - 27
-        * `28` - 28
-        * `29` - 29
-        * `30` - 30
-        * `31` - 31
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 9
-      - 10
-      - 11
-      - 12
-      - 13
-      - 14
-      - 15
-      - 16
-      - 17
-      - 18
-      - 19
-      - 20
-      - 21
-      - 22
-      - 23
-      - 24
-      - 25
-      - 26
-      - 27
-      - 28
-      - 29
-      - 30
-      - 31
-      type: integer
-    EapEapStatusEnum:
-      properties:
-        key:
-          $ref: '#/components/schemas/EapEapStatusEnumKey'
-        value:
-          type: string
-      required:
-      - key
-      - value
-      type: object
-    EapEapStatusEnumKey:
-      description: |-
-        * `10` - Under Development
-        * `20` - Under Review
-        * `30` - NS Addressing Comments
-        * `40` - Technically Validated
-        * `50` - Pending PFA
-        * `60` - Approved
-        * `70` - Activated
-      enum:
-      - 10
-      - 20
-      - 30
-      - 40
-      - 50
-      - 60
-      - 70
-      type: integer
-    EapEapTypeEnum:
-      properties:
-        key:
-          $ref: '#/components/schemas/EapEapTypeEnumKey'
-        value:
-          type: string
-      required:
-      - key
-      - value
-      type: object
-    EapEapTypeEnumKey:
-      description: |-
-        * `10` - Full EAP
-        * `20` - Simplified EAP
-      enum:
-      - 10
-      - 20
-      type: integer
-    EapHoursTimeframeValueEnum:
-      properties:
-        key:
-          $ref: '#/components/schemas/EapHoursTimeframeValueEnumKey'
-        value:
-          type: string
-      required:
-      - key
-      - value
-      type: object
-    EapHoursTimeframeValueEnumKey:
-      description: |-
-        * `5` - 0-5
-        * `10` - 5-10
-        * `15` - 10-15
-        * `20` - 15-20
-        * `25` - 20-25
-        * `30` - 25-30
-      enum:
-      - 5
-      - 10
-      - 15
-      - 20
-      - 25
-      - 30
-      type: integer
-    EapMonthsTimeframeValueEnum:
-      properties:
-        key:
-          $ref: '#/components/schemas/EapMonthsTimeframeValueEnumKey'
-        value:
-          type: string
-      required:
-      - key
-      - value
-      type: object
-    EapMonthsTimeframeValueEnumKey:
-      description: |-
-        * `1` - 1
-        * `2` - 2
-        * `3` - 3
-        * `4` - 4
-        * `5` - 5
-        * `6` - 6
-        * `7` - 7
-        * `8` - 8
-        * `9` - 9
-        * `10` - 10
-        * `11` - 11
-        * `12` - 12
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 9
-      - 10
-      - 11
-      - 12
-      type: integer
-    EapSectorEnum:
-      properties:
-        key:
-          $ref: '#/components/schemas/EapSectorEnumKey'
-        value:
-          type: string
-      required:
-      - key
-      - value
-      type: object
-    EapSectorEnumKey:
-      description: |-
-        * `101` - Shelter
-        * `102` - Settlement and Housing
-        * `103` - Livelihoods
-        * `104` - Protection, Gender and Inclusion
-        * `105` - Health and Care
-        * `106` - Risk Reduction
-        * `107` - Climate Adaptation and Recovery
-        * `108` - Multipurpose Cash
-        * `109` - Water, Sanitation And Hygiene
-        * `110` - WASH
-        * `111` - Education
-        * `112` - Migration
-        * `113` - Environment Sustainability
-        * `114` - Community Engagement And Accountability
-      enum:
-      - 101
-      - 102
-      - 103
-      - 104
-      - 105
-      - 106
-      - 107
-      - 108
-      - 109
-      - 110
-      - 111
-      - 112
-      - 113
-      - 114
-      type: integer
-    EapTimeframeEnum:
-      properties:
-        key:
-          $ref: '#/components/schemas/EapTimeframeEnumKey'
-        value:
-          type: string
-      required:
-      - key
-      - value
-      type: object
-    EapTimeframeEnumKey:
-      description: |-
-        * `10` - Years
-        * `20` - Months
-        * `30` - Days
-        * `40` - Hours
-      enum:
-      - 10
-      - 20
-      - 30
-      - 40
-      type: integer
-    EapYearsTimeframeValueEnum:
-      properties:
-        key:
-          $ref: '#/components/schemas/EapYearsTimeframeValueEnumKey'
-        value:
-          type: string
-      required:
-      - key
-      - value
-      type: object
-    EapYearsTimeframeValueEnumKey:
-      description: |-
-        * `1` - 1
-        * `2` - 2
-        * `3` - 3
-        * `4` - 4
-        * `5` - 5
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      type: integer
     EmergencyProject:
       description: Mixin adds update nested feature
       properties:
@@ -8140,58 +7473,6 @@ components:
       - actions
       - sectors
       type: object
-    EnablingApproach:
-      description: Mixin adds update nested feature
-      properties:
-        ap_code:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
-        approach:
-          allOf:
-          - $ref: '#/components/schemas/EapApproachEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-        approach_display:
-          readOnly: true
-          type: string
-        budget_per_approach:
-          maximum: 2147483647
-          minimum: -2147483648
-          title: Budget per approach (CHF)
-          type: integer
-        early_action_activities:
-          items:
-            $ref: '#/components/schemas/OperationActivity'
-          type: array
-        id:
-          type: integer
-        indicators:
-          items:
-            $ref: '#/components/schemas/Indicator'
-          type: array
-        prepositioning_activities:
-          items:
-            $ref: '#/components/schemas/OperationActivity'
-          type: array
-        previous_id:
-          readOnly: true
-          type: integer
-        readiness_activities:
-          items:
-            $ref: '#/components/schemas/OperationActivity'
-          type: array
-      required:
-      - approach
-      - approach_display
-      - budget_per_approach
-      - early_action_activities
-      - indicators
-      - prepositioning_activities
-      - previous_id
-      - readiness_activities
-      type: object
     EventContact:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
@@ -8316,11 +7597,6 @@ components:
           nullable: true
           readOnly: true
           type: string
-        diff:
-          default: false
-          description: Only applicable for EAP exports
-          type: boolean
-          writeOnly: true
         export_id:
           maximum: 2147483647
           minimum: -2147483648
@@ -8362,11 +7638,6 @@ components:
         status_display:
           readOnly: true
           type: string
-        summary:
-          default: false
-          description: Only applicable for FUll EAP
-          type: boolean
-          writeOnly: true
         token:
           format: uuid
           readOnly: true
@@ -8376,10 +7647,6 @@ components:
           nullable: true
           readOnly: true
           type: string
-        version:
-          description: Only applicable for EAP exports
-          type: integer
-          writeOnly: true
       required:
       - completed_at
       - export_id
@@ -8421,16 +7688,12 @@ components:
         * `dref-final-reports` - DREF Final Report
         * `old-dref-final-reports` - Old DREF Final Report
         * `per` - Per
-        * `simplified` - Simplified EAP
-        * `full` - Full EAP
       enum:
       - dref-applications
       - dref-operational-updates
       - dref-final-reports
       - old-dref-final-reports
       - per
-      - simplified
-      - full
       type: string
     ExternalPartner:
       description: Custom ModelSerializer with translaion logic (Also works for normal
@@ -10076,596 +9339,6 @@ components:
       - id
       - title
       type: object
-    FullEAP:
-      description: Mixin adds update nested feature
-      properties:
-        activation_process_relevant_files:
-          items:
-            title: Activation Relevant Files
-            type: integer
-          title: Activation Relevant Files
-          type: array
-        activation_process_relevant_files_details:
-          items:
-            $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-          type: array
-        activation_process_source_of_information:
-          items:
-            $ref: '#/components/schemas/EAPSourceInformation'
-          nullable: true
-          type: array
-        admin2:
-          items:
-            title: Admin
-            type: integer
-          title: Admin
-          type: array
-        admin2_details:
-          items:
-            $ref: '#/components/schemas/Admin2'
-          readOnly: true
-          type: array
-        advance_financial_capacity:
-          description: Indicate whether the NS has capacity to advance funds to start
-            early actions.
-          nullable: true
-          title: National Society Financial capacity to advance funds
-          type: string
-        budget_description:
-          nullable: true
-          title: Full EAP Budget Description
-          type: string
-        budget_file:
-          type: integer
-        budget_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        capacity_relevant_files:
-          items:
-            title: National society capacity relevant files
-            type: integer
-          title: National society capacity relevant files
-          type: array
-        capacity_relevant_files_details:
-          items:
-            $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-          type: array
-        cover_image_file:
-          allOf:
-          - $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-        created_at:
-          format: date-time
-          readOnly: true
-          type: string
-        created_by:
-          type: integer
-        created_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        definition_and_justification_impact_level:
-          nullable: true
-          title: Definition and Justification of Impact Level
-          type: string
-        definition_and_justification_impact_level_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        diff_file:
-          format: uri
-          nullable: true
-          title: EAP Diff PDF file
-          type: string
-        dref_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        dref_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        dref_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        dref_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        eap_endorsement:
-          description: Describe by whom,how and when the EAP was agreed and endorsed.
-          nullable: true
-          title: EAP Endorsement Description
-          type: string
-        eap_registration:
-          title: EAP Development Registration
-          type: integer
-        early_action_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Early Actions Budget (CHF)
-          type: integer
-        early_action_cost_description:
-          nullable: true
-          type: string
-        early_action_implementation_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        early_action_implementation_process:
-          description: Describe the process for implementing early actions.
-          nullable: true
-          type: string
-        early_action_selection_process:
-          nullable: true
-          type: string
-        early_action_selection_process_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        early_actions:
-          items:
-            $ref: '#/components/schemas/EAPAction'
-          type: array
-        enabling_approaches:
-          items:
-            $ref: '#/components/schemas/EnablingApproach'
-          type: array
-        evidence_base:
-          description: Explain how the selected actions will reduce the expected disaster
-            impacts.
-          nullable: true
-          type: string
-        evidence_base_relevant_files:
-          items:
-            title: Evidence base files
-            type: integer
-          title: Evidence base files
-          type: array
-        evidence_base_relevant_files_details:
-          items:
-            $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-          type: array
-        evidence_base_source_of_information:
-          items:
-            $ref: '#/components/schemas/EAPSourceInformation'
-          nullable: true
-          type: array
-        expected_submission_time:
-          description: Include the propose time of submission, accounting for the
-            time it will take to deliver the application.
-          format: date
-          type: string
-        export_file:
-          format: uri
-          nullable: true
-          title: EAP Export File
-          type: string
-        exposed_element_and_vulnerability_factor:
-          description: Explain which people are most likely to experience the impacts
-            of this hazard.
-          nullable: true
-          title: Exposed elements and vulnerability factors
-          type: string
-        exposed_element_and_vulnerability_factor_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        feasibility:
-          description: Explain how feasible it is to implement the proposed early
-            actions in the planned timeframe.
-          nullable: true
-          title: Feasibility of selected actions
-          type: string
-        forecast_selection:
-          description: Explain which forecast's and observations will be used and
-            why they are chosen
-          nullable: true
-          type: string
-        forecast_selection_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        forecast_table_file:
-          type: integer
-        forecast_table_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        hazard_selection:
-          description: Provide a brief rationale for selecting this hazard for the
-            FbF system.
-          nullable: true
-          type: string
-        hazard_selection_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        id:
-          readOnly: true
-          type: integer
-        identification_of_the_intervention_area:
-          nullable: true
-          title: Identification of Intervention Area
-          type: string
-        identification_of_the_intervention_area_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        ifrc_delegation_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_head_dcc_email:
-          maxLength: 255
-          nullable: true
-          title: IFRC regional head of DCC email
-          type: string
-        ifrc_regional_head_dcc_name:
-          maxLength: 255
-          nullable: true
-          title: IFRC regional head of DCC name
-          type: string
-        ifrc_regional_head_dcc_phone_number:
-          maxLength: 100
-          nullable: true
-          title: IFRC regional head of DCC phone number
-          type: string
-        ifrc_regional_head_dcc_title:
-          maxLength: 255
-          nullable: true
-          title: IFRC regional head of DCC title
-          type: string
-        ifrc_regional_ops_manager_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_ops_manager_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_ops_manager_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_regional_ops_manager_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        is_locked:
-          description: Indicates whether the Full EAP is locked for editing.
-          title: Is Locked?
-          type: boolean
-        is_technical_working_groups:
-          nullable: true
-          title: Are technical working groups in place
-          type: boolean
-        is_worked_with_government:
-          title: Has Worked with government or other relevant actors.
-          type: boolean
-        key_actors:
-          items:
-            $ref: '#/components/schemas/KeyActor'
-          type: array
-        lead_time:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
-        meal:
-          nullable: true
-          title: MEAL Plan Description
-          type: string
-        meal_relevant_files:
-          items:
-            title: Meal files
-            type: integer
-          title: Meal files
-          type: array
-        meal_relevant_files_details:
-          items:
-            $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-          type: array
-        modified_at:
-          format: date-time
-          type: string
-        modified_by:
-          type: integer
-        modified_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        national_society_contact_email:
-          maxLength: 255
-          type: string
-        national_society_contact_name:
-          maxLength: 255
-          type: string
-        national_society_contact_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        national_society_contact_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        objective:
-          description: Provide an objective statement that describe the main goal
-            of intervention.
-          title: Overall Objective of the EAP.
-          type: string
-        operational_administrative_capacity:
-          description: Describe how the NS has operative and administrative capacity
-            to implement the EAPs.
-          nullable: true
-          title: National Society Operational, thematic and administrative capacity
-          type: string
-        parent:
-          description: Reference to the parent Full EAP if this is a snapshot.
-          nullable: true
-          title: Parent FUll EAP
-          type: integer
-        partner_contacts:
-          items:
-            $ref: '#/components/schemas/EAPContact'
-          type: array
-        people_targeted:
-          maximum: 2147483647
-          minimum: -2147483648
-          title: People Targeted.
-          type: integer
-        planned_operations:
-          items:
-            $ref: '#/components/schemas/PlannedOperation'
-          type: array
-        pre_positioning_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Pre-positioning Budget (CHF)
-          type: integer
-        prepositioning_cost_description:
-          nullable: true
-          type: string
-        prioritized_impact:
-          description: Describe the impacts that have been prioritized and who is
-            most likely to be affected.
-          nullable: true
-          type: string
-        prioritized_impact_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        prioritized_impacts:
-          items:
-            $ref: '#/components/schemas/Impact'
-          type: array
-        readiness_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Readiness Budget (CHF)
-          type: integer
-        readiness_cost_description:
-          nullable: true
-          type: string
-        review_checklist_file:
-          format: uri
-          nullable: true
-          type: string
-        risk_analysis_relevant_files:
-          items:
-            type: integer
-          type: array
-        risk_analysis_relevant_files_details:
-          items:
-            $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-          type: array
-        risk_analysis_source_of_information:
-          items:
-            $ref: '#/components/schemas/EAPSourceInformation'
-          nullable: true
-          type: array
-        selection_of_target_population:
-          description: Describe the process used to select the target population for
-            early actions.
-          nullable: true
-          type: string
-        stop_mechanism:
-          description: Explain how it would be communicated to communities and stakeholders
-            that the activities are being stopped.
-          nullable: true
-          type: string
-        strategies_and_plans:
-          description: Describe how the EAP aligned with disaster risk management
-            strategy of NS.
-          nullable: true
-          title: National Society Strategies and plans
-          type: string
-        technical_working_groups_in_place_description:
-          nullable: true
-          title: Technical working groups description
-          type: string
-        technically_working_group_title:
-          maxLength: 255
-          nullable: true
-          title: Technical working group title
-          type: string
-        theory_of_change_table_file:
-          nullable: true
-          type: integer
-        theory_of_change_table_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        total_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Total Budget (CHF)
-          type: integer
-        trigger_activation_system:
-          description: Describe the automatic system used to monitor the forecasts.
-          nullable: true
-          type: string
-        trigger_activation_system_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        trigger_model_relevant_files:
-          items:
-            title: Trigger Model Relevant File
-            type: integer
-          title: Trigger Model Relevant File
-          type: array
-        trigger_model_relevant_files_details:
-          items:
-            $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-          type: array
-        trigger_model_source_of_information:
-          items:
-            $ref: '#/components/schemas/EAPSourceInformation'
-          nullable: true
-          type: array
-        trigger_statement:
-          description: Explain in one sentence what exactly the trigger of your EAP
-            will be.
-          nullable: true
-          type: string
-        trigger_statement_source_of_information:
-          items:
-            $ref: '#/components/schemas/EAPSourceInformation'
-          nullable: true
-          type: array
-        updated_checklist_file:
-          nullable: true
-          title: Updated Review Checklist File
-          type: integer
-        updated_checklist_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        usefulness_of_actions:
-          description: Describe how actions will still benefit the population if the
-            expected event does not occur.
-          nullable: true
-          title: Usefulness of actions in case the event does not occur
-          type: string
-        version:
-          default: 1
-          description: Version identifier for the Full EAP.
-          maximum: 2147483647
-          minimum: -2147483648
-          type: integer
-        worked_with_government_description:
-          nullable: true
-          title: Government and actors engagement description
-          type: string
-      required:
-      - activation_process_relevant_files_details
-      - admin2_details
-      - budget_file_details
-      - capacity_relevant_files_details
-      - created_at
-      - created_by_details
-      - eap_registration
-      - early_actions
-      - evidence_base_relevant_files_details
-      - expected_submission_time
-      - forecast_table_file
-      - forecast_table_file_details
-      - id
-      - key_actors
-      - meal_relevant_files_details
-      - modified_by_details
-      - national_society_contact_email
-      - national_society_contact_name
-      - objective
-      - people_targeted
-      - prioritized_impacts
-      - risk_analysis_relevant_files_details
-      - theory_of_change_table_file_details
-      - trigger_model_relevant_files_details
-      - updated_checklist_file_details
-      type: object
     Functionality:
       properties:
         code:
@@ -10850,42 +9523,6 @@ components:
           items:
             $ref: '#/components/schemas/DrefProposedActionEnum'
           type: array
-        eap_approach:
-          items:
-            $ref: '#/components/schemas/EapApproachEnum'
-          type: array
-        eap_days_timeframe_value:
-          items:
-            $ref: '#/components/schemas/EapDaysTimeframeValueEnum'
-          type: array
-        eap_eap_status:
-          items:
-            $ref: '#/components/schemas/EapEapStatusEnum'
-          type: array
-        eap_eap_type:
-          items:
-            $ref: '#/components/schemas/EapEapTypeEnum'
-          type: array
-        eap_hours_timeframe_value:
-          items:
-            $ref: '#/components/schemas/EapHoursTimeframeValueEnum'
-          type: array
-        eap_months_timeframe_value:
-          items:
-            $ref: '#/components/schemas/EapMonthsTimeframeValueEnum'
-          type: array
-        eap_sector:
-          items:
-            $ref: '#/components/schemas/EapSectorEnum'
-          type: array
-        eap_timeframe:
-          items:
-            $ref: '#/components/schemas/EapTimeframeEnum'
-          type: array
-        eap_years_timeframe_value:
-          items:
-            $ref: '#/components/schemas/EapYearsTimeframeValueEnum'
-          type: array
         flash_update_flash_update_flash_share_with:
           items:
             $ref: '#/components/schemas/FlashUpdateFlashUpdateFlashShareWithEnum'
@@ -10909,6 +9546,14 @@ components:
         local_units_validators:
           items:
             $ref: '#/components/schemas/LocalUnitsValidatorsEnum'
+          type: array
+        notifications_alert_per_day:
+          items:
+            $ref: '#/components/schemas/NotificationsAlertPerDayEnum'
+          type: array
+        notifications_alert_source:
+          items:
+            $ref: '#/components/schemas/NotificationsAlertSourceEnum'
           type: array
         notifications_surge_alert_status:
           items:
@@ -11637,65 +10282,6 @@ components:
       - image_url
       - title_display
       - translation_module_original_language
-      type: object
-    Impact:
-      properties:
-        id:
-          type: integer
-        impact:
-          maxLength: 255
-          type: string
-        previous_id:
-          readOnly: true
-          type: integer
-      required:
-      - impact
-      - previous_id
-      type: object
-    Indicator:
-      properties:
-        id:
-          type: integer
-        previous_id:
-          readOnly: true
-          type: integer
-        target:
-          maximum: 2147483647
-          minimum: -2147483648
-          title: Indicator Target
-          type: integer
-        title:
-          maxLength: 255
-          title: Indicator Title
-          type: string
-      required:
-      - previous_id
-      - target
-      - title
-      type: object
-    KeyActor:
-      properties:
-        description:
-          description: Describe this actor’s involvement.
-          type: string
-        id:
-          type: integer
-        national_society:
-          description: Select the National Society involved in the EAP development.
-          title: EAP Actors
-          type: integer
-        national_society_details:
-          allOf:
-          - $ref: '#/components/schemas/MiniCountry'
-          readOnly: true
-        previous_id:
-          readOnly: true
-          type: integer
-      required:
-      - description
-      - national_society
-      - national_society_details
-      - previous_id
       type: object
     KeyClimateEvent:
       properties:
@@ -12868,7 +11454,7 @@ components:
           readOnly: true
           type: string
         sector:
-          $ref: '#/components/schemas/MembershipCoordinationSectorEnum'
+          $ref: '#/components/schemas/SectorEnum'
         sector_display:
           readOnly: true
           type: string
@@ -12880,22 +11466,6 @@ components:
       - sector
       - sector_display
       type: object
-    MembershipCoordinationSectorEnum:
-      description: |-
-        * `climate` - Climate
-        * `crisis` - Crisis
-        * `health` - Health
-        * `migration` - Migration
-        * `inclusion` - Inclusion
-        * `enabling_functions` - Enabling functions
-      enum:
-      - climate
-      - crisis
-      - health
-      - migration
-      - inclusion
-      - enabling_functions
-      type: string
     MicroAppeal:
       properties:
         atype:
@@ -12938,9 +11508,6 @@ components:
         district_id:
           readOnly: true
           type: integer
-        district_name:
-          readOnly: true
-          type: string
         id:
           readOnly: true
           type: integer
@@ -12950,7 +11517,6 @@ components:
       required:
       - code
       - district_id
-      - district_name
       - id
       - name
       type: object
@@ -13390,92 +11956,6 @@ components:
       - id
       - status_display
       - type_of_dref_display
-      type: object
-    MiniEAP:
-      properties:
-        activated_at:
-          description: Timestamp when the EAP was activated.
-          format: date-time
-          nullable: true
-          type: string
-        approved_at:
-          description: Timestamp when the EAP was approved.
-          format: date-time
-          nullable: true
-          type: string
-        country:
-          description: The country will be pre-populated based on the NS selection,
-            but can be adapted as needed.
-          type: integer
-        country_details:
-          allOf:
-          - $ref: '#/components/schemas/MiniCountry'
-          readOnly: true
-        created_at:
-          format: date-time
-          readOnly: true
-          type: string
-        disaster_type:
-          description: Select the disaster type for which the EAP is needed
-          type: integer
-        disaster_type_details:
-          allOf:
-          - $ref: '#/components/schemas/DisasterType'
-          readOnly: true
-        eap_type:
-          allOf:
-          - $ref: '#/components/schemas/EapEapTypeEnumKey'
-          description: |-
-            Select the type of EAP.
-
-            * `10` - Full EAP
-            * `20` - Simplified EAP
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-        eap_type_display:
-          readOnly: true
-          type: string
-        id:
-          readOnly: true
-          type: integer
-        modified_at:
-          format: date-time
-          readOnly: true
-          type: string
-        requirement_cost:
-          readOnly: true
-          type: integer
-        status:
-          allOf:
-          - $ref: '#/components/schemas/EapEapStatusEnumKey'
-          description: |-
-            Select the current status of the EAP development process.
-
-            * `10` - Under Development
-            * `20` - Under Review
-            * `30` - NS Addressing Comments
-            * `40` - Technically Validated
-            * `50` - Pending PFA
-            * `60` - Approved
-            * `70` - Activated
-          maximum: 2147483647
-          minimum: -2147483648
-          title: EAP Status
-        status_display:
-          readOnly: true
-          type: string
-      required:
-      - country
-      - country_details
-      - created_at
-      - disaster_type
-      - disaster_type_details
-      - eap_type_display
-      - id
-      - modified_at
-      - requirement_cost
-      - status_display
       type: object
     MiniERUReadiness:
       properties:
@@ -14005,72 +12485,6 @@ components:
       - id
       - question
       type: object
-    MiniFullEAP:
-      properties:
-        budget_file:
-          nullable: true
-          type: integer
-        budget_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        created_at:
-          format: date-time
-          readOnly: true
-          type: string
-        early_action_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Early Actions Budget (CHF)
-          type: integer
-        id:
-          readOnly: true
-          type: integer
-        is_locked:
-          description: Indicates whether the Full EAP is locked for editing.
-          title: Is Locked?
-          type: boolean
-        modified_at:
-          format: date-time
-          type: string
-        pre_positioning_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Pre-positioning Budget (CHF)
-          type: integer
-        readiness_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Readiness Budget (CHF)
-          type: integer
-        review_checklist_file:
-          format: uri
-          nullable: true
-          type: string
-        total_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Total Budget (CHF)
-          type: integer
-        updated_checklist_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        version:
-          description: Version identifier for the Full EAP.
-          maximum: 2147483647
-          minimum: -2147483648
-          type: integer
-      required:
-      - budget_file_details
-      - created_at
-      - id
-      - updated_checklist_file_details
-      type: object
     MiniHealthData:
       properties:
         health_facility_type:
@@ -14298,79 +12712,6 @@ components:
       - id
       - name
       type: object
-    MiniSimplifiedEAP:
-      properties:
-        budget_file:
-          nullable: true
-          type: integer
-        budget_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        created_at:
-          format: date-time
-          readOnly: true
-          type: string
-        early_action_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Early Actions Budget (CHF)
-          type: integer
-        id:
-          readOnly: true
-          type: integer
-        is_locked:
-          description: Indicates whether the Simplified EAP is locked for editing.
-          title: Is Locked?
-          type: boolean
-        modified_at:
-          format: date-time
-          type: string
-        pre_positioning_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Pre-positioning Budget (CHF)
-          type: integer
-        readiness_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Readiness Budget (CHF)
-          type: integer
-        review_checklist_file:
-          format: uri
-          nullable: true
-          type: string
-        seap_timeframe:
-          description: Timeframe of the EAP in years.
-          maximum: 2147483647
-          minimum: -2147483648
-          title: Timeframe (Years) of the EAP
-          type: integer
-        total_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Total Budget (CHF)
-          type: integer
-        updated_checklist_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        version:
-          description: Version identifier for the Simplified EAP.
-          maximum: 2147483647
-          minimum: -2147483648
-          type: integer
-      required:
-      - budget_file_details
-      - created_at
-      - id
-      - seap_timeframe
-      - updated_checklist_file_details
-      type: object
     MiniSubscription:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
@@ -14591,6 +12932,43 @@ components:
       - id
       - name
       type: object
+    NotificationsAlertPerDayEnum:
+      properties:
+        key:
+          $ref: '#/components/schemas/NotificationsAlertPerDayEnumKey'
+        value:
+          type: string
+      required:
+      - key
+      - value
+      type: object
+    NotificationsAlertPerDayEnumKey:
+      description: |-
+        * `5` - Five
+        * `10` - Ten
+        * `20` - Twenty
+        * `50` - Fifty
+      enum:
+      - 5
+      - 10
+      - 20
+      - 50
+      type: integer
+    NotificationsAlertSourceEnum:
+      properties:
+        key:
+          $ref: '#/components/schemas/NotificationsAlertSourceEnumKey'
+        value:
+          type: string
+      required:
+      - key
+      - value
+      type: object
+    NotificationsAlertSourceEnumKey:
+      description: '* `100` - Montandon'
+      enum:
+      - 100
+      type: integer
     NotificationsSurgeAlertStatusEnum:
       properties:
         key:
@@ -14626,32 +13004,6 @@ components:
           type: string
       required:
       - translation_module_original_language
-      type: object
-    OperationActivity:
-      properties:
-        activity:
-          maxLength: 255
-          type: string
-        id:
-          type: integer
-        previous_id:
-          readOnly: true
-          type: integer
-        time_value:
-          items:
-            type: integer
-          type: array
-        timeframe:
-          $ref: '#/components/schemas/EapTimeframeEnumKey'
-        timeframe_display:
-          readOnly: true
-          type: string
-      required:
-      - activity
-      - previous_id
-      - time_value
-      - timeframe
-      - timeframe_display
       type: object
     OpsLearningComponentCacheResponse:
       properties:
@@ -15105,6 +13457,29 @@ components:
         results:
           items:
             $ref: '#/components/schemas/AggregatedERUAndRapidResponse'
+          type: array
+      required:
+      - count
+      - results
+      type: object
+    PaginatedAlertSubscriptionSerializeList:
+      properties:
+        count:
+          example: 123
+          type: integer
+        next:
+          example: http://api.example.org/accounts/?offset=400&limit=100
+          format: uri
+          nullable: true
+          type: string
+        previous:
+          example: http://api.example.org/accounts/?offset=200&limit=100
+          format: uri
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/AlertSubscriptionSerialize'
           type: array
       required:
       - count
@@ -15639,52 +14014,6 @@ components:
       - count
       - results
       type: object
-    PaginatedEAPFileList:
-      properties:
-        count:
-          example: 123
-          type: integer
-        next:
-          example: http://api.example.org/accounts/?offset=400&limit=100
-          format: uri
-          nullable: true
-          type: string
-        previous:
-          example: http://api.example.org/accounts/?offset=200&limit=100
-          format: uri
-          nullable: true
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/EAPFile'
-          type: array
-      required:
-      - count
-      - results
-      type: object
-    PaginatedEAPRegistrationList:
-      properties:
-        count:
-          example: 123
-          type: integer
-        next:
-          example: http://api.example.org/accounts/?offset=400&limit=100
-          format: uri
-          nullable: true
-          type: string
-        previous:
-          example: http://api.example.org/accounts/?offset=200&limit=100
-          format: uri
-          nullable: true
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/EAPRegistration'
-          type: array
-      required:
-      - count
-      - results
-      type: object
     PaginatedERUList:
       properties:
         count:
@@ -16122,29 +14451,6 @@ components:
       - count
       - results
       type: object
-    PaginatedFullEAPList:
-      properties:
-        count:
-          example: 123
-          type: integer
-        next:
-          example: http://api.example.org/accounts/?offset=400&limit=100
-          format: uri
-          nullable: true
-          type: string
-        previous:
-          example: http://api.example.org/accounts/?offset=200&limit=100
-          format: uri
-          nullable: true
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/FullEAP'
-          type: array
-      required:
-      - count
-      - results
-      type: object
     PaginatedGoHistoricalList:
       properties:
         count:
@@ -16439,29 +14745,6 @@ components:
         results:
           items:
             $ref: '#/components/schemas/MiniDref'
-          type: array
-      required:
-      - count
-      - results
-      type: object
-    PaginatedMiniEAPList:
-      properties:
-        count:
-          example: 123
-          type: integer
-        next:
-          example: http://api.example.org/accounts/?offset=400&limit=100
-          format: uri
-          nullable: true
-          type: string
-        previous:
-          example: http://api.example.org/accounts/?offset=200&limit=100
-          format: uri
-          nullable: true
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/MiniEAP'
           type: array
       required:
       - count
@@ -16996,29 +15279,6 @@ components:
       - count
       - results
       type: object
-    PaginatedSimplifiedEAPList:
-      properties:
-        count:
-          example: 123
-          type: integer
-        next:
-          example: http://api.example.org/accounts/?offset=400&limit=100
-          format: uri
-          nullable: true
-          type: string
-        previous:
-          example: http://api.example.org/accounts/?offset=200&limit=100
-          format: uri
-          nullable: true
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/SimplifiedEAP'
-          type: array
-      required:
-      - count
-      - results
-      type: object
     PaginatedSituationReportList:
       properties:
         count:
@@ -17268,6 +15528,74 @@ components:
       required:
       - id
       - translation_module_original_language
+      type: object
+    PatchedAlertSubscriptionSerialize:
+      description: Custom ModelSerializer with translaion logic (Also works for normal
+        models)
+      properties:
+        alert_per_day:
+          allOf:
+          - $ref: '#/components/schemas/NotificationsAlertPerDayEnumKey'
+          description: |-
+            Maximum number of alerts sent to the user per day. Leave empty to allow unlimited alerts.
+
+            * `5` - Five
+            * `10` - Ten
+            * `20` - Twenty
+            * `50` - Fifty
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Alerts Per Day
+        alert_per_day_display:
+          readOnly: true
+          type: string
+        countries:
+          items:
+            type: integer
+          type: array
+        countries_detail:
+          items:
+            $ref: '#/components/schemas/MiniCountry'
+          readOnly: true
+          type: array
+        created_at:
+          format: date-time
+          readOnly: true
+          type: string
+        hazard_types:
+          description: Types of hazards the user is subscribed to.
+          items:
+            title: Hazard Types
+            type: integer
+          type: array
+        hazard_types_detail:
+          items:
+            $ref: '#/components/schemas/DisasterType'
+          readOnly: true
+          type: array
+        id:
+          readOnly: true
+          type: integer
+        regions:
+          items:
+            type: integer
+          type: array
+        regions_detail:
+          items:
+            $ref: '#/components/schemas/MiniRegionSerialzier'
+          readOnly: true
+          type: array
+        updated_at:
+          format: date-time
+          readOnly: true
+          type: string
+        user:
+          type: integer
+        user_detail:
+          allOf:
+          - $ref: '#/components/schemas/UserName'
+          readOnly: true
       type: object
     PatchedCountrySupportingPartner:
       properties:
@@ -19617,213 +17945,6 @@ components:
           nullable: true
           type: integer
       type: object
-    PatchedEAPRegistration:
-      description: Mixin adds update nested feature
-      properties:
-        activated_at:
-          description: Timestamp when the EAP was activated.
-          format: date-time
-          nullable: true
-          type: string
-        approved_at:
-          description: Timestamp when the EAP was approved.
-          format: date-time
-          nullable: true
-          type: string
-        country:
-          description: The country will be pre-populated based on the NS selection,
-            but can be adapted as needed.
-          type: integer
-        country_details:
-          allOf:
-          - $ref: '#/components/schemas/MiniCountry'
-          readOnly: true
-        created_at:
-          format: date-time
-          readOnly: true
-          type: string
-        created_by:
-          type: integer
-        created_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        deadline:
-          description: Date by which the EAP submission must be completed.
-          format: date
-          nullable: true
-          readOnly: true
-          type: string
-        deadline_remainder_sent_at:
-          description: Timestamp when the deadline reminder email was sent.
-          format: date-time
-          nullable: true
-          title: Deadline reminder email sent at
-          type: string
-        disaster_type:
-          description: Select the disaster type for which the EAP is needed
-          type: integer
-        disaster_type_details:
-          allOf:
-          - $ref: '#/components/schemas/DisasterType'
-          readOnly: true
-        dref_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        dref_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        dref_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        dref_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        eap_type:
-          allOf:
-          - $ref: '#/components/schemas/EapEapTypeEnumKey'
-          description: |-
-            Select the type of EAP.
-
-            * `10` - Full EAP
-            * `20` - Simplified EAP
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-        eap_type_display:
-          readOnly: true
-          type: string
-        expected_submission_time:
-          description: Include the propose time of submission, accounting for the
-            time it will take to deliver the application.Leave blank if not sure.
-          format: date
-          nullable: true
-          type: string
-        full_eap_details:
-          items:
-            $ref: '#/components/schemas/MiniFullEAP'
-          readOnly: true
-          type: array
-        id:
-          readOnly: true
-          type: integer
-        ifrc_contact_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_contact_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_contact_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_contact_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        latest_full_eap:
-          nullable: true
-          readOnly: true
-          type: integer
-        latest_simplified_eap:
-          nullable: true
-          readOnly: true
-          type: integer
-        modified_at:
-          format: date-time
-          readOnly: true
-          type: string
-        modified_by:
-          type: integer
-        modified_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        national_society:
-          description: Select National Society that is planning to apply for the EAP
-          title: National Society (NS)
-          type: integer
-        national_society_contact_email:
-          maxLength: 255
-          type: string
-        national_society_contact_name:
-          maxLength: 255
-          type: string
-        national_society_contact_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        national_society_contact_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        national_society_details:
-          allOf:
-          - $ref: '#/components/schemas/MiniCountry'
-          readOnly: true
-        partners:
-          description: Select any partner NS involved in the EAP development.
-          items:
-            type: integer
-          type: array
-        partners_details:
-          items:
-            $ref: '#/components/schemas/MiniCountry'
-          readOnly: true
-          type: array
-        pending_pfa_at:
-          description: Timestamp when the EAP was marked as pending PFA.
-          format: date-time
-          nullable: true
-          type: string
-        simplified_eap_details:
-          items:
-            $ref: '#/components/schemas/MiniSimplifiedEAP'
-          readOnly: true
-          type: array
-        status:
-          allOf:
-          - $ref: '#/components/schemas/EapEapStatusEnumKey'
-          description: |-
-            Select the current status of the EAP development process.
-
-            * `10` - Under Development
-            * `20` - Under Review
-            * `30` - NS Addressing Comments
-            * `40` - Technically Validated
-            * `50` - Pending PFA
-            * `60` - Approved
-            * `70` - Activated
-          readOnly: true
-          title: EAP Status
-        status_display:
-          readOnly: true
-          type: string
-        summary_file:
-          format: uri
-          nullable: true
-          readOnly: true
-          title: EAP Summary PDF
-          type: string
-        technically_validated_at:
-          description: Timestamp when the EAP was technically validated.
-          format: date-time
-          nullable: true
-          type: string
-        validated_budget_file:
-          description: Upload the validated budget file once the EAP is technically
-            validated.
-          format: uri
-          nullable: true
-          readOnly: true
-          type: string
-      type: object
     PatchedERUReadiness:
       description: Mixin adds nested create feature
       properties:
@@ -19964,11 +18085,6 @@ components:
           nullable: true
           readOnly: true
           type: string
-        diff:
-          default: false
-          description: Only applicable for EAP exports
-          type: boolean
-          writeOnly: true
         export_id:
           maximum: 2147483647
           minimum: -2147483648
@@ -20010,11 +18126,6 @@ components:
         status_display:
           readOnly: true
           type: string
-        summary:
-          default: false
-          description: Only applicable for FUll EAP
-          type: boolean
-          writeOnly: true
         token:
           format: uuid
           readOnly: true
@@ -20024,10 +18135,6 @@ components:
           nullable: true
           readOnly: true
           type: string
-        version:
-          description: Only applicable for EAP exports
-          type: integer
-          writeOnly: true
       type: object
     PatchedExternallyManagedLocalUnit:
       properties:
@@ -20939,570 +19046,6 @@ components:
           items:
             $ref: '#/components/schemas/FormPrioritizationComponent'
           type: array
-      type: object
-    PatchedFullEAP:
-      description: Mixin adds update nested feature
-      properties:
-        activation_process_relevant_files:
-          items:
-            title: Activation Relevant Files
-            type: integer
-          title: Activation Relevant Files
-          type: array
-        activation_process_relevant_files_details:
-          items:
-            $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-          type: array
-        activation_process_source_of_information:
-          items:
-            $ref: '#/components/schemas/EAPSourceInformation'
-          nullable: true
-          type: array
-        admin2:
-          items:
-            title: Admin
-            type: integer
-          title: Admin
-          type: array
-        admin2_details:
-          items:
-            $ref: '#/components/schemas/Admin2'
-          readOnly: true
-          type: array
-        advance_financial_capacity:
-          description: Indicate whether the NS has capacity to advance funds to start
-            early actions.
-          nullable: true
-          title: National Society Financial capacity to advance funds
-          type: string
-        budget_description:
-          nullable: true
-          title: Full EAP Budget Description
-          type: string
-        budget_file:
-          type: integer
-        budget_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        capacity_relevant_files:
-          items:
-            title: National society capacity relevant files
-            type: integer
-          title: National society capacity relevant files
-          type: array
-        capacity_relevant_files_details:
-          items:
-            $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-          type: array
-        cover_image_file:
-          allOf:
-          - $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-        created_at:
-          format: date-time
-          readOnly: true
-          type: string
-        created_by:
-          type: integer
-        created_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        definition_and_justification_impact_level:
-          nullable: true
-          title: Definition and Justification of Impact Level
-          type: string
-        definition_and_justification_impact_level_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        diff_file:
-          format: uri
-          nullable: true
-          title: EAP Diff PDF file
-          type: string
-        dref_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        dref_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        dref_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        dref_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        eap_endorsement:
-          description: Describe by whom,how and when the EAP was agreed and endorsed.
-          nullable: true
-          title: EAP Endorsement Description
-          type: string
-        eap_registration:
-          title: EAP Development Registration
-          type: integer
-        early_action_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Early Actions Budget (CHF)
-          type: integer
-        early_action_cost_description:
-          nullable: true
-          type: string
-        early_action_implementation_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        early_action_implementation_process:
-          description: Describe the process for implementing early actions.
-          nullable: true
-          type: string
-        early_action_selection_process:
-          nullable: true
-          type: string
-        early_action_selection_process_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        early_actions:
-          items:
-            $ref: '#/components/schemas/EAPAction'
-          type: array
-        enabling_approaches:
-          items:
-            $ref: '#/components/schemas/EnablingApproach'
-          type: array
-        evidence_base:
-          description: Explain how the selected actions will reduce the expected disaster
-            impacts.
-          nullable: true
-          type: string
-        evidence_base_relevant_files:
-          items:
-            title: Evidence base files
-            type: integer
-          title: Evidence base files
-          type: array
-        evidence_base_relevant_files_details:
-          items:
-            $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-          type: array
-        evidence_base_source_of_information:
-          items:
-            $ref: '#/components/schemas/EAPSourceInformation'
-          nullable: true
-          type: array
-        expected_submission_time:
-          description: Include the propose time of submission, accounting for the
-            time it will take to deliver the application.
-          format: date
-          type: string
-        export_file:
-          format: uri
-          nullable: true
-          title: EAP Export File
-          type: string
-        exposed_element_and_vulnerability_factor:
-          description: Explain which people are most likely to experience the impacts
-            of this hazard.
-          nullable: true
-          title: Exposed elements and vulnerability factors
-          type: string
-        exposed_element_and_vulnerability_factor_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        feasibility:
-          description: Explain how feasible it is to implement the proposed early
-            actions in the planned timeframe.
-          nullable: true
-          title: Feasibility of selected actions
-          type: string
-        forecast_selection:
-          description: Explain which forecast's and observations will be used and
-            why they are chosen
-          nullable: true
-          type: string
-        forecast_selection_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        forecast_table_file:
-          type: integer
-        forecast_table_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        hazard_selection:
-          description: Provide a brief rationale for selecting this hazard for the
-            FbF system.
-          nullable: true
-          type: string
-        hazard_selection_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        id:
-          readOnly: true
-          type: integer
-        identification_of_the_intervention_area:
-          nullable: true
-          title: Identification of Intervention Area
-          type: string
-        identification_of_the_intervention_area_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        ifrc_delegation_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_head_dcc_email:
-          maxLength: 255
-          nullable: true
-          title: IFRC regional head of DCC email
-          type: string
-        ifrc_regional_head_dcc_name:
-          maxLength: 255
-          nullable: true
-          title: IFRC regional head of DCC name
-          type: string
-        ifrc_regional_head_dcc_phone_number:
-          maxLength: 100
-          nullable: true
-          title: IFRC regional head of DCC phone number
-          type: string
-        ifrc_regional_head_dcc_title:
-          maxLength: 255
-          nullable: true
-          title: IFRC regional head of DCC title
-          type: string
-        ifrc_regional_ops_manager_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_ops_manager_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_ops_manager_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_regional_ops_manager_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        is_locked:
-          description: Indicates whether the Full EAP is locked for editing.
-          title: Is Locked?
-          type: boolean
-        is_technical_working_groups:
-          nullable: true
-          title: Are technical working groups in place
-          type: boolean
-        is_worked_with_government:
-          title: Has Worked with government or other relevant actors.
-          type: boolean
-        key_actors:
-          items:
-            $ref: '#/components/schemas/KeyActor'
-          type: array
-        lead_time:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
-        meal:
-          nullable: true
-          title: MEAL Plan Description
-          type: string
-        meal_relevant_files:
-          items:
-            title: Meal files
-            type: integer
-          title: Meal files
-          type: array
-        meal_relevant_files_details:
-          items:
-            $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-          type: array
-        modified_at:
-          format: date-time
-          type: string
-        modified_by:
-          type: integer
-        modified_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        national_society_contact_email:
-          maxLength: 255
-          type: string
-        national_society_contact_name:
-          maxLength: 255
-          type: string
-        national_society_contact_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        national_society_contact_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        objective:
-          description: Provide an objective statement that describe the main goal
-            of intervention.
-          title: Overall Objective of the EAP.
-          type: string
-        operational_administrative_capacity:
-          description: Describe how the NS has operative and administrative capacity
-            to implement the EAPs.
-          nullable: true
-          title: National Society Operational, thematic and administrative capacity
-          type: string
-        parent:
-          description: Reference to the parent Full EAP if this is a snapshot.
-          nullable: true
-          title: Parent FUll EAP
-          type: integer
-        partner_contacts:
-          items:
-            $ref: '#/components/schemas/EAPContact'
-          type: array
-        people_targeted:
-          maximum: 2147483647
-          minimum: -2147483648
-          title: People Targeted.
-          type: integer
-        planned_operations:
-          items:
-            $ref: '#/components/schemas/PlannedOperation'
-          type: array
-        pre_positioning_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Pre-positioning Budget (CHF)
-          type: integer
-        prepositioning_cost_description:
-          nullable: true
-          type: string
-        prioritized_impact:
-          description: Describe the impacts that have been prioritized and who is
-            most likely to be affected.
-          nullable: true
-          type: string
-        prioritized_impact_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        prioritized_impacts:
-          items:
-            $ref: '#/components/schemas/Impact'
-          type: array
-        readiness_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Readiness Budget (CHF)
-          type: integer
-        readiness_cost_description:
-          nullable: true
-          type: string
-        review_checklist_file:
-          format: uri
-          nullable: true
-          type: string
-        risk_analysis_relevant_files:
-          items:
-            type: integer
-          type: array
-        risk_analysis_relevant_files_details:
-          items:
-            $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-          type: array
-        risk_analysis_source_of_information:
-          items:
-            $ref: '#/components/schemas/EAPSourceInformation'
-          nullable: true
-          type: array
-        selection_of_target_population:
-          description: Describe the process used to select the target population for
-            early actions.
-          nullable: true
-          type: string
-        stop_mechanism:
-          description: Explain how it would be communicated to communities and stakeholders
-            that the activities are being stopped.
-          nullable: true
-          type: string
-        strategies_and_plans:
-          description: Describe how the EAP aligned with disaster risk management
-            strategy of NS.
-          nullable: true
-          title: National Society Strategies and plans
-          type: string
-        technical_working_groups_in_place_description:
-          nullable: true
-          title: Technical working groups description
-          type: string
-        technically_working_group_title:
-          maxLength: 255
-          nullable: true
-          title: Technical working group title
-          type: string
-        theory_of_change_table_file:
-          nullable: true
-          type: integer
-        theory_of_change_table_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        total_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Total Budget (CHF)
-          type: integer
-        trigger_activation_system:
-          description: Describe the automatic system used to monitor the forecasts.
-          nullable: true
-          type: string
-        trigger_activation_system_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        trigger_model_relevant_files:
-          items:
-            title: Trigger Model Relevant File
-            type: integer
-          title: Trigger Model Relevant File
-          type: array
-        trigger_model_relevant_files_details:
-          items:
-            $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-          type: array
-        trigger_model_source_of_information:
-          items:
-            $ref: '#/components/schemas/EAPSourceInformation'
-          nullable: true
-          type: array
-        trigger_statement:
-          description: Explain in one sentence what exactly the trigger of your EAP
-            will be.
-          nullable: true
-          type: string
-        trigger_statement_source_of_information:
-          items:
-            $ref: '#/components/schemas/EAPSourceInformation'
-          nullable: true
-          type: array
-        updated_checklist_file:
-          nullable: true
-          title: Updated Review Checklist File
-          type: integer
-        updated_checklist_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        usefulness_of_actions:
-          description: Describe how actions will still benefit the population if the
-            expected event does not occur.
-          nullable: true
-          title: Usefulness of actions in case the event does not occur
-          type: string
-        version:
-          default: 1
-          description: Version identifier for the Full EAP.
-          maximum: 2147483647
-          minimum: -2147483648
-          type: integer
-        worked_with_government_description:
-          nullable: true
-          title: Government and actors engagement description
-          type: string
       type: object
     PatchedLocalUnitDetail:
       properties:
@@ -22430,364 +19973,6 @@ components:
         visibility_display:
           readOnly: true
           type: string
-      type: object
-    PatchedSimplifiedEAP:
-      description: Mixin adds update nested feature
-      properties:
-        admin2:
-          items:
-            title: Admin
-            type: integer
-          title: Admin
-          type: array
-        admin2_details:
-          items:
-            $ref: '#/components/schemas/Admin2'
-          readOnly: true
-          type: array
-        assisted_through_operation:
-          nullable: true
-          title: Assisted through the operation
-          type: string
-        budget_file:
-          type: integer
-        budget_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        cover_image_file:
-          allOf:
-          - $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-        created_at:
-          format: date-time
-          readOnly: true
-          type: string
-        created_by:
-          type: integer
-        created_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        diff_file:
-          format: uri
-          nullable: true
-          title: EAP Diff PDF file
-          type: string
-        dref_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        dref_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        dref_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        dref_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        eap_registration:
-          title: EAP Development Registration
-          type: integer
-        early_action_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Early Actions Budget (CHF)
-          type: integer
-        early_action_capability:
-          description: Assumptions or minimum conditions needed to deliver the early
-            actions.
-          nullable: true
-          title: Experience or Capacity to implement Early Action.
-          type: string
-        enabling_approaches:
-          items:
-            $ref: '#/components/schemas/EnablingApproach'
-          type: array
-        export_file:
-          format: uri
-          nullable: true
-          title: EAP Export File
-          type: string
-        hazard_impact_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          type: array
-        id:
-          readOnly: true
-          type: integer
-        ifrc_delegation_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_head_dcc_email:
-          maxLength: 255
-          nullable: true
-          title: IFRC regional head of DCC email
-          type: string
-        ifrc_regional_head_dcc_name:
-          maxLength: 255
-          nullable: true
-          title: IFRC regional head of DCC name
-          type: string
-        ifrc_regional_head_dcc_phone_number:
-          maxLength: 100
-          nullable: true
-          title: IFRC regional head of DCC phone number
-          type: string
-        ifrc_regional_head_dcc_title:
-          maxLength: 255
-          nullable: true
-          title: IFRC regional head of DCC title
-          type: string
-        ifrc_regional_ops_manager_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_ops_manager_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_ops_manager_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_regional_ops_manager_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        is_locked:
-          description: Indicates whether the Simplified EAP is locked for editing.
-          readOnly: true
-          title: Is Locked?
-          type: boolean
-        modified_at:
-          format: date-time
-          type: string
-        modified_by:
-          type: integer
-        modified_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        national_society_contact_email:
-          maxLength: 255
-          type: string
-        national_society_contact_name:
-          maxLength: 255
-          type: string
-        national_society_contact_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        national_society_contact_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        next_step_towards_full_eap:
-          nullable: true
-          title: Next Steps towards Full EAP
-          type: string
-        operational_timeframe:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Operational Time
-          type: integer
-        operational_timeframe_unit:
-          allOf:
-          - $ref: '#/components/schemas/EapTimeframeEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-        operational_timeframe_unit_display:
-          readOnly: true
-          type: string
-        overall_objective_intervention:
-          description: Provide an objective statement that describe the main of the
-            intervention.
-          nullable: true
-          title: Overall objective of the intervention
-          type: string
-        parent:
-          description: Reference to the parent Simplified EAP if this is a snapshot.
-          nullable: true
-          title: Parent Simplified EAP
-          type: integer
-        partner_contacts:
-          items:
-            $ref: '#/components/schemas/EAPContact'
-          type: array
-        people_targeted:
-          maximum: 2147483647
-          minimum: -2147483648
-          title: People Targeted.
-          type: integer
-        planned_operations:
-          items:
-            $ref: '#/components/schemas/PlannedOperation'
-          type: array
-        potential_geographical_high_risk_areas:
-          nullable: true
-          type: string
-        pre_positioning_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Pre-positioning Budget (CHF)
-          type: integer
-        prioritized_hazard_and_impact:
-          nullable: true
-          title: Prioritized Hazard and its  historical impact.
-          type: string
-        rcrc_movement_involvement:
-          description: RCRC Movement partners, Governmental/other agencies consulted/involved.
-          nullable: true
-          title: RCRC Movement Involvement.
-          type: string
-        readiness_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Readiness Budget (CHF)
-          type: integer
-        review_checklist_file:
-          format: uri
-          nullable: true
-          type: string
-        risk_selected_protocols_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        risks_selected_protocols:
-          nullable: true
-          title: Risk selected for the protocols.
-          type: string
-        seap_lead_time:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
-        seap_lead_timeframe_unit:
-          allOf:
-          - $ref: '#/components/schemas/EapTimeframeEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-        seap_lead_timeframe_unit_display:
-          readOnly: true
-          type: string
-        seap_timeframe:
-          description: Timeframe of the EAP in years.
-          maximum: 2147483647
-          minimum: -2147483648
-          title: Timeframe (Years) of the EAP
-          type: integer
-        selected_early_actions:
-          nullable: true
-          type: string
-        selected_early_actions_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        selection_criteria:
-          description: Explain the selection criteria for who will be targeted
-          nullable: true
-          title: Selection Criteria.
-          type: string
-        total_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Total Budget (CHF)
-          type: integer
-        trigger_statement:
-          nullable: true
-          type: string
-        trigger_threshold_justification:
-          description: Explain how the trigger were set and provide information
-          nullable: true
-          type: string
-        updated_checklist_file:
-          nullable: true
-          title: Updated Review Checklist File
-          type: integer
-        updated_checklist_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        version:
-          default: 1
-          description: Version identifier for the Simplified EAP.
-          readOnly: true
-          type: integer
       type: object
     PatchedSubscription:
       description: Custom ModelSerializer with translaion logic (Also works for normal
@@ -23761,63 +20946,6 @@ components:
           type: boolean
       required:
       - translation_module_original_language
-      type: object
-    PlannedOperation:
-      description: Mixin adds update nested feature
-      properties:
-        ap_code:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
-        budget_per_sector:
-          maximum: 2147483647
-          minimum: -2147483648
-          title: Budget per sector (CHF)
-          type: integer
-        early_action_activities:
-          items:
-            $ref: '#/components/schemas/OperationActivity'
-          type: array
-        id:
-          type: integer
-        indicators:
-          items:
-            $ref: '#/components/schemas/Indicator'
-          type: array
-        people_targeted:
-          maximum: 2147483647
-          minimum: -2147483648
-          type: integer
-        prepositioning_activities:
-          items:
-            $ref: '#/components/schemas/OperationActivity'
-          type: array
-        previous_id:
-          readOnly: true
-          type: integer
-        readiness_activities:
-          items:
-            $ref: '#/components/schemas/OperationActivity'
-          type: array
-        sector:
-          allOf:
-          - $ref: '#/components/schemas/EapSectorEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-        sector_display:
-          readOnly: true
-          type: string
-      required:
-      - budget_per_sector
-      - early_action_activities
-      - indicators
-      - people_targeted
-      - prepositioning_activities
-      - previous_id
-      - readiness_activities
-      - sector
-      - sector_display
       type: object
     PrimaryHCC:
       properties:
@@ -26011,6 +23139,22 @@ components:
       - sector
       - title
       type: object
+    SectorEnum:
+      description: |-
+        * `climate` - Climate
+        * `crisis` - Crisis
+        * `health` - Health
+        * `migration` - Migration
+        * `inclusion` - Inclusion
+        * `enabling_functions` - Enabling functions
+      enum:
+      - climate
+      - crisis
+      - health
+      - migration
+      - inclusion
+      - enabling_functions
+      type: string
     ShareFlashUpdate:
       properties:
         created_at:
@@ -26051,381 +23195,6 @@ components:
       - flash_update_details
       - groups_details
       - id
-      type: object
-    SimplifiedEAP:
-      description: Mixin adds update nested feature
-      properties:
-        admin2:
-          items:
-            title: Admin
-            type: integer
-          title: Admin
-          type: array
-        admin2_details:
-          items:
-            $ref: '#/components/schemas/Admin2'
-          readOnly: true
-          type: array
-        assisted_through_operation:
-          nullable: true
-          title: Assisted through the operation
-          type: string
-        budget_file:
-          type: integer
-        budget_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        cover_image_file:
-          allOf:
-          - $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-        created_at:
-          format: date-time
-          readOnly: true
-          type: string
-        created_by:
-          type: integer
-        created_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        diff_file:
-          format: uri
-          nullable: true
-          title: EAP Diff PDF file
-          type: string
-        dref_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        dref_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        dref_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        dref_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        eap_registration:
-          title: EAP Development Registration
-          type: integer
-        early_action_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Early Actions Budget (CHF)
-          type: integer
-        early_action_capability:
-          description: Assumptions or minimum conditions needed to deliver the early
-            actions.
-          nullable: true
-          title: Experience or Capacity to implement Early Action.
-          type: string
-        enabling_approaches:
-          items:
-            $ref: '#/components/schemas/EnablingApproach'
-          type: array
-        export_file:
-          format: uri
-          nullable: true
-          title: EAP Export File
-          type: string
-        hazard_impact_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          type: array
-        id:
-          readOnly: true
-          type: integer
-        ifrc_delegation_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_regional_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_head_dcc_email:
-          maxLength: 255
-          nullable: true
-          title: IFRC regional head of DCC email
-          type: string
-        ifrc_regional_head_dcc_name:
-          maxLength: 255
-          nullable: true
-          title: IFRC regional head of DCC name
-          type: string
-        ifrc_regional_head_dcc_phone_number:
-          maxLength: 100
-          nullable: true
-          title: IFRC regional head of DCC phone number
-          type: string
-        ifrc_regional_head_dcc_title:
-          maxLength: 255
-          nullable: true
-          title: IFRC regional head of DCC title
-          type: string
-        ifrc_regional_ops_manager_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_ops_manager_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_regional_ops_manager_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_regional_ops_manager_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        is_locked:
-          description: Indicates whether the Simplified EAP is locked for editing.
-          readOnly: true
-          title: Is Locked?
-          type: boolean
-        modified_at:
-          format: date-time
-          type: string
-        modified_by:
-          type: integer
-        modified_by_details:
-          allOf:
-          - $ref: '#/components/schemas/UserName'
-          readOnly: true
-        national_society_contact_email:
-          maxLength: 255
-          type: string
-        national_society_contact_name:
-          maxLength: 255
-          type: string
-        national_society_contact_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        national_society_contact_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        next_step_towards_full_eap:
-          nullable: true
-          title: Next Steps towards Full EAP
-          type: string
-        operational_timeframe:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Operational Time
-          type: integer
-        operational_timeframe_unit:
-          allOf:
-          - $ref: '#/components/schemas/EapTimeframeEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-        operational_timeframe_unit_display:
-          readOnly: true
-          type: string
-        overall_objective_intervention:
-          description: Provide an objective statement that describe the main of the
-            intervention.
-          nullable: true
-          title: Overall objective of the intervention
-          type: string
-        parent:
-          description: Reference to the parent Simplified EAP if this is a snapshot.
-          nullable: true
-          title: Parent Simplified EAP
-          type: integer
-        partner_contacts:
-          items:
-            $ref: '#/components/schemas/EAPContact'
-          type: array
-        people_targeted:
-          maximum: 2147483647
-          minimum: -2147483648
-          title: People Targeted.
-          type: integer
-        planned_operations:
-          items:
-            $ref: '#/components/schemas/PlannedOperation'
-          type: array
-        potential_geographical_high_risk_areas:
-          nullable: true
-          type: string
-        pre_positioning_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Pre-positioning Budget (CHF)
-          type: integer
-        prioritized_hazard_and_impact:
-          nullable: true
-          title: Prioritized Hazard and its  historical impact.
-          type: string
-        rcrc_movement_involvement:
-          description: RCRC Movement partners, Governmental/other agencies consulted/involved.
-          nullable: true
-          title: RCRC Movement Involvement.
-          type: string
-        readiness_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Readiness Budget (CHF)
-          type: integer
-        review_checklist_file:
-          format: uri
-          nullable: true
-          type: string
-        risk_selected_protocols_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        risks_selected_protocols:
-          nullable: true
-          title: Risk selected for the protocols.
-          type: string
-        seap_lead_time:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
-        seap_lead_timeframe_unit:
-          allOf:
-          - $ref: '#/components/schemas/EapTimeframeEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-        seap_lead_timeframe_unit_display:
-          readOnly: true
-          type: string
-        seap_timeframe:
-          description: Timeframe of the EAP in years.
-          maximum: 2147483647
-          minimum: -2147483648
-          title: Timeframe (Years) of the EAP
-          type: integer
-        selected_early_actions:
-          nullable: true
-          type: string
-        selected_early_actions_images:
-          items:
-            $ref: '#/components/schemas/EAPFileUpdate'
-          nullable: true
-          type: array
-        selection_criteria:
-          description: Explain the selection criteria for who will be targeted
-          nullable: true
-          title: Selection Criteria.
-          type: string
-        total_budget:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Total Budget (CHF)
-          type: integer
-        trigger_statement:
-          nullable: true
-          type: string
-        trigger_threshold_justification:
-          description: Explain how the trigger were set and provide information
-          nullable: true
-          type: string
-        updated_checklist_file:
-          nullable: true
-          title: Updated Review Checklist File
-          type: integer
-        updated_checklist_file_details:
-          allOf:
-          - $ref: '#/components/schemas/EAPFile'
-          readOnly: true
-        version:
-          default: 1
-          description: Version identifier for the Simplified EAP.
-          readOnly: true
-          type: integer
-      required:
-      - admin2_details
-      - budget_file_details
-      - created_at
-      - created_by_details
-      - eap_registration
-      - id
-      - is_locked
-      - modified_by_details
-      - national_society_contact_email
-      - national_society_contact_name
-      - operational_timeframe_unit_display
-      - people_targeted
-      - seap_lead_timeframe_unit_display
-      - seap_timeframe
-      - updated_checklist_file_details
-      - version
       type: object
     SituationReport:
       properties:
@@ -27720,145 +24489,6 @@ paths:
       - cookieAuth: []
       tags:
       - api
-  /api/v2/active-eap/:
-    get:
-      operationId: api_v2_active_eap_list
-      parameters:
-      - in: query
-        name: created_at
-        schema:
-          format: date
-          type: string
-      - in: query
-        name: created_at__lte
-        schema:
-          format: date
-          type: string
-      - in: query
-        name: created_at__gte
-        schema:
-          format: date
-          type: string
-      - description: |-
-          EAP Type
-
-          * `10` - Full EAP
-          * `20` - Simplified EAP
-        in: query
-        name: eap_type
-        schema:
-          enum:
-          - 10
-          - 20
-          nullable: true
-          type: integer
-      - description: |-
-          EAP Status
-
-          * `10` - Under Development
-          * `20` - Under Review
-          * `30` - NS Addressing Comments
-          * `40` - Technically Validated
-          * `50` - Pending PFA
-          * `60` - Approved
-          * `70` - Activated
-        in: query
-        name: status
-        schema:
-          enum:
-          - 10
-          - 20
-          - 30
-          - 40
-          - 50
-          - 60
-          - 70
-          title: EAP Status
-          type: integer
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - explode: true
-        in: query
-        name: national_society
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - description: Region
-        in: query
-        name: region
-        schema:
-          type: number
-      - explode: true
-        in: query
-        name: partners
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - explode: true
-        in: query
-        name: disaster_type
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - description: A search term.
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Which field to use when ordering the results.
-        in: query
-        name: ordering
-        required: false
-        schema:
-          type: string
-      - description: Number of results to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-      - description: The initial index from which to return the results.
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedMiniEAPList'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/PaginatedMiniEAPList'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
   /api/v2/add_cronjob_log/:
     post:
       operationId: api_v2_add_cronjob_log_create
@@ -27911,19 +24541,6 @@ paths:
         schema:
           items:
             type: integer
-          type: array
-        style: form
-      - in: query
-        name: code
-        schema:
-          type: string
-      - description: Multiple values may be separated by commas.
-        explode: false
-        in: query
-        name: code__in
-        schema:
-          items:
-            type: string
           type: array
         style: form
       - in: query
@@ -28239,6 +24856,288 @@ paths:
             text/csv:
               schema:
                 $ref: '#/components/schemas/PerProcess'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - api
+  /api/v2/alert-subscription/:
+    get:
+      operationId: api_v2_alert_subscription_list
+      parameters:
+      - in: query
+        name: countries__iso3
+        schema:
+          type: string
+      - description: |-
+          Alert Per Day
+
+          * `5` - Five
+          * `10` - Ten
+          * `20` - Twenty
+          * `50` - Fifty
+        in: query
+        name: alert_per_day
+        schema:
+          enum:
+          - 10
+          - 20
+          - 5
+          - 50
+          nullable: true
+          title: Alerts Per Day
+          type: integer
+      - explode: true
+        in: query
+        name: country
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: region
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - description: Alert Source
+        in: query
+        name: alert_source
+        schema:
+          type: integer
+      - description: Hazard Type
+        in: query
+        name: hazard_type
+        schema:
+          type: string
+      - description: A search term.
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+      - description: Which field to use when ordering the results.
+        in: query
+        name: ordering
+        required: false
+        schema:
+          type: string
+      - description: Number of results to return per page.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The initial index from which to return the results.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAlertSubscriptionSerializeList'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PaginatedAlertSubscriptionSerializeList'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - api
+    post:
+      operationId: api_v2_alert_subscription_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertSubscriptionSerialize'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AlertSubscriptionSerialize'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AlertSubscriptionSerialize'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertSubscriptionSerialize'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AlertSubscriptionSerialize'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - api
+  /api/v2/alert-subscription/{id}/:
+    delete:
+      operationId: api_v2_alert_subscription_destroy
+      parameters:
+      - description: A unique integer value identifying this Alert Subscription.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '204':
+          description: No response body
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - api
+    get:
+      operationId: api_v2_alert_subscription_retrieve
+      parameters:
+      - description: A unique integer value identifying this Alert Subscription.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertSubscriptionSerialize'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AlertSubscriptionSerialize'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - api
+    patch:
+      operationId: api_v2_alert_subscription_partial_update
+      parameters:
+      - description: A unique integer value identifying this Alert Subscription.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAlertSubscriptionSerialize'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAlertSubscriptionSerialize'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAlertSubscriptionSerialize'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertSubscriptionSerialize'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AlertSubscriptionSerialize'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - api
+    put:
+      operationId: api_v2_alert_subscription_update
+      parameters:
+      - description: A unique integer value identifying this Alert Subscription.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertSubscriptionSerialize'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AlertSubscriptionSerialize'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AlertSubscriptionSerialize'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertSubscriptionSerialize'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/AlertSubscriptionSerialize'
           description: ''
       security:
       - tokenAuth: []
@@ -32978,569 +29877,6 @@ paths:
       - {}
       tags:
       - api
-  /api/v2/eap-file/:
-    post:
-      operationId: api_v2_eap_file_create
-      parameters:
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EAPFile'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/EAPFile'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/EAPFile'
-        required: true
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EAPFile'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/EAPFile'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-  /api/v2/eap-file/multiple/:
-    post:
-      operationId: api_v2_eap_file_multiple_create
-      parameters:
-      - description: A search term.
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Which field to use when ordering the results.
-        in: query
-        name: ordering
-        required: false
-        schema:
-          type: string
-      - description: Number of results to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-      - description: The initial index from which to return the results.
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EAPFileInput'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/EAPFileInput'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/EAPFileInput'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedEAPFileList'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/PaginatedEAPFileList'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-  /api/v2/eap-file/{id}/:
-    get:
-      operationId: api_v2_eap_file_retrieve
-      parameters:
-      - description: A unique integer value identifying this eap file.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EAPFile'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/EAPFile'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-  /api/v2/eap-registration/:
-    get:
-      operationId: api_v2_eap_registration_list
-      parameters:
-      - in: query
-        name: created_at
-        schema:
-          format: date
-          type: string
-      - in: query
-        name: created_at__lte
-        schema:
-          format: date
-          type: string
-      - in: query
-        name: created_at__gte
-        schema:
-          format: date
-          type: string
-      - description: |-
-          EAP Type
-
-          * `10` - Full EAP
-          * `20` - Simplified EAP
-        in: query
-        name: eap_type
-        schema:
-          enum:
-          - 10
-          - 20
-          nullable: true
-          type: integer
-      - description: |-
-          EAP Status
-
-          * `10` - Under Development
-          * `20` - Under Review
-          * `30` - NS Addressing Comments
-          * `40` - Technically Validated
-          * `50` - Pending PFA
-          * `60` - Approved
-          * `70` - Activated
-        in: query
-        name: status
-        schema:
-          enum:
-          - 10
-          - 20
-          - 30
-          - 40
-          - 50
-          - 60
-          - 70
-          title: EAP Status
-          type: integer
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - explode: true
-        in: query
-        name: national_society
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - description: Region
-        in: query
-        name: region
-        schema:
-          type: number
-      - explode: true
-        in: query
-        name: partners
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - explode: true
-        in: query
-        name: disaster_type
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - description: A search term.
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Which field to use when ordering the results.
-        in: query
-        name: ordering
-        required: false
-        schema:
-          type: string
-      - description: Number of results to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-      - description: The initial index from which to return the results.
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedEAPRegistrationList'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/PaginatedEAPRegistrationList'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-    post:
-      operationId: api_v2_eap_registration_create
-      parameters:
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EAPRegistration'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/EAPRegistration'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/EAPRegistration'
-        required: true
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EAPRegistration'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/EAPRegistration'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-  /api/v2/eap-registration/{id}/:
-    get:
-      operationId: api_v2_eap_registration_retrieve
-      parameters:
-      - description: A unique integer value identifying this Development Registration
-          EAP.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EAPRegistration'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/EAPRegistration'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-    patch:
-      operationId: api_v2_eap_registration_partial_update
-      parameters:
-      - description: A unique integer value identifying this Development Registration
-          EAP.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedEAPRegistration'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedEAPRegistration'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedEAPRegistration'
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EAPRegistration'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/EAPRegistration'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-    put:
-      operationId: api_v2_eap_registration_update
-      parameters:
-      - description: A unique integer value identifying this Development Registration
-          EAP.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EAPRegistration'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/EAPRegistration'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/EAPRegistration'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EAPRegistration'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/EAPRegistration'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-  /api/v2/eap-registration/{id}/status/:
-    post:
-      operationId: api_v2_eap_registration_status_create
-      parameters:
-      - description: A unique integer value identifying this Development Registration
-          EAP.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EAPStatus'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/EAPStatus'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/EAPStatus'
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EAPStatus'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/EAPStatus'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-  /api/v2/eap-registration/{id}/upload-validated-budget-file/:
-    post:
-      operationId: api_v2_eap_registration_upload_validated_budget_file_create
-      parameters:
-      - description: A unique integer value identifying this Development Registration
-          EAP.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EAPValidatedBudgetFile'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/EAPValidatedBudgetFile'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/EAPValidatedBudgetFile'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EAPValidatedBudgetFile'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/EAPValidatedBudgetFile'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-  /api/v2/eap/global-files/{template_type}/:
-    get:
-      operationId: api_v2_eap_global_files_retrieve
-      parameters:
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      - description: Type of EAP template to download
-        in: path
-        name: template_type
-        required: true
-        schema:
-          enum:
-          - budget_template
-          - forecast_table
-          - theory_of_change_table
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EAPGlobalFiles'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/EAPGlobalFiles'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
   /api/v2/emergency-project/:
     get:
       description: |-
@@ -37175,267 +33511,6 @@ paths:
             text/csv:
               schema:
                 $ref: '#/components/schemas/FlashUpdate'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-  /api/v2/full-eap/:
-    get:
-      operationId: api_v2_full_eap_list
-      parameters:
-      - explode: true
-        in: query
-        name: eap_registration
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: created_at
-        schema:
-          format: date
-          type: string
-      - in: query
-        name: created_at__lte
-        schema:
-          format: date
-          type: string
-      - in: query
-        name: created_at__gte
-        schema:
-          format: date
-          type: string
-      - description: SEAP Timeframe (in Years)
-        in: query
-        name: seap_timeframe
-        schema:
-          type: number
-      - explode: true
-        in: query
-        name: national_society
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - explode: true
-        in: query
-        name: disaster_type
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - description: A search term.
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Which field to use when ordering the results.
-        in: query
-        name: ordering
-        required: false
-        schema:
-          type: string
-      - description: Number of results to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-      - description: The initial index from which to return the results.
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedFullEAPList'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/PaginatedFullEAPList'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-    post:
-      operationId: api_v2_full_eap_create
-      parameters:
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FullEAP'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/FullEAP'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/FullEAP'
-        required: true
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FullEAP'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/FullEAP'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-  /api/v2/full-eap/{id}/:
-    get:
-      operationId: api_v2_full_eap_retrieve
-      parameters:
-      - description: A unique integer value identifying this Full EAP.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FullEAP'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/FullEAP'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-    patch:
-      operationId: api_v2_full_eap_partial_update
-      parameters:
-      - description: A unique integer value identifying this Full EAP.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedFullEAP'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedFullEAP'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedFullEAP'
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FullEAP'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/FullEAP'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-    put:
-      operationId: api_v2_full_eap_update
-      parameters:
-      - description: A unique integer value identifying this Full EAP.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FullEAP'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/FullEAP'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/FullEAP'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FullEAP'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/FullEAP'
           description: ''
       security:
       - tokenAuth: []
@@ -44914,267 +40989,6 @@ paths:
       - cookieAuth: []
       tags:
       - api
-  /api/v2/simplified-eap/:
-    get:
-      operationId: api_v2_simplified_eap_list
-      parameters:
-      - explode: true
-        in: query
-        name: eap_registration
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: created_at
-        schema:
-          format: date
-          type: string
-      - in: query
-        name: created_at__lte
-        schema:
-          format: date
-          type: string
-      - in: query
-        name: created_at__gte
-        schema:
-          format: date
-          type: string
-      - description: SEAP Timeframe (in Years)
-        in: query
-        name: seap_timeframe
-        schema:
-          type: integer
-      - explode: true
-        in: query
-        name: national_society
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - explode: true
-        in: query
-        name: disaster_type
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - description: A search term.
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Which field to use when ordering the results.
-        in: query
-        name: ordering
-        required: false
-        schema:
-          type: string
-      - description: Number of results to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-      - description: The initial index from which to return the results.
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedSimplifiedEAPList'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/PaginatedSimplifiedEAPList'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-    post:
-      operationId: api_v2_simplified_eap_create
-      parameters:
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SimplifiedEAP'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/SimplifiedEAP'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/SimplifiedEAP'
-        required: true
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SimplifiedEAP'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/SimplifiedEAP'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-  /api/v2/simplified-eap/{id}/:
-    get:
-      operationId: api_v2_simplified_eap_retrieve
-      parameters:
-      - description: A unique integer value identifying this Simplified EAP.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SimplifiedEAP'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/SimplifiedEAP'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-    patch:
-      operationId: api_v2_simplified_eap_partial_update
-      parameters:
-      - description: A unique integer value identifying this Simplified EAP.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedSimplifiedEAP'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedSimplifiedEAP'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedSimplifiedEAP'
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SimplifiedEAP'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/SimplifiedEAP'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
-    put:
-      operationId: api_v2_simplified_eap_update
-      parameters:
-      - description: A unique integer value identifying this Simplified EAP.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SimplifiedEAP'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/SimplifiedEAP'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/SimplifiedEAP'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SimplifiedEAP'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/SimplifiedEAP'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      tags:
-      - api
   /api/v2/situation_report/:
     get:
       operationId: api_v2_situation_report_list
@@ -46461,9 +42275,9 @@ paths:
       - {}
       tags:
       - change_recover_password
-  /dev/email-preview/eap/:
+  /dev/email-preview/alert-system/:
     get:
-      operationId: dev_email_preview_eap_retrieve
+      operationId: dev_email_preview_alert_system_retrieve
       parameters:
       - in: query
         name: format
