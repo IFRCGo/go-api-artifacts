@@ -377,6 +377,10 @@ components:
             $ref: '#/components/schemas/MiniRegionSerialzier'
           readOnly: true
           type: array
+        title:
+          maxLength: 255
+          title: Title of the Subscription
+          type: string
         updated_at:
           format: date-time
           readOnly: true
@@ -396,6 +400,7 @@ components:
       - hazard_types_detail
       - id
       - regions_detail
+      - title
       - updated_at
       - user
       - user_detail
@@ -15586,6 +15591,10 @@ components:
             $ref: '#/components/schemas/MiniRegionSerialzier'
           readOnly: true
           type: array
+        title:
+          maxLength: 255
+          title: Title of the Subscription
+          type: string
         updated_at:
           format: date-time
           readOnly: true
