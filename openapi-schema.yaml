@@ -5309,7 +5309,7 @@ components:
           type: boolean
         lessons_learned_and_challenges:
           nullable: true
-          title: Lessons learnt and challenges [en]
+          title: Lessons learnt and challenges
           type: string
         main_donors:
           nullable: true
@@ -5342,7 +5342,6 @@ components:
           type: integer
         mitigation_efforts_and_achievements:
           nullable: true
-          title: Mitigation Efforts and Achievements [en]
           type: string
         modified_at:
           format: date-time
@@ -16750,7 +16749,7 @@ components:
           type: boolean
         lessons_learned_and_challenges:
           nullable: true
-          title: Lessons learnt and challenges [en]
+          title: Lessons learnt and challenges
           type: string
         main_donors:
           nullable: true
@@ -16783,7 +16782,6 @@ components:
           type: integer
         mitigation_efforts_and_achievements:
           nullable: true
-          title: Mitigation Efforts and Achievements [en]
           type: string
         modified_at:
           format: date-time
@@ -23152,18 +23150,7 @@ components:
         source_name:
           maxLength: 255
           nullable: true
-          title: Source Name [en]
           type: string
-        translation_module_original_language:
-          allOf:
-          - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
-          readOnly: true
-        translation_module_skip_auto_translation:
-          description: Skip auto translation operation for this entity?
-          title: Skip auto translation
-          type: boolean
-      required:
-      - translation_module_original_language
       type: object
     SpecializedMedicalService:
       properties:
