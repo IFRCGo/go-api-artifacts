@@ -10180,10 +10180,7 @@ components:
           readOnly: true
           type: string
         title:
-          allOf:
-          - $ref: '#/components/schemas/DrefIdentifiedNeedTitleEnumKey'
-          nullable: true
-          title: Title [en]
+          $ref: '#/components/schemas/DrefIdentifiedNeedTitleEnumKey'
         title_display:
           readOnly: true
           type: string
@@ -10193,6 +10190,7 @@ components:
           readOnly: true
       required:
       - image_url
+      - title
       - title_display
       - translation_module_original_language
       type: object
@@ -20681,10 +20679,7 @@ components:
           title: Progress Towards Outcome [en]
           type: string
         title:
-          allOf:
-          - $ref: '#/components/schemas/DrefPlannedInterventionTitleEnumKey'
-          nullable: true
-          title: Title [en]
+          $ref: '#/components/schemas/DrefPlannedInterventionTitleEnumKey'
         title_display:
           readOnly: true
           type: string
@@ -20698,6 +20693,7 @@ components:
           type: boolean
       required:
       - image_url
+      - title
       - title_display
       - translation_module_original_language
       type: object
