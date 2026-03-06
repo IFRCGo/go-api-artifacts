@@ -4600,7 +4600,7 @@ components:
           type: string
         id:
           readOnly: true
-          type: integer
+          type: string
         indicators_id:
           readOnly: true
           type: string
@@ -16243,7 +16243,7 @@ components:
           type: string
         id:
           readOnly: true
-          type: integer
+          type: string
         indicators_id:
           readOnly: true
           type: string
