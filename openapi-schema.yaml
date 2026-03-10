@@ -933,8 +933,11 @@ components:
           nullable: true
           type: string
         event:
+          readOnly: true
+          type: integer
+        event_details:
           allOf:
-          - $ref: '#/components/schemas/EventMini'
+          - $ref: '#/components/schemas/EventDetails'
           readOnly: true
         id:
           readOnly: true
@@ -983,6 +986,7 @@ components:
       - created_at
       - dtype
       - event
+      - event_details
       - id
       - modified_at
       - name
@@ -7428,6 +7432,40 @@ components:
       - name
       - title
       type: object
+    EventDetails:
+      description: Custom ModelSerializer with translaion logic (Also works for normal
+        models)
+      properties:
+        id:
+          readOnly: true
+          type: integer
+        ifrc_severity_level:
+          allOf:
+          - $ref: '#/components/schemas/ApiAlertLevelEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+        ifrc_severity_level_display:
+          readOnly: true
+          type: string
+        name:
+          maxLength: 256
+          nullable: true
+          title: Name [en]
+          type: string
+        translation_module_original_language:
+          allOf:
+          - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
+          readOnly: true
+        updated_at:
+          format: date-time
+          readOnly: true
+          type: string
+      required:
+      - id
+      - ifrc_severity_level_display
+      - translation_module_original_language
+      - updated_at
+      type: object
     EventFeaturedDocument:
       properties:
         description:
@@ -7481,39 +7519,6 @@ components:
       - id
       - translation_module_original_language
       - url
-      type: object
-    EventMini:
-      description: Custom ModelSerializer with translaion logic (Also works for normal
-        models)
-      properties:
-        disaster_start_date:
-          format: date-time
-          type: string
-        id:
-          readOnly: true
-          type: integer
-        ifrc_severity_level:
-          allOf:
-          - $ref: '#/components/schemas/ApiAlertLevelEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-        ifrc_severity_level_display:
-          readOnly: true
-          type: string
-        name:
-          maxLength: 256
-          nullable: true
-          title: Name [en]
-          type: string
-        translation_module_original_language:
-          allOf:
-          - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
-          readOnly: true
-      required:
-      - disaster_start_date
-      - id
-      - ifrc_severity_level_display
-      - translation_module_original_language
       type: object
     EventSeverityLevelHistory:
       description: Custom ModelSerializer with translaion logic (Also works for normal
