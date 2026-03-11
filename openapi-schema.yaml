@@ -935,10 +935,6 @@ components:
         event:
           readOnly: true
           type: integer
-        event_details:
-          allOf:
-          - $ref: '#/components/schemas/EventDetails'
-          readOnly: true
         id:
           readOnly: true
           type: string
@@ -986,7 +982,6 @@ components:
       - created_at
       - dtype
       - event
-      - event_details
       - id
       - modified_at
       - name
@@ -3206,6 +3201,24 @@ components:
       - complete
       - planned
       type: string
+    DeploymentsEruReadinessNsContributionEnum:
+      properties:
+        key:
+          $ref: '#/components/schemas/DeploymentsEruReadinessNsContributionEnumKey'
+        value:
+          type: string
+      required:
+      - key
+      - value
+      type: object
+    DeploymentsEruReadinessNsContributionEnumKey:
+      description: |-
+        * `1` - Holds the ERU
+        * `2` - Supports the ERU
+      enum:
+      - 1
+      - 2
+      type: integer
     DeploymentsEruReadinessStatusEnum:
       properties:
         key:
@@ -6722,6 +6735,15 @@ components:
           type: string
         id:
           type: integer
+        ns_contribution:
+          allOf:
+          - $ref: '#/components/schemas/DeploymentsEruReadinessNsContributionEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          title: National Society Contribution
+        ns_contribution_display:
+          readOnly: true
+          type: string
         people_readiness:
           allOf:
           - $ref: '#/components/schemas/DeploymentsEruReadinessStatusEnumKey'
@@ -6744,6 +6766,8 @@ components:
       - equipment_readiness_display
       - funding_readiness
       - funding_readiness_display
+      - ns_contribution
+      - ns_contribution_display
       - people_readiness
       - people_readiness_display
       - type
@@ -7431,40 +7455,6 @@ components:
       - id
       - name
       - title
-      type: object
-    EventDetails:
-      description: Custom ModelSerializer with translaion logic (Also works for normal
-        models)
-      properties:
-        id:
-          readOnly: true
-          type: integer
-        ifrc_severity_level:
-          allOf:
-          - $ref: '#/components/schemas/ApiAlertLevelEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-        ifrc_severity_level_display:
-          readOnly: true
-          type: string
-        name:
-          maxLength: 256
-          nullable: true
-          title: Name [en]
-          type: string
-        translation_module_original_language:
-          allOf:
-          - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
-          readOnly: true
-        updated_at:
-          format: date-time
-          readOnly: true
-          type: string
-      required:
-      - id
-      - ifrc_severity_level_display
-      - translation_module_original_language
-      - updated_at
       type: object
     EventFeaturedDocument:
       properties:
@@ -9422,6 +9412,10 @@ components:
         deployments_emergency_project_status:
           items:
             $ref: '#/components/schemas/DeploymentsEmergencyProjectStatusEnum'
+          type: array
+        deployments_eru_readiness_ns_contribution:
+          items:
+            $ref: '#/components/schemas/DeploymentsEruReadinessNsContributionEnum'
           type: array
         deployments_eru_readiness_status:
           items:
@@ -11954,6 +11948,12 @@ components:
         id:
           readOnly: true
           type: integer
+        ns_contribution:
+          allOf:
+          - $ref: '#/components/schemas/DeploymentsEruReadinessNsContributionEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          title: National Society Contribution
         people_readiness:
           allOf:
           - $ref: '#/components/schemas/DeploymentsEruReadinessStatusEnumKey'
@@ -11978,6 +11978,7 @@ components:
       - funding_readiness
       - funding_readiness_display
       - id
+      - ns_contribution
       - people_readiness
       - people_readiness_display
       - type
@@ -29975,6 +29976,10 @@ paths:
           - 8
           - 9
           title: ERU type
+          type: integer
+      - in: query
+        name: ns_contribution
+        schema:
           type: integer
       - description: A search term.
         in: query
