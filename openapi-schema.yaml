@@ -3213,8 +3213,8 @@ components:
       type: object
     DeploymentsEruReadinessNsContributionEnumKey:
       description: |-
-        * `1` - Holds the ERU
-        * `2` - Supports the ERU
+        * `1` - Confirm that you have the capacity to hold this type of ERU
+        * `2` - Confirm that you have the capacity to support this type of ERU
       enum:
       - 1
       - 2
