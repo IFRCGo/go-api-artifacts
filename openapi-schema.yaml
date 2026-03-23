@@ -21578,7 +21578,6 @@ components:
           title: Expenditure
           type: integer
       required:
-      - activities
       - proposed_type
       - proposed_type_display
       - total_budget
