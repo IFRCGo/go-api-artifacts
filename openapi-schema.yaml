@@ -2770,6 +2770,9 @@ components:
       properties:
         country:
           type: integer
+        embed:
+          readOnly: true
+          type: string
         id:
           readOnly: true
           type: integer
@@ -2795,6 +2798,7 @@ components:
           type: string
       required:
       - country
+      - embed
       - id
       - translation_module_original_language
       - visibility_display
@@ -22217,6 +22221,9 @@ components:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
       properties:
+        embed:
+          readOnly: true
+          type: string
         id:
           readOnly: true
           type: integer
@@ -22243,6 +22250,7 @@ components:
           readOnly: true
           type: string
       required:
+      - embed
       - id
       - region
       - translation_module_original_language
@@ -23023,6 +23031,9 @@ components:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
       properties:
+        embed:
+          readOnly: true
+          type: string
         event:
           type: integer
         id:
@@ -23065,6 +23076,7 @@ components:
           readOnly: true
           type: string
       required:
+      - embed
       - event
       - id
       - position_display
