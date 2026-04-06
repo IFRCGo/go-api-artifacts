@@ -6645,6 +6645,24 @@ components:
       required:
       - url
       type: object
+    EAPOptions:
+      properties:
+        approach_ap_codes:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+        sector_ap_codes:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+      required:
+      - approach_ap_codes
+      - sector_ap_codes
+      type: object
     EAPRegistration:
       description: Mixin adds update nested feature
       properties:
@@ -7266,26 +7284,6 @@ components:
       - id
       - type_display
       type: object
-    EapApproachApcodeEnum:
-      properties:
-        key:
-          $ref: '#/components/schemas/EapApproachApcodeEnumKey'
-        value:
-          type: string
-      required:
-      - key
-      - value
-      type: object
-    EapApproachApcodeEnumKey:
-      description: |-
-        * `10` - AP122
-        * `20` - AP124, AP125, AP126
-        * `30` - AP049, AP118, AP119, AP120, AP121, AP127, AP128
-      enum:
-      - 10
-      - 20
-      - 30
-      type: integer
     EapApproachEnum:
       properties:
         key:
@@ -7489,42 +7487,6 @@ components:
       - 10
       - 11
       - 12
-      type: integer
-    EapSectorApcodeEnum:
-      properties:
-        key:
-          $ref: '#/components/schemas/EapSectorApcodeEnumKey'
-        value:
-          type: string
-      required:
-      - key
-      - value
-      type: object
-    EapSectorApcodeEnumKey:
-      description: |-
-        * `101` - AP101, AP103, AP104
-        * `102` - AP007
-        * `103` - AP114, AP116, AP117
-        * `104` - AP107, AP108, AP109
-        * `105` - AP101, AP103, AP104, AP105, AP106
-        * `106` - AP081
-        * `107` - AP110, AP111
-        * `109` - AP115
-        * `110` - AP112, AP113
-        * `111` - AP102
-        * `112` - AP129
-      enum:
-      - 101
-      - 102
-      - 103
-      - 104
-      - 105
-      - 106
-      - 107
-      - 109
-      - 110
-      - 111
-      - 112
       type: integer
     EapSectorEnum:
       properties:
@@ -10938,10 +10900,6 @@ components:
           items:
             $ref: '#/components/schemas/EapApproachEnum'
           type: array
-        eap_approach_apcode:
-          items:
-            $ref: '#/components/schemas/EapApproachApcodeEnum'
-          type: array
         eap_days_timeframe_value:
           items:
             $ref: '#/components/schemas/EapDaysTimeframeValueEnum'
@@ -10965,10 +10923,6 @@ components:
         eap_sector:
           items:
             $ref: '#/components/schemas/EapSectorEnum'
-          type: array
-        eap_sector_apcode:
-          items:
-            $ref: '#/components/schemas/EapSectorApcodeEnum'
           type: array
         eap_timeframe:
           items:
@@ -33808,6 +33762,33 @@ paths:
             text/csv:
               schema:
                 $ref: '#/components/schemas/EAPGlobalFiles'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - api
+  /api/v2/eap/options/:
+    get:
+      operationId: api_v2_eap_options_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EAPOptions'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/EAPOptions'
           description: ''
       security:
       - tokenAuth: []
