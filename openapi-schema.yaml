@@ -4604,7 +4604,7 @@ components:
           type: string
         id:
           readOnly: true
-          type: integer
+          type: string
         indicators_id:
           readOnly: true
           type: string
@@ -5313,7 +5313,7 @@ components:
           type: boolean
         lessons_learned_and_challenges:
           nullable: true
-          title: Lessons learnt and challenges
+          title: Lessons learnt and challenges [en]
           type: string
         main_donors:
           nullable: true
@@ -5346,6 +5346,7 @@ components:
           type: integer
         mitigation_efforts_and_achievements:
           nullable: true
+          title: Mitigation Efforts and Achievements [en]
           type: string
         modified_at:
           format: date-time
@@ -11668,10 +11669,7 @@ components:
           readOnly: true
           type: string
         title:
-          allOf:
-          - $ref: '#/components/schemas/DrefIdentifiedNeedTitleEnumKey'
-          nullable: true
-          title: Title [en]
+          $ref: '#/components/schemas/DrefIdentifiedNeedTitleEnumKey'
         title_display:
           readOnly: true
           type: string
@@ -11681,6 +11679,7 @@ components:
           readOnly: true
       required:
       - image_url
+      - title
       - title_display
       - translation_module_original_language
       type: object
@@ -18205,7 +18204,7 @@ components:
           type: string
         id:
           readOnly: true
-          type: integer
+          type: string
         indicators_id:
           readOnly: true
           type: string
@@ -18710,7 +18709,7 @@ components:
           type: boolean
         lessons_learned_and_challenges:
           nullable: true
-          title: Lessons learnt and challenges
+          title: Lessons learnt and challenges [en]
           type: string
         main_donors:
           nullable: true
@@ -18743,6 +18742,7 @@ components:
           type: integer
         mitigation_efforts_and_achievements:
           nullable: true
+          title: Mitigation Efforts and Achievements [en]
           type: string
         modified_at:
           format: date-time
@@ -23819,10 +23819,7 @@ components:
           title: Progress Towards Outcome [en]
           type: string
         title:
-          allOf:
-          - $ref: '#/components/schemas/DrefPlannedInterventionTitleEnumKey'
-          nullable: true
-          title: Title [en]
+          $ref: '#/components/schemas/DrefPlannedInterventionTitleEnumKey'
         title_display:
           readOnly: true
           type: string
@@ -23836,6 +23833,7 @@ components:
           type: boolean
       required:
       - image_url
+      - title
       - title_display
       - translation_module_original_language
       type: object
@@ -24772,31 +24770,17 @@ components:
           title: Expenditure
           type: integer
       required:
-      - activities
       - proposed_type
       - proposed_type_display
       - total_budget
       type: object
     ProposedActionActivity:
+      description: Custom ModelSerializer with translaion logic (Also works for normal
+        models)
       properties:
         activity:
           nullable: true
-          type: string
-        activity_ar:
-          nullable: true
-          title: Activity [ar]
-          type: string
-        activity_en:
-          nullable: true
           title: Activity [en]
-          type: string
-        activity_es:
-          nullable: true
-          title: Activity [es]
-          type: string
-        activity_fr:
-          nullable: true
-          title: Activity [fr]
           type: string
         id:
           type: integer
@@ -24805,20 +24789,14 @@ components:
         translation_module_original_language:
           allOf:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
-          description: |-
-            Language used to create this entity
-
-            * `en` - English
-            * `es` - Spanish
-            * `fr` - French
-            * `ar` - Arabic
-          title: Entity Original language
+          readOnly: true
         translation_module_skip_auto_translation:
           description: Skip auto translation operation for this entity?
           title: Skip auto translation
           type: boolean
       required:
       - sector
+      - translation_module_original_language
       type: object
     PublicAreaResponse:
       properties:
@@ -26711,7 +26689,18 @@ components:
         source_name:
           maxLength: 255
           nullable: true
+          title: Source Name [en]
           type: string
+        translation_module_original_language:
+          allOf:
+          - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
+          readOnly: true
+        translation_module_skip_auto_translation:
+          description: Skip auto translation operation for this entity?
+          title: Skip auto translation
+          type: boolean
+      required:
+      - translation_module_original_language
       type: object
     SpecializedMedicalService:
       properties:
