@@ -3385,6 +3385,159 @@ components:
       - 3
       - 4
       type: integer
+    DetailEmergency:
+      properties:
+        auto_generated:
+          readOnly: true
+          type: boolean
+        contacts:
+          items:
+            $ref: '#/components/schemas/EventContact'
+          readOnly: true
+          type: array
+        countries:
+          items:
+            $ref: '#/components/schemas/MiniCountry'
+          readOnly: true
+          type: array
+        created_at:
+          format: date-time
+          readOnly: true
+          type: string
+        disaster_start_date:
+          format: date-time
+          type: string
+        dtype:
+          nullable: true
+          title: Disaster type
+          type: integer
+        emergency_response_contact_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        hide_attached_field_reports:
+          title: Hide field report numeric details
+          type: boolean
+        hide_field_report_map:
+          type: boolean
+        id:
+          readOnly: true
+          type: integer
+        ifrc_severity_level:
+          allOf:
+          - $ref: '#/components/schemas/ApiAlertLevelEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+        ifrc_severity_level_display:
+          readOnly: true
+          type: string
+        ifrc_severity_level_update_date:
+          format: date-time
+          nullable: true
+          type: string
+        is_featured:
+          title: Is featured on home page
+          type: boolean
+        is_featured_region:
+          title: Is featured on region page
+          type: boolean
+        key_figures:
+          items:
+            $ref: '#/components/schemas/KeyFigure'
+          readOnly: true
+          type: array
+        latest_field_report_id:
+          readOnly: true
+          type: integer
+        name:
+          maxLength: 256
+          type: string
+        num_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of affected
+          type: integer
+        num_dead:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of dead
+          type: integer
+        num_displaced:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of displaced
+          type: integer
+        num_injured:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of injured
+          type: integer
+        num_missing:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of missing
+          type: integer
+        parent_event:
+          description: If needed, you have to change the connected Appeals', Field
+            Reports', etc to point to the parent Emergency manually.
+          nullable: true
+          title: Parent Emergency
+          type: integer
+        previous_update:
+          format: date-time
+          nullable: true
+          type: string
+        slug:
+          description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
+            The string cannot start with a number and is forced to be lowercase. Recommend
+            using hyphens over underscores. Special characters like # is not allowed.'
+          maxLength: 50
+          nullable: true
+          pattern: ^[-a-zA-Z0-9_]+$
+          type: string
+        source:
+          allOf:
+          - $ref: '#/components/schemas/SourceEnum'
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Event source
+        source_display:
+          readOnly: true
+          type: string
+        summary:
+          type: string
+        updated_at:
+          format: date-time
+          readOnly: true
+          type: string
+        visibility:
+          allOf:
+          - $ref: '#/components/schemas/ApiVisibilityChoicesEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+        visibility_display:
+          readOnly: true
+          type: string
+      required:
+      - auto_generated
+      - contacts
+      - countries
+      - created_at
+      - disaster_start_date
+      - id
+      - ifrc_severity_level_display
+      - key_figures
+      - latest_field_report_id
+      - name
+      - source_display
+      - updated_at
+      - visibility_display
+      type: object
     DetailEvent:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
@@ -10656,10 +10809,6 @@ components:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
       properties:
-        auto_generated_source:
-          nullable: true
-          readOnly: true
-          type: string
         countries_for_preview:
           items:
             $ref: '#/components/schemas/MiniCountry'
@@ -10687,12 +10836,17 @@ components:
           nullable: true
           pattern: ^[-a-zA-Z0-9_]+$
           type: string
+        source:
+          allOf:
+          - $ref: '#/components/schemas/SourceEnum'
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Event source
         translation_module_original_language:
           allOf:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
       required:
-      - auto_generated_source
       - countries_for_preview
       - id
       - translation_module_original_language
@@ -13607,6 +13761,29 @@ components:
         results:
           items:
             $ref: '#/components/schemas/DeploymentsByEvent'
+          type: array
+      required:
+      - count
+      - results
+      type: object
+    PaginatedDetailEmergencyList:
+      properties:
+        count:
+          example: 123
+          type: integer
+        next:
+          example: http://api.example.org/accounts/?offset=400&limit=100
+          format: uri
+          nullable: true
+          type: string
+        previous:
+          example: http://api.example.org/accounts/?offset=200&limit=100
+          format: uri
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/DetailEmergency'
           type: array
       required:
       - count
@@ -23111,6 +23288,28 @@ components:
       - stype
       - translation_module_original_language
       type: object
+    SourceEnum:
+      description: |-
+        * `100` - Manual input
+        * `110` - GDACs scraper
+        * `120` - WHO scraper
+        * `130` - Field report DMIS ingest
+        * `140` - Field report admin
+        * `150` - Appeal admin
+        * `160` - New field report
+        * `170` - DREF
+        * `180` - Unknown
+      enum:
+      - 100
+      - 110
+      - 120
+      - 130
+      - 140
+      - 150
+      - 160
+      - 170
+      - 180
+      type: integer
     SourceInformation:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
@@ -29445,6 +29644,7 @@ paths:
         name: country_iso3
         schema:
           items:
+            nullable: true
             type: string
           type: array
         style: form
@@ -29764,6 +29964,215 @@ paths:
       - tokenAuth: []
       - basicAuth: []
       - cookieAuth: []
+      tags:
+      - api
+  /api/v2/emergency/:
+    get:
+      operationId: api_v2_emergency_list
+      parameters:
+      - in: query
+        name: disaster_start_date
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: disaster_start_date__gt
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: disaster_start_date__gte
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: disaster_start_date__lt
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: disaster_start_date__lte
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: created_at
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: created_at__gt
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: created_at__gte
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: created_at__lt
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: created_at__lte
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: dtype
+        schema:
+          type: integer
+      - description: |-
+          * `0` - DREF
+          * `1` - Emergency Appeal
+          * `2` - International Appeal
+          * `3` - Forecast Based Action
+        explode: true
+        in: query
+        name: appeal_type
+        schema:
+          items:
+            enum:
+            - 0
+            - 1
+            - 2
+            - 3
+            title: Appeal type
+            type: integer
+          type: array
+        style: form
+      - in: query
+        name: is_featured
+        schema:
+          type: boolean
+      - in: query
+        name: is_featured_region
+        schema:
+          type: boolean
+      - in: query
+        name: countries__in
+        schema:
+          type: integer
+      - in: query
+        name: regions__in
+        schema:
+          type: integer
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - description: |-
+          * `100` - Manual input
+          * `110` - GDACs scraper
+          * `120` - WHO scraper
+          * `130` - Field report DMIS ingest
+          * `140` - Field report admin
+          * `150` - Appeal admin
+          * `160` - New field report
+          * `170` - DREF
+          * `180` - Unknown
+        in: query
+        name: source
+        schema:
+          enum:
+          - 100
+          - 110
+          - 120
+          - 130
+          - 140
+          - 150
+          - 160
+          - 170
+          - 180
+          title: Event source
+          type: integer
+      - description: is_subscribed
+        in: query
+        name: is_subscribed
+        schema:
+          type: boolean
+      - description: A search term.
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+      - description: Which field to use when ordering the results.
+        in: query
+        name: ordering
+        required: false
+        schema:
+          type: string
+      - description: Number of results to return per page.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The initial index from which to return the results.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDetailEmergencyList'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PaginatedDetailEmergencyList'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
+  /api/v2/emergency/{id}/:
+    get:
+      operationId: api_v2_emergency_retrieve
+      parameters:
+      - description: A unique integer value identifying this emergency.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailEmergency'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/DetailEmergency'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
       tags:
       - api
   /api/v2/eru-readiness-type/:
@@ -30582,6 +30991,32 @@ paths:
     get:
       operationId: api_v2_event_severity_level_history_list
       parameters:
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - description: Multiple values may be separated by commas.
+        explode: false
+        in: query
+        name: id__in
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - in: query
+        name: event
+        schema:
+          type: integer
+      - description: Multiple values may be separated by commas.
+        explode: false
+        in: query
+        name: event__in
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
       - description: A search term.
         in: query
         name: search
@@ -30763,26 +31198,30 @@ paths:
         schema:
           type: integer
       - description: |-
-          Auto generated source choices
-
-          * `GDACs scraper` - GDACs scraper
-          * `WHO scraper` - WHO scraper
-          * `Field report DMIS ingest` - Field report DMIS ingest
-          * `Field report admin` - Field report admin
-          * `Appeal admin` - Appeal admin
-          * `New field report` - New field report
+          * `100` - Manual input
+          * `110` - GDACs scraper
+          * `120` - WHO scraper
+          * `130` - Field report DMIS ingest
+          * `140` - Field report admin
+          * `150` - Appeal admin
+          * `160` - New field report
+          * `170` - DREF
+          * `180` - Unknown
         in: query
-        name: auto_generated_source
+        name: source
         schema:
           enum:
-          - Appeal admin
-          - Field report DMIS ingest
-          - Field report admin
-          - GDACs scraper
-          - New field report
-          - WHO scraper
-          nullable: true
-          type: string
+          - 100
+          - 110
+          - 120
+          - 130
+          - 140
+          - 150
+          - 160
+          - 170
+          - 180
+          title: Event source
+          type: integer
       - description: is_subscribed
         in: query
         name: is_subscribed
@@ -30934,26 +31373,30 @@ paths:
         schema:
           type: integer
       - description: |-
-          Auto generated source choices
-
-          * `GDACs scraper` - GDACs scraper
-          * `WHO scraper` - WHO scraper
-          * `Field report DMIS ingest` - Field report DMIS ingest
-          * `Field report admin` - Field report admin
-          * `Appeal admin` - Appeal admin
-          * `New field report` - New field report
+          * `100` - Manual input
+          * `110` - GDACs scraper
+          * `120` - WHO scraper
+          * `130` - Field report DMIS ingest
+          * `140` - Field report admin
+          * `150` - Appeal admin
+          * `160` - New field report
+          * `170` - DREF
+          * `180` - Unknown
         in: query
-        name: auto_generated_source
+        name: source
         schema:
           enum:
-          - Appeal admin
-          - Field report DMIS ingest
-          - Field report admin
-          - GDACs scraper
-          - New field report
-          - WHO scraper
-          nullable: true
-          type: string
+          - 100
+          - 110
+          - 120
+          - 130
+          - 140
+          - 150
+          - 160
+          - 170
+          - 180
+          title: Event source
+          type: integer
       - description: is_subscribed
         in: query
         name: is_subscribed
@@ -31105,26 +31548,30 @@ paths:
         schema:
           type: integer
       - description: |-
-          Auto generated source choices
-
-          * `GDACs scraper` - GDACs scraper
-          * `WHO scraper` - WHO scraper
-          * `Field report DMIS ingest` - Field report DMIS ingest
-          * `Field report admin` - Field report admin
-          * `Appeal admin` - Appeal admin
-          * `New field report` - New field report
+          * `100` - Manual input
+          * `110` - GDACs scraper
+          * `120` - WHO scraper
+          * `130` - Field report DMIS ingest
+          * `140` - Field report admin
+          * `150` - Appeal admin
+          * `160` - New field report
+          * `170` - DREF
+          * `180` - Unknown
         in: query
-        name: auto_generated_source
+        name: source
         schema:
           enum:
-          - Appeal admin
-          - Field report DMIS ingest
-          - Field report admin
-          - GDACs scraper
-          - New field report
-          - WHO scraper
-          nullable: true
-          type: string
+          - 100
+          - 110
+          - 120
+          - 130
+          - 140
+          - 150
+          - 160
+          - 170
+          - 180
+          title: Event source
+          type: integer
       - description: is_subscribed
         in: query
         name: is_subscribed
@@ -38867,6 +39314,7 @@ paths:
         name: country_iso3
         schema:
           items:
+            nullable: true
             type: string
           type: array
         style: form
