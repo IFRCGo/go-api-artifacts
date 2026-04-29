@@ -24929,6 +24929,11 @@ paths:
             type: integer
           type: array
         style: form
+      - description: needs_confirmation
+        in: query
+        name: needs_confirmation
+        schema:
+          type: boolean
       - description: has_event
         in: query
         name: has_event
