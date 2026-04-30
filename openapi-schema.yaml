@@ -3448,6 +3448,9 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        first_field_report_id:
+          readOnly: true
+          type: integer
         hide_attached_field_reports:
           title: Hide field report numeric details
           type: boolean
@@ -3563,6 +3566,7 @@ components:
       - countries
       - created_at
       - disaster_start_date
+      - first_field_report_id
       - id
       - ifrc_severity_level_display
       - key_figures
