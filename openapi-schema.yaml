@@ -559,6 +559,36 @@ components:
       - 1
       - 2
       type: integer
+    ApiEventSourceEnum:
+      properties:
+        key:
+          $ref: '#/components/schemas/ApiEventSourceEnumKey'
+        value:
+          type: string
+      required:
+      - key
+      - value
+      type: object
+    ApiEventSourceEnumKey:
+      description: |-
+        * `100` - Manual input
+        * `110` - GDACs scraper
+        * `120` - WHO scraper
+        * `130` - Field report DMIS ingest
+        * `140` - Field report admin
+        * `150` - Appeal admin
+        * `160` - New field report
+        * `170` - DREF
+      enum:
+      - 100
+      - 110
+      - 120
+      - 130
+      - 140
+      - 150
+      - 160
+      - 170
+      type: integer
     ApiFieldReportBulletinEnum:
       properties:
         key:
@@ -3412,6 +3442,167 @@ components:
       - 3
       - 4
       type: integer
+    DetailEmergency:
+      properties:
+        appeal_id:
+          readOnly: true
+          type: integer
+        auto_generated:
+          readOnly: true
+          type: boolean
+        contacts:
+          items:
+            $ref: '#/components/schemas/EventContact'
+          readOnly: true
+          type: array
+        countries:
+          items:
+            $ref: '#/components/schemas/MiniCountry'
+          readOnly: true
+          type: array
+        created_at:
+          format: date-time
+          readOnly: true
+          type: string
+        disaster_start_date:
+          format: date-time
+          type: string
+        dtype:
+          nullable: true
+          title: Disaster type
+          type: integer
+        emergency_response_contact_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        first_field_report_id:
+          readOnly: true
+          type: integer
+        hide_attached_field_reports:
+          title: Hide field report numeric details
+          type: boolean
+        hide_field_report_map:
+          type: boolean
+        id:
+          readOnly: true
+          type: integer
+        ifrc_severity_level:
+          allOf:
+          - $ref: '#/components/schemas/ApiAlertLevelEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+        ifrc_severity_level_display:
+          readOnly: true
+          type: string
+        ifrc_severity_level_update_date:
+          format: date-time
+          nullable: true
+          type: string
+        is_featured:
+          title: Is featured on home page
+          type: boolean
+        is_featured_region:
+          title: Is featured on region page
+          type: boolean
+        key_figures:
+          items:
+            $ref: '#/components/schemas/KeyFigure'
+          readOnly: true
+          type: array
+        latest_field_report_id:
+          readOnly: true
+          type: integer
+        name:
+          maxLength: 256
+          type: string
+        num_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of affected
+          type: integer
+        num_dead:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of dead
+          type: integer
+        num_displaced:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of displaced
+          type: integer
+        num_injured:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of injured
+          type: integer
+        num_missing:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of missing
+          type: integer
+        parent_event:
+          description: If needed, you have to change the connected Appeals', Field
+            Reports', etc to point to the parent Emergency manually.
+          nullable: true
+          title: Parent Emergency
+          type: integer
+        previous_update:
+          format: date-time
+          nullable: true
+          type: string
+        slug:
+          description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
+            The string cannot start with a number and is forced to be lowercase. Recommend
+            using hyphens over underscores. Special characters like # is not allowed.'
+          maxLength: 50
+          nullable: true
+          pattern: ^[-a-zA-Z0-9_]+$
+          type: string
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ApiEventSourceEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Event source
+        source_display:
+          readOnly: true
+          type: string
+        summary:
+          type: string
+        updated_at:
+          format: date-time
+          readOnly: true
+          type: string
+        visibility:
+          allOf:
+          - $ref: '#/components/schemas/ApiVisibilityChoicesEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+        visibility_display:
+          readOnly: true
+          type: string
+      required:
+      - appeal_id
+      - auto_generated
+      - contacts
+      - countries
+      - created_at
+      - disaster_start_date
+      - first_field_report_id
+      - id
+      - ifrc_severity_level_display
+      - key_figures
+      - latest_field_report_id
+      - name
+      - source_display
+      - updated_at
+      - visibility_display
+      type: object
     DetailEvent:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
@@ -10854,6 +11045,10 @@ components:
           items:
             $ref: '#/components/schemas/ApiEpisourceChoicesEnum'
           type: array
+        api_event_source:
+          items:
+            $ref: '#/components/schemas/ApiEventSourceEnum'
+          type: array
         api_field_report_bulletin:
           items:
             $ref: '#/components/schemas/ApiFieldReportBulletinEnum'
@@ -12281,10 +12476,6 @@ components:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
       properties:
-        auto_generated_source:
-          nullable: true
-          readOnly: true
-          type: string
         countries_for_preview:
           items:
             $ref: '#/components/schemas/MiniCountry'
@@ -12312,12 +12503,17 @@ components:
           nullable: true
           pattern: ^[-a-zA-Z0-9_]+$
           type: string
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ApiEventSourceEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Event source
         translation_module_original_language:
           allOf:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
       required:
-      - auto_generated_source
       - countries_for_preview
       - id
       - translation_module_original_language
@@ -14540,155 +14736,6 @@ components:
       required:
       - lookup_id
       type: object
-    MolnixAppraisal:
-      description: Custom ModelSerializer with translaion logic (Also works for normal
-        models)
-      properties:
-        appraised_person_id:
-          format: int64
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          nullable: true
-          type: integer
-        appraisers_count:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
-        competencies_json:
-          nullable: true
-        created_at:
-          format: date-time
-          nullable: true
-          type: string
-        deployment_country_id:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
-        deployment_end:
-          format: date-time
-          nullable: true
-          type: string
-        deployment_molnix_id:
-          format: int64
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          nullable: true
-          type: integer
-        deployment_start:
-          format: date-time
-          nullable: true
-          type: string
-        deployment_tags_json:
-          nullable: true
-        deployment_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        id:
-          readOnly: true
-          type: integer
-        molnix_id:
-          format: int64
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          type: integer
-        personnel:
-          nullable: true
-          type: integer
-        receiving_organization_id:
-          format: int64
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          nullable: true
-          type: integer
-        score:
-          format: decimal
-          nullable: true
-          pattern: ^-?\d{0,4}(?:\.\d{0,3})?$
-          type: string
-        sending_organization_id:
-          format: int64
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          nullable: true
-          type: integer
-        stage:
-          maxLength: 64
-          nullable: true
-          type: string
-        target_id:
-          format: int64
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          type: integer
-        updated_at:
-          format: date-time
-          nullable: true
-          type: string
-      required:
-      - id
-      - molnix_id
-      - target_id
-      type: object
-    MolnixAppraiser:
-      description: Custom ModelSerializer with translaion logic (Also works for normal
-        models)
-      properties:
-        appraisal:
-          nullable: true
-          type: integer
-        appraisal_molnix_id:
-          format: int64
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          type: integer
-        appraiser_type:
-          maxLength: 32
-          nullable: true
-          type: string
-        completed_at:
-          format: date-time
-          nullable: true
-          type: string
-        created_at:
-          format: date-time
-          nullable: true
-          type: string
-        id:
-          readOnly: true
-          type: integer
-        molnix_id:
-          format: int64
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          type: integer
-        notified_at:
-          format: date-time
-          nullable: true
-          type: string
-        person_id:
-          format: int64
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          nullable: true
-          type: integer
-        personnel:
-          nullable: true
-          type: integer
-        required:
-          nullable: true
-          type: boolean
-        updated_at:
-          format: date-time
-          nullable: true
-          type: string
-      required:
-      - appraisal_molnix_id
-      - id
-      - molnix_id
-      type: object
     MolnixTag:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
@@ -15663,6 +15710,29 @@ components:
         results:
           items:
             $ref: '#/components/schemas/DeploymentsByEvent'
+          type: array
+      required:
+      - count
+      - results
+      type: object
+    PaginatedDetailEmergencyList:
+      properties:
+        count:
+          example: 123
+          type: integer
+        next:
+          example: http://api.example.org/accounts/?offset=400&limit=100
+          format: uri
+          nullable: true
+          type: string
+        previous:
+          example: http://api.example.org/accounts/?offset=200&limit=100
+          format: uri
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/DetailEmergency'
           type: array
       required:
       - count
@@ -16795,52 +16865,6 @@ components:
       - count
       - results
       type: object
-    PaginatedMolnixAppraisalList:
-      properties:
-        count:
-          example: 123
-          type: integer
-        next:
-          example: http://api.example.org/accounts/?offset=400&limit=100
-          format: uri
-          nullable: true
-          type: string
-        previous:
-          example: http://api.example.org/accounts/?offset=200&limit=100
-          format: uri
-          nullable: true
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/MolnixAppraisal'
-          type: array
-      required:
-      - count
-      - results
-      type: object
-    PaginatedMolnixAppraiserList:
-      properties:
-        count:
-          example: 123
-          type: integer
-        next:
-          example: http://api.example.org/accounts/?offset=400&limit=100
-          format: uri
-          nullable: true
-          type: string
-        previous:
-          example: http://api.example.org/accounts/?offset=200&limit=100
-          format: uri
-          nullable: true
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/MolnixAppraiser'
-          type: array
-      required:
-      - count
-      - results
-      type: object
     PaginatedNsList:
       properties:
         count:
@@ -17342,52 +17366,6 @@ components:
         results:
           items:
             $ref: '#/components/schemas/RegionalProject'
-          type: array
-      required:
-      - count
-      - results
-      type: object
-    PaginatedRrmsEventParticipationList:
-      properties:
-        count:
-          example: 123
-          type: integer
-        next:
-          example: http://api.example.org/accounts/?offset=400&limit=100
-          format: uri
-          nullable: true
-          type: string
-        previous:
-          example: http://api.example.org/accounts/?offset=200&limit=100
-          format: uri
-          nullable: true
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/RrmsEventParticipation'
-          type: array
-      required:
-      - count
-      - results
-      type: object
-    PaginatedRrmsPersonSnapshotList:
-      properties:
-        count:
-          example: 123
-          type: integer
-        next:
-          example: http://api.example.org/accounts/?offset=400&limit=100
-          format: uri
-          nullable: true
-          type: string
-        previous:
-          example: http://api.example.org/accounts/?offset=200&limit=100
-          format: uri
-          nullable: true
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/RrmsPersonSnapshot'
           type: array
       required:
       - count
@@ -25986,129 +25964,6 @@ components:
       required:
       - translation_module_original_language
       type: object
-    RrmsEventParticipation:
-      description: Custom ModelSerializer with translaion logic (Also works for normal
-        models)
-      properties:
-        event_from:
-          format: date-time
-          nullable: true
-          type: string
-        event_id:
-          format: int64
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          type: integer
-        event_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        event_organization_id:
-          format: int64
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          nullable: true
-          type: integer
-        event_organization_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        event_person_role:
-          maxLength: 128
-          nullable: true
-          type: string
-        event_scale_type:
-          maxLength: 128
-          nullable: true
-          type: string
-        event_to:
-          format: date-time
-          nullable: true
-          type: string
-        event_type:
-          maxLength: 128
-          nullable: true
-          type: string
-        id:
-          readOnly: true
-          type: integer
-        participant_end:
-          format: date-time
-          nullable: true
-          type: string
-        participant_start:
-          format: date-time
-          nullable: true
-          type: string
-        person_id:
-          format: int64
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          type: integer
-        requested:
-          nullable: true
-          type: boolean
-        tags_json:
-          nullable: true
-        venue:
-          maxLength: 255
-          nullable: true
-          type: string
-      required:
-      - event_id
-      - id
-      - person_id
-      type: object
-    RrmsPersonSnapshot:
-      description: Custom ModelSerializer with translaion logic (Also works for normal
-        models)
-      properties:
-        current_availability:
-          maxLength: 64
-          nullable: true
-          type: string
-        languages_json:
-          nullable: true
-        organization_id:
-          format: int64
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          nullable: true
-          type: integer
-        organization_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        outofscope:
-          nullable: true
-          type: boolean
-        person_id:
-          format: int64
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          type: integer
-        person_status:
-          maxLength: 32
-          nullable: true
-          type: string
-        personnel:
-          nullable: true
-          type: integer
-        roles_json:
-          nullable: true
-        sex:
-          maxLength: 32
-          nullable: true
-          type: string
-        source_updated_at:
-          format: date-time
-          nullable: true
-          type: string
-        tags_json:
-          nullable: true
-      required:
-      - person_id
-      type: object
     RtypeEnum:
       description: |-
         * `0` - event
@@ -34652,6 +34507,213 @@ paths:
       - cookieAuth: []
       tags:
       - api
+  /api/v2/emergency/:
+    get:
+      operationId: api_v2_emergency_list
+      parameters:
+      - in: query
+        name: disaster_start_date
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: disaster_start_date__gt
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: disaster_start_date__gte
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: disaster_start_date__lt
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: disaster_start_date__lte
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: created_at
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: created_at__gt
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: created_at__gte
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: created_at__lt
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: created_at__lte
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: dtype
+        schema:
+          type: integer
+      - description: |-
+          * `0` - DREF
+          * `1` - Emergency Appeal
+          * `2` - International Appeal
+          * `3` - Forecast Based Action
+        explode: true
+        in: query
+        name: appeal_type
+        schema:
+          items:
+            enum:
+            - 0
+            - 1
+            - 2
+            - 3
+            title: Appeal type
+            type: integer
+          type: array
+        style: form
+      - in: query
+        name: is_featured
+        schema:
+          type: boolean
+      - in: query
+        name: is_featured_region
+        schema:
+          type: boolean
+      - in: query
+        name: countries__in
+        schema:
+          type: integer
+      - in: query
+        name: regions__in
+        schema:
+          type: integer
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - description: |-
+          * `100` - Manual input
+          * `110` - GDACs scraper
+          * `120` - WHO scraper
+          * `130` - Field report DMIS ingest
+          * `140` - Field report admin
+          * `150` - Appeal admin
+          * `160` - New field report
+          * `170` - DREF
+        in: query
+        name: source
+        schema:
+          enum:
+          - 100
+          - 110
+          - 120
+          - 130
+          - 140
+          - 150
+          - 160
+          - 170
+          title: Event source
+          type: integer
+      - description: is_subscribed
+        in: query
+        name: is_subscribed
+        schema:
+          type: boolean
+      - description: A search term.
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+      - description: Which field to use when ordering the results.
+        in: query
+        name: ordering
+        required: false
+        schema:
+          type: string
+      - description: Number of results to return per page.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: The initial index from which to return the results.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDetailEmergencyList'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PaginatedDetailEmergencyList'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
+  /api/v2/emergency/{id}/:
+    get:
+      operationId: api_v2_emergency_retrieve
+      parameters:
+      - description: A unique integer value identifying this emergency.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailEmergency'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/DetailEmergency'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
   /api/v2/eru-readiness-type/:
     get:
       operationId: api_v2_eru_readiness_type_list
@@ -35679,26 +35741,28 @@ paths:
         schema:
           type: integer
       - description: |-
-          Auto generated source choices
-
-          * `GDACs scraper` - GDACs scraper
-          * `WHO scraper` - WHO scraper
-          * `Field report DMIS ingest` - Field report DMIS ingest
-          * `Field report admin` - Field report admin
-          * `Appeal admin` - Appeal admin
-          * `New field report` - New field report
+          * `100` - Manual input
+          * `110` - GDACs scraper
+          * `120` - WHO scraper
+          * `130` - Field report DMIS ingest
+          * `140` - Field report admin
+          * `150` - Appeal admin
+          * `160` - New field report
+          * `170` - DREF
         in: query
-        name: auto_generated_source
+        name: source
         schema:
           enum:
-          - Appeal admin
-          - Field report DMIS ingest
-          - Field report admin
-          - GDACs scraper
-          - New field report
-          - WHO scraper
-          nullable: true
-          type: string
+          - 100
+          - 110
+          - 120
+          - 130
+          - 140
+          - 150
+          - 160
+          - 170
+          title: Event source
+          type: integer
       - description: is_subscribed
         in: query
         name: is_subscribed
@@ -35850,26 +35914,28 @@ paths:
         schema:
           type: integer
       - description: |-
-          Auto generated source choices
-
-          * `GDACs scraper` - GDACs scraper
-          * `WHO scraper` - WHO scraper
-          * `Field report DMIS ingest` - Field report DMIS ingest
-          * `Field report admin` - Field report admin
-          * `Appeal admin` - Appeal admin
-          * `New field report` - New field report
+          * `100` - Manual input
+          * `110` - GDACs scraper
+          * `120` - WHO scraper
+          * `130` - Field report DMIS ingest
+          * `140` - Field report admin
+          * `150` - Appeal admin
+          * `160` - New field report
+          * `170` - DREF
         in: query
-        name: auto_generated_source
+        name: source
         schema:
           enum:
-          - Appeal admin
-          - Field report DMIS ingest
-          - Field report admin
-          - GDACs scraper
-          - New field report
-          - WHO scraper
-          nullable: true
-          type: string
+          - 100
+          - 110
+          - 120
+          - 130
+          - 140
+          - 150
+          - 160
+          - 170
+          title: Event source
+          type: integer
       - description: is_subscribed
         in: query
         name: is_subscribed
@@ -36021,26 +36087,28 @@ paths:
         schema:
           type: integer
       - description: |-
-          Auto generated source choices
-
-          * `GDACs scraper` - GDACs scraper
-          * `WHO scraper` - WHO scraper
-          * `Field report DMIS ingest` - Field report DMIS ingest
-          * `Field report admin` - Field report admin
-          * `Appeal admin` - Appeal admin
-          * `New field report` - New field report
+          * `100` - Manual input
+          * `110` - GDACs scraper
+          * `120` - WHO scraper
+          * `130` - Field report DMIS ingest
+          * `140` - Field report admin
+          * `150` - Appeal admin
+          * `160` - New field report
+          * `170` - DREF
         in: query
-        name: auto_generated_source
+        name: source
         schema:
           enum:
-          - Appeal admin
-          - Field report DMIS ingest
-          - Field report admin
-          - GDACs scraper
-          - New field report
-          - WHO scraper
-          nullable: true
-          type: string
+          - 100
+          - 110
+          - 120
+          - 130
+          - 140
+          - 150
+          - 160
+          - 170
+          title: Event source
+          type: integer
       - description: is_subscribed
         in: query
         name: is_subscribed
@@ -39185,474 +39253,6 @@ paths:
       - basicAuth: []
       - cookieAuth: []
       - {}
-      tags:
-      - api
-  /api/v2/molnix-appraisals/:
-    get:
-      operationId: api_v2_molnix_appraisals_list
-      parameters:
-      - in: query
-        name: updated_at
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: appraised_person_id
-        schema:
-          type: integer
-      - in: query
-        name: molnix_id
-        schema:
-          type: integer
-      - in: query
-        name: deployment_molnix_id
-        schema:
-          type: integer
-      - in: query
-        name: stage
-        schema:
-          type: string
-      - description: A search term.
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Which field to use when ordering the results.
-        in: query
-        name: ordering
-        required: false
-        schema:
-          type: string
-      - description: Number of results to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-      - description: The initial index from which to return the results.
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedMolnixAppraisalList'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/PaginatedMolnixAppraisalList'
-          description: ''
-      security:
-      - cookieAuth: []
-      - tokenAuth: []
-      tags:
-      - api
-  /api/v2/molnix-appraisals/{id}/:
-    get:
-      operationId: api_v2_molnix_appraisals_list_2
-      parameters:
-      - description: A unique integer value identifying this Molnix Appraisal.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: updated_at
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: appraised_person_id
-        schema:
-          type: integer
-      - in: query
-        name: molnix_id
-        schema:
-          type: integer
-      - in: query
-        name: deployment_molnix_id
-        schema:
-          type: integer
-      - in: query
-        name: stage
-        schema:
-          type: string
-      - description: A search term.
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Which field to use when ordering the results.
-        in: query
-        name: ordering
-        required: false
-        schema:
-          type: string
-      - description: Number of results to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-      - description: The initial index from which to return the results.
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedMolnixAppraisalList'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/PaginatedMolnixAppraisalList'
-          description: ''
-      security:
-      - cookieAuth: []
-      - tokenAuth: []
-      tags:
-      - api
-  /api/v2/molnix-appraisers/:
-    get:
-      operationId: api_v2_molnix_appraisers_list
-      parameters:
-      - in: query
-        name: updated_at
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: appraisal_molnix_id
-        schema:
-          type: integer
-      - in: query
-        name: person_id
-        schema:
-          type: integer
-      - in: query
-        name: appraiser_type
-        schema:
-          type: string
-      - description: A search term.
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Which field to use when ordering the results.
-        in: query
-        name: ordering
-        required: false
-        schema:
-          type: string
-      - description: Number of results to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-      - description: The initial index from which to return the results.
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedMolnixAppraiserList'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/PaginatedMolnixAppraiserList'
-          description: ''
-      security:
-      - cookieAuth: []
-      - tokenAuth: []
-      tags:
-      - api
-  /api/v2/molnix-appraisers/{id}/:
-    get:
-      operationId: api_v2_molnix_appraisers_list_2
-      parameters:
-      - description: A unique integer value identifying this Molnix Appraiser.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: updated_at
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: created_at__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: appraisal_molnix_id
-        schema:
-          type: integer
-      - in: query
-        name: person_id
-        schema:
-          type: integer
-      - in: query
-        name: appraiser_type
-        schema:
-          type: string
-      - description: A search term.
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Which field to use when ordering the results.
-        in: query
-        name: ordering
-        required: false
-        schema:
-          type: string
-      - description: Number of results to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-      - description: The initial index from which to return the results.
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedMolnixAppraiserList'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/PaginatedMolnixAppraiserList'
-          description: ''
-      security:
-      - cookieAuth: []
-      - tokenAuth: []
       tags:
       - api
   /api/v2/nslinks/:
@@ -46025,431 +45625,6 @@ paths:
       - basicAuth: []
       - cookieAuth: []
       - {}
-      tags:
-      - api
-  /api/v2/rrms-event-participation/:
-    get:
-      operationId: api_v2_rrms_event_participation_list
-      parameters:
-      - in: query
-        name: event_from
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_from__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_from__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_from__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_from__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_to
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_to__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_to__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_to__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_to__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_id
-        schema:
-          type: integer
-      - in: query
-        name: person_id
-        schema:
-          type: integer
-      - in: query
-        name: event_person_role
-        schema:
-          type: string
-      - in: query
-        name: event_type
-        schema:
-          type: string
-      - description: A search term.
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Which field to use when ordering the results.
-        in: query
-        name: ordering
-        required: false
-        schema:
-          type: string
-      - description: Number of results to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-      - description: The initial index from which to return the results.
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedRrmsEventParticipationList'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/PaginatedRrmsEventParticipationList'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      - {}
-      tags:
-      - api
-  /api/v2/rrms-event-participation/{id}/:
-    get:
-      operationId: api_v2_rrms_event_participation_list_2
-      parameters:
-      - description: A unique integer value identifying this RRMS Event Participation.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: event_from
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_from__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_from__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_from__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_from__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_to
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_to__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_to__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_to__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_to__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: event_id
-        schema:
-          type: integer
-      - in: query
-        name: person_id
-        schema:
-          type: integer
-      - in: query
-        name: event_person_role
-        schema:
-          type: string
-      - in: query
-        name: event_type
-        schema:
-          type: string
-      - description: A search term.
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Which field to use when ordering the results.
-        in: query
-        name: ordering
-        required: false
-        schema:
-          type: string
-      - description: Number of results to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-      - description: The initial index from which to return the results.
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedRrmsEventParticipationList'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/PaginatedRrmsEventParticipationList'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      - {}
-      tags:
-      - api
-  /api/v2/rrms-person-snapshots/:
-    get:
-      operationId: api_v2_rrms_person_snapshots_list
-      parameters:
-      - in: query
-        name: source_updated_at
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: source_updated_at__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: source_updated_at__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: source_updated_at__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: source_updated_at__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: person_id
-        schema:
-          type: integer
-      - in: query
-        name: organization_id
-        schema:
-          type: integer
-      - in: query
-        name: person_status
-        schema:
-          type: string
-      - description: A search term.
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Which field to use when ordering the results.
-        in: query
-        name: ordering
-        required: false
-        schema:
-          type: string
-      - description: Number of results to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-      - description: The initial index from which to return the results.
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedRrmsPersonSnapshotList'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/PaginatedRrmsPersonSnapshotList'
-          description: ''
-      security:
-      - cookieAuth: []
-      - tokenAuth: []
-      tags:
-      - api
-  /api/v2/rrms-person-snapshots/{person_id}/:
-    get:
-      operationId: api_v2_rrms_person_snapshots_list_2
-      parameters:
-      - description: A unique value identifying this RRMS Person Snapshot.
-        in: path
-        name: person_id
-        required: true
-        schema:
-          format: int64
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          type: integer
-      - in: query
-        name: source_updated_at
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: source_updated_at__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: source_updated_at__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: source_updated_at__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: source_updated_at__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: person_id
-        schema:
-          type: integer
-      - in: query
-        name: organization_id
-        schema:
-          type: integer
-      - in: query
-        name: person_status
-        schema:
-          type: string
-      - description: A search term.
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Which field to use when ordering the results.
-        in: query
-        name: ordering
-        required: false
-        schema:
-          type: string
-      - description: Number of results to return per page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-      - description: The initial index from which to return the results.
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedRrmsPersonSnapshotList'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/PaginatedRrmsPersonSnapshotList'
-          description: ''
-      security:
-      - cookieAuth: []
-      - tokenAuth: []
       tags:
       - api
   /api/v2/secondarysector:
