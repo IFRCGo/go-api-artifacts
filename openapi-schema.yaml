@@ -559,36 +559,6 @@ components:
       - 1
       - 2
       type: integer
-    ApiEventSourceEnum:
-      properties:
-        key:
-          $ref: '#/components/schemas/ApiEventSourceEnumKey'
-        value:
-          type: string
-      required:
-      - key
-      - value
-      type: object
-    ApiEventSourceEnumKey:
-      description: |-
-        * `100` - Manual input
-        * `110` - GDACs scraper
-        * `120` - WHO scraper
-        * `130` - Field report DMIS ingest
-        * `140` - Field report admin
-        * `150` - Appeal admin
-        * `160` - New field report
-        * `170` - DREF
-      enum:
-      - 100
-      - 110
-      - 120
-      - 130
-      - 140
-      - 150
-      - 160
-      - 170
-      type: integer
     ApiFieldReportBulletinEnum:
       properties:
         key:
@@ -3442,187 +3412,6 @@ components:
       - 3
       - 4
       type: integer
-    DetailEmergency:
-      properties:
-        active_deployments_count:
-          readOnly: true
-          type: integer
-        appeal:
-          readOnly: true
-          type: string
-        auto_generated:
-          readOnly: true
-          type: boolean
-        contacts:
-          items:
-            $ref: '#/components/schemas/EventContact'
-          readOnly: true
-          type: array
-        countries:
-          items:
-            $ref: '#/components/schemas/MiniCountry'
-          readOnly: true
-          type: array
-        created_at:
-          format: date-time
-          readOnly: true
-          type: string
-        disaster_start_date:
-          format: date-time
-          type: string
-        dref:
-          readOnly: true
-          type: string
-        dtype:
-          nullable: true
-          title: Disaster type
-          type: integer
-        emergency_response_contact_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        field_report:
-          readOnly: true
-          type: string
-        hide_attached_field_reports:
-          title: Hide field report numeric details
-          type: boolean
-        hide_field_report_map:
-          type: boolean
-        id:
-          readOnly: true
-          type: integer
-        ifrc_severity_level:
-          allOf:
-          - $ref: '#/components/schemas/ApiAlertLevelEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-        ifrc_severity_level_display:
-          readOnly: true
-          type: string
-        ifrc_severity_level_update_date:
-          format: date-time
-          nullable: true
-          type: string
-        is_featured:
-          title: Is featured on home page
-          type: boolean
-        is_featured_region:
-          title: Is featured on region page
-          type: boolean
-        key_figures:
-          items:
-            $ref: '#/components/schemas/KeyFigure'
-          readOnly: true
-          type: array
-        name:
-          maxLength: 256
-          type: string
-        num_affected:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Number of affected
-          type: integer
-        num_dead:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Number of dead
-          type: integer
-        num_displaced:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Number of displaced
-          type: integer
-        num_injured:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Number of injured
-          type: integer
-        num_missing:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Number of missing
-          type: integer
-        parent_event:
-          description: If needed, you have to change the connected Appeals', Field
-            Reports', etc to point to the parent Emergency manually.
-          nullable: true
-          title: Parent Emergency
-          type: integer
-        previous_update:
-          format: date-time
-          nullable: true
-          type: string
-        response_activity_count:
-          readOnly: true
-          type: integer
-        slug:
-          description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
-            The string cannot start with a number and is forced to be lowercase. Recommend
-            using hyphens over underscores. Special characters like # is not allowed.'
-          maxLength: 50
-          nullable: true
-          pattern: ^[-a-zA-Z0-9_]+$
-          type: string
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ApiEventSourceEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-          title: Event source
-        source_display:
-          readOnly: true
-          type: string
-        stage:
-          readOnly: true
-          type: integer
-        stage_display:
-          readOnly: true
-          type: string
-        summary:
-          type: string
-        surge_alerts_count:
-          readOnly: true
-          type: integer
-        updated_at:
-          format: date-time
-          readOnly: true
-          type: string
-        visibility:
-          allOf:
-          - $ref: '#/components/schemas/ApiVisibilityChoicesEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-        visibility_display:
-          readOnly: true
-          type: string
-      required:
-      - active_deployments_count
-      - appeal
-      - auto_generated
-      - contacts
-      - countries
-      - created_at
-      - disaster_start_date
-      - dref
-      - field_report
-      - id
-      - ifrc_severity_level_display
-      - key_figures
-      - name
-      - response_activity_count
-      - source_display
-      - stage
-      - stage_display
-      - surge_alerts_count
-      - updated_at
-      - visibility_display
-      type: object
     DetailEvent:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
@@ -4187,9 +3976,6 @@ components:
           minimum: -2147483648
           nullable: true
           type: integer
-        event:
-          nullable: true
-          type: integer
         event_date:
           description: Date of event/Approximate date of impact
           format: date
@@ -4212,6 +3998,9 @@ components:
           nullable: true
           title: Event text [en]
           type: string
+        field_report:
+          nullable: true
+          type: integer
         final_report_details:
           allOf:
           - $ref: '#/components/schemas/MiniDrefFinalReport'
@@ -5104,12 +4893,6 @@ components:
       - status_display
       - total_approved
       - type_of_onset
-      type: object
-    DrefApprove:
-      properties:
-        event:
-          nullable: true
-          type: integer
       type: object
     DrefDrefDisasterCategoryEnum:
       properties:
@@ -11071,10 +10854,6 @@ components:
           items:
             $ref: '#/components/schemas/ApiEpisourceChoicesEnum'
           type: array
-        api_event_source:
-          items:
-            $ref: '#/components/schemas/ApiEventSourceEnum'
-          type: array
         api_field_report_bulletin:
           items:
             $ref: '#/components/schemas/ApiFieldReportBulletinEnum'
@@ -12502,6 +12281,10 @@ components:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
       properties:
+        auto_generated_source:
+          nullable: true
+          readOnly: true
+          type: string
         countries_for_preview:
           items:
             $ref: '#/components/schemas/MiniCountry'
@@ -12514,9 +12297,6 @@ components:
           nullable: true
           type: string
         id:
-          readOnly: true
-          type: integer
-        latest_field_report_id:
           readOnly: true
           type: integer
         name:
@@ -12532,24 +12312,14 @@ components:
           nullable: true
           pattern: ^[-a-zA-Z0-9_]+$
           type: string
-        source:
-          allOf:
-          - $ref: '#/components/schemas/ApiEventSourceEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-          title: Event source
-        source_display:
-          readOnly: true
-          type: string
         translation_module_original_language:
           allOf:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
       required:
+      - auto_generated_source
       - countries_for_preview
       - id
-      - latest_field_report_id
-      - source_display
       - translation_module_original_language
       type: object
     ListNiceDoc:
@@ -17897,9 +17667,6 @@ components:
           minimum: -2147483648
           nullable: true
           type: integer
-        event:
-          nullable: true
-          type: integer
         event_date:
           description: Date of event/Approximate date of impact
           format: date
@@ -17922,6 +17689,9 @@ components:
           nullable: true
           title: Event text [en]
           type: string
+        field_report:
+          nullable: true
+          type: integer
         final_report_details:
           allOf:
           - $ref: '#/components/schemas/MiniDrefFinalReport'
@@ -28057,10 +27827,6 @@ paths:
         name: appeal_code
         schema:
           type: string
-      - in: query
-        name: event
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -29402,10 +29168,6 @@ paths:
         name: appeal_code
         schema:
           type: string
-      - in: query
-        name: event
-        schema:
-          type: number
       - description: A search term.
         in: query
         name: search
@@ -33101,17 +32863,6 @@ paths:
           - csv
           - json
           type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DrefApprove'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/DrefApprove'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/DrefApprove'
       responses:
         '200':
           content:
@@ -34537,40 +34288,6 @@ paths:
       - cookieAuth: []
       tags:
       - api
-  /api/v2/emergency/{id}/:
-    get:
-      operationId: api_v2_emergency_retrieve
-      parameters:
-      - description: A unique integer value identifying this emergency.
-        in: path
-        name: id
-        required: true
-        schema:
-          type: integer
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DetailEmergency'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/DetailEmergency'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      - {}
-      tags:
-      - api
   /api/v2/eru-readiness-type/:
     get:
       operationId: api_v2_eru_readiness_type_list
@@ -35598,28 +35315,26 @@ paths:
         schema:
           type: integer
       - description: |-
-          * `100` - Manual input
-          * `110` - GDACs scraper
-          * `120` - WHO scraper
-          * `130` - Field report DMIS ingest
-          * `140` - Field report admin
-          * `150` - Appeal admin
-          * `160` - New field report
-          * `170` - DREF
+          Auto generated source choices
+
+          * `GDACs scraper` - GDACs scraper
+          * `WHO scraper` - WHO scraper
+          * `Field report DMIS ingest` - Field report DMIS ingest
+          * `Field report admin` - Field report admin
+          * `Appeal admin` - Appeal admin
+          * `New field report` - New field report
         in: query
-        name: source
+        name: auto_generated_source
         schema:
           enum:
-          - 100
-          - 110
-          - 120
-          - 130
-          - 140
-          - 150
-          - 160
-          - 170
-          title: Event source
-          type: integer
+          - Appeal admin
+          - Field report DMIS ingest
+          - Field report admin
+          - GDACs scraper
+          - New field report
+          - WHO scraper
+          nullable: true
+          type: string
       - description: is_subscribed
         in: query
         name: is_subscribed
@@ -35771,28 +35486,26 @@ paths:
         schema:
           type: integer
       - description: |-
-          * `100` - Manual input
-          * `110` - GDACs scraper
-          * `120` - WHO scraper
-          * `130` - Field report DMIS ingest
-          * `140` - Field report admin
-          * `150` - Appeal admin
-          * `160` - New field report
-          * `170` - DREF
+          Auto generated source choices
+
+          * `GDACs scraper` - GDACs scraper
+          * `WHO scraper` - WHO scraper
+          * `Field report DMIS ingest` - Field report DMIS ingest
+          * `Field report admin` - Field report admin
+          * `Appeal admin` - Appeal admin
+          * `New field report` - New field report
         in: query
-        name: source
+        name: auto_generated_source
         schema:
           enum:
-          - 100
-          - 110
-          - 120
-          - 130
-          - 140
-          - 150
-          - 160
-          - 170
-          title: Event source
-          type: integer
+          - Appeal admin
+          - Field report DMIS ingest
+          - Field report admin
+          - GDACs scraper
+          - New field report
+          - WHO scraper
+          nullable: true
+          type: string
       - description: is_subscribed
         in: query
         name: is_subscribed
@@ -35944,28 +35657,26 @@ paths:
         schema:
           type: integer
       - description: |-
-          * `100` - Manual input
-          * `110` - GDACs scraper
-          * `120` - WHO scraper
-          * `130` - Field report DMIS ingest
-          * `140` - Field report admin
-          * `150` - Appeal admin
-          * `160` - New field report
-          * `170` - DREF
+          Auto generated source choices
+
+          * `GDACs scraper` - GDACs scraper
+          * `WHO scraper` - WHO scraper
+          * `Field report DMIS ingest` - Field report DMIS ingest
+          * `Field report admin` - Field report admin
+          * `Appeal admin` - Appeal admin
+          * `New field report` - New field report
         in: query
-        name: source
+        name: auto_generated_source
         schema:
           enum:
-          - 100
-          - 110
-          - 120
-          - 130
-          - 140
-          - 150
-          - 160
-          - 170
-          title: Event source
-          type: integer
+          - Appeal admin
+          - Field report DMIS ingest
+          - Field report admin
+          - GDACs scraper
+          - New field report
+          - WHO scraper
+          nullable: true
+          type: string
       - description: is_subscribed
         in: query
         name: is_subscribed
