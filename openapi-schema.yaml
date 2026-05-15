@@ -3485,7 +3485,7 @@ components:
           type: string
         field_report:
           allOf:
-          - $ref: '#/components/schemas/FieldReport'
+          - $ref: '#/components/schemas/EmergencyFieldReport'
           readOnly: true
         first_field_report_created_at:
           format: date-time
@@ -8230,6 +8230,277 @@ components:
       - id
       - planned_interventions
       - status_display
+      type: object
+    EmergencyFieldReport:
+      properties:
+        actions_taken:
+          items:
+            $ref: '#/components/schemas/ActionsTaken'
+          type: array
+        contacts:
+          items:
+            $ref: '#/components/schemas/FieldReportContact'
+          type: array
+        countries:
+          items:
+            $ref: '#/components/schemas/MiniCountry'
+          type: array
+        created_at:
+          format: date-time
+          readOnly: true
+          type: string
+        description:
+          type: string
+        districts:
+          items:
+            $ref: '#/components/schemas/MiniDistrict'
+          type: array
+        dref:
+          allOf:
+          - $ref: '#/components/schemas/ApiFieldReportBulletinEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        dref_display:
+          readOnly: true
+          type: string
+        dtype:
+          allOf:
+          - $ref: '#/components/schemas/DisasterType'
+          readOnly: true
+        epi_num_dead:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of dead (epidemic)
+          type: integer
+        first_fr_ns_request_assistance:
+          readOnly: true
+          type: boolean
+        first_fr_request_assistance:
+          readOnly: true
+          type: boolean
+        gov_num_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of affected (government)
+          type: integer
+        gov_num_assisted:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of assisted (government)
+          type: integer
+        gov_num_dead:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of dead (government)
+          type: integer
+        gov_num_displaced:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of displaced (government)
+          type: integer
+        gov_num_highest_risk:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: People at highest risk (government)
+          type: integer
+        gov_num_injured:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of injured (government)
+          type: integer
+        gov_num_missing:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of missing (government)
+          type: integer
+        gov_num_potentially_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Potentially affected (government)
+          type: integer
+        id:
+          readOnly: true
+          type: integer
+        num_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of affected
+          type: integer
+        num_assisted:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of assisted
+          type: integer
+        num_dead:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of dead
+          type: integer
+        num_displaced:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of displaced
+          type: integer
+        num_expats_delegates:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of expatriate delegates
+          type: integer
+        num_highest_risk:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of highest risk
+          type: integer
+        num_injured:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of injured
+          type: integer
+        num_localstaff:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of localstaff
+          type: integer
+        num_missing:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of missing
+          type: integer
+        num_potentially_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of potentially affected
+          type: integer
+        num_volunteers:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of volunteers
+          type: integer
+        other_num_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of affected (other)
+          type: integer
+        other_num_assisted:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of assisted (other)
+          type: integer
+        other_num_dead:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of dead (other)
+          type: integer
+        other_num_displaced:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of displace (other)
+          type: integer
+        other_num_highest_risk:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of highest risk (other)
+          type: integer
+        other_num_injured:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of injured (other)
+          type: integer
+        other_num_missing:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of missing (other)
+          type: integer
+        other_num_potentially_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of potentially affected (other)
+          type: integer
+        report_date:
+          format: date-time
+          nullable: true
+          readOnly: true
+          type: string
+        start_date:
+          format: date-time
+          nullable: true
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/ApiFieldReportStatusEnumKey'
+          description: |-
+            <a target="_blank" href="/api/v2/fieldreportstatus">Key/value pairs</a>
+
+            * `0` - Unknown
+            * `2` - Two
+            * `3` - Three
+            * `8` - Early Warning / Early Action
+            * `9` - Event
+            * `10` - Ten
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Type
+        status_display:
+          readOnly: true
+          type: string
+        summary:
+          type: string
+        updated_at:
+          format: date-time
+          readOnly: true
+          type: string
+        visibility:
+          allOf:
+          - $ref: '#/components/schemas/ApiVisibilityChoicesEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+        visibility_display:
+          readOnly: true
+          type: string
+      required:
+      - actions_taken
+      - contacts
+      - countries
+      - created_at
+      - districts
+      - dref_display
+      - dtype
+      - first_fr_ns_request_assistance
+      - first_fr_request_assistance
+      - id
+      - report_date
+      - status_display
+      - updated_at
+      - visibility_display
       type: object
     EmergencyProject:
       description: Mixin adds update nested feature
