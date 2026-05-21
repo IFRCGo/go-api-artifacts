@@ -3469,6 +3469,8 @@ components:
       - 4
       type: integer
     DetailEmergency:
+      description: Custom ModelSerializer with translaion logic (Also works for normal
+        models)
       properties:
         active_deployments_count:
           readOnly: true
@@ -3497,6 +3499,10 @@ components:
         disaster_start_date:
           format: date-time
           type: string
+        districts:
+          items:
+            $ref: '#/components/schemas/MiniDistrict'
+          type: array
         dref:
           allOf:
           - $ref: '#/components/schemas/EmergencyDref'
@@ -3509,6 +3515,11 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        featured_documents:
+          items:
+            $ref: '#/components/schemas/EventFeaturedDocument'
+          readOnly: true
+          type: array
         field_report:
           allOf:
           - $ref: '#/components/schemas/EmergencyFieldReport'
@@ -3516,6 +3527,9 @@ components:
         first_field_report_created_at:
           format: date-time
           readOnly: true
+          type: string
+        glide:
+          maxLength: 18
           type: string
         hide_attached_field_reports:
           title: Hide field report numeric details
@@ -3552,8 +3566,15 @@ components:
           format: date-time
           readOnly: true
           type: string
+        links:
+          items:
+            $ref: '#/components/schemas/EventLink'
+          readOnly: true
+          type: array
         name:
           maxLength: 256
+          nullable: true
+          title: Name [en]
           type: string
         num_affected:
           maximum: 2147483647
@@ -3622,10 +3643,27 @@ components:
           readOnly: true
           type: string
         summary:
+          nullable: true
+          title: Summary [en]
           type: string
         surge_alerts_count:
           readOnly: true
           type: integer
+        tab_one_title:
+          maxLength: 50
+          type: string
+        tab_three_title:
+          maxLength: 50
+          nullable: true
+          type: string
+        tab_two_title:
+          maxLength: 50
+          nullable: true
+          type: string
+        translation_module_original_language:
+          allOf:
+          - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
+          readOnly: true
         updated_at:
           format: date-time
           readOnly: true
@@ -3646,19 +3684,22 @@ components:
       - countries
       - created_at
       - disaster_start_date
+      - districts
       - dref
+      - featured_documents
       - field_report
       - first_field_report_created_at
       - id
       - ifrc_severity_level_display
       - key_figures
       - latest_field_report_created_at
-      - name
+      - links
       - response_activity_count
       - source_display
       - stage
       - stage_display
       - surge_alerts_count
+      - translation_module_original_language
       - updated_at
       - visibility_display
       type: object
@@ -8263,6 +8304,24 @@ components:
           items:
             $ref: '#/components/schemas/ActionsTaken'
           type: array
+        appeal:
+          allOf:
+          - $ref: '#/components/schemas/ApiFieldReportBulletinEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        appeal_display:
+          readOnly: true
+          type: string
+        bulletin:
+          allOf:
+          - $ref: '#/components/schemas/ApiFieldReportBulletinEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        bulletin_display:
+          readOnly: true
+          type: string
         contacts:
           items:
             $ref: '#/components/schemas/FieldReportContact'
@@ -8357,6 +8416,15 @@ components:
         id:
           readOnly: true
           type: integer
+        imminent_dref:
+          allOf:
+          - $ref: '#/components/schemas/ApiFieldReportBulletinEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        imminent_dref_display:
+          readOnly: true
+          type: string
         num_affected:
           maximum: 2147483647
           minimum: -2147483648
@@ -8514,6 +8582,8 @@ components:
           type: string
       required:
       - actions_taken
+      - appeal_display
+      - bulletin_display
       - contacts
       - countries
       - created_at
@@ -8523,6 +8593,7 @@ components:
       - first_fr_ns_request_assistance
       - first_fr_request_assistance
       - id
+      - imminent_dref_display
       - report_date
       - status_display
       - updated_at
@@ -29281,22 +29352,6 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -29348,12 +29403,11 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -43010,22 +43064,6 @@ paths:
     get:
       operationId: api_v2_per_overview_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -43114,12 +43152,11 @@ paths:
     delete:
       operationId: api_v2_per_overview_destroy
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -43139,12 +43176,11 @@ paths:
     get:
       operationId: api_v2_per_overview_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -43171,12 +43207,11 @@ paths:
     patch:
       operationId: api_v2_per_overview_partial_update
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -43214,12 +43249,11 @@ paths:
     put:
       operationId: api_v2_per_overview_update
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -43494,22 +43528,6 @@ paths:
     get:
       operationId: api_v2_per_process_status_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -43561,12 +43579,11 @@ paths:
     get:
       operationId: api_v2_per_process_status_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
