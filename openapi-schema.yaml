@@ -10751,7 +10751,6 @@ components:
           type: string
         version:
           default: 1
-          description: Version identifier for the Full EAP.
           readOnly: true
           type: integer
         worked_with_government_description:
@@ -21920,7 +21919,6 @@ components:
           type: string
         version:
           default: 1
-          description: Version identifier for the Full EAP.
           readOnly: true
           type: integer
         worked_with_government_description:
@@ -23219,7 +23217,6 @@ components:
           readOnly: true
         version:
           default: 1
-          description: Version identifier for the Simplified EAP.
           readOnly: true
           type: integer
       type: object
@@ -26946,7 +26943,6 @@ components:
           readOnly: true
         version:
           default: 1
-          description: Version identifier for the Simplified EAP.
           readOnly: true
           type: integer
       required:
