@@ -7914,6 +7914,12 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        boys:
+          description: Boys under 18
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
         country_details:
           allOf:
           - $ref: '#/components/schemas/MiniCountry'
@@ -7922,6 +7928,10 @@ components:
           allOf:
           - $ref: '#/components/schemas/DrefFile'
           nullable: true
+        date_of_approval:
+          format: date
+          nullable: true
+          type: string
         did_ns_request_fund:
           description: Did the NS request funding from DREF?
           nullable: true
@@ -7999,6 +8009,11 @@ components:
         id:
           readOnly: true
           type: integer
+        men:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
         num_affected:
           maximum: 2147483647
           minimum: -2147483648
@@ -8015,6 +8030,9 @@ components:
           allOf:
           - $ref: '#/components/schemas/EmergencyDrefOperationalUpdate'
           readOnly: true
+        people_assisted:
+          nullable: true
+          type: string
         planned_interventions:
           items:
             $ref: '#/components/schemas/PlannedIntervention'
@@ -8036,6 +8054,11 @@ components:
         title:
           maxLength: 255
           type: string
+        total_cost:
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
+          type: integer
         total_targeted_population:
           description: Estimated number of targeted people
           maximum: 2147483647
@@ -8052,6 +8075,11 @@ components:
         type_of_dref_display:
           readOnly: true
           type: string
+        women:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
       required:
       - country_details
       - disaster_type_details
@@ -8071,6 +8099,36 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        assisted_num_of_boys_under_18:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of boys under 18 assisted
+          type: integer
+        assisted_num_of_girls_under_18:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of girls under 18 assisted
+          type: integer
+        assisted_num_of_men:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of men assisted
+          type: integer
+        assisted_num_of_women:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of women assisted
+          type: integer
+        boys:
+          description: Boys under 18
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
         country_details:
           allOf:
           - $ref: '#/components/schemas/MiniCountry'
@@ -8131,6 +8189,17 @@ components:
         id:
           readOnly: true
           type: integer
+        men:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        num_assisted:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of assisted
+          type: integer
         number_of_people_affected:
           maximum: 2147483647
           minimum: -2147483648
@@ -8147,6 +8216,9 @@ components:
           type: string
         operation_start_date:
           format: date
+          nullable: true
+          type: string
+        people_assisted:
           nullable: true
           type: string
         planned_interventions:
@@ -8180,6 +8252,11 @@ components:
           minimum: -2147483648
           nullable: true
           type: integer
+        women:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
       required:
       - country_details
       - cover_image_file
@@ -8195,6 +8272,12 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        boys:
+          description: Boys under 18
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
         country_details:
           allOf:
           - $ref: '#/components/schemas/MiniCountry'
@@ -8254,6 +8337,11 @@ components:
         id:
           readOnly: true
           type: integer
+        men:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
         new_operational_end_date:
           format: date
           nullable: true
@@ -8279,6 +8367,9 @@ components:
           minimum: -2147483648
           nullable: true
           type: integer
+        people_assisted:
+          nullable: true
+          type: string
         planned_interventions:
           items:
             $ref: '#/components/schemas/PlannedIntervention'
@@ -8307,6 +8398,11 @@ components:
           nullable: true
           type: integer
         total_targeted_population:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        women:
           maximum: 2147483647
           minimum: -2147483648
           nullable: true
