@@ -8042,6 +8042,16 @@ components:
           minimum: -2147483648
           nullable: true
           type: integer
+        type_of_dref:
+          allOf:
+          - $ref: '#/components/schemas/DrefDrefDrefTypeEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Dref type
+        type_of_dref_display:
+          readOnly: true
+          type: string
       required:
       - country_details
       - disaster_type_details
@@ -8053,6 +8063,7 @@ components:
       - proposed_action
       - status_display
       - title
+      - type_of_dref_display
       type: object
     EmergencyDrefFinalReport:
       properties:
