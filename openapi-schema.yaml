@@ -3660,6 +3660,11 @@ components:
           maxLength: 50
           nullable: true
           type: string
+        timeline_field_reports:
+          items:
+            $ref: '#/components/schemas/EmergencyTimelineFieldReport'
+          readOnly: true
+          type: array
         translation_module_original_language:
           allOf:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
@@ -3699,6 +3704,7 @@ components:
       - stage
       - stage_display
       - surge_alerts_count
+      - timeline_field_reports
       - translation_module_original_language
       - updated_at
       - visibility_display
@@ -8051,6 +8057,11 @@ components:
         status_display:
           readOnly: true
           type: string
+        timeline_operational_updates:
+          items:
+            $ref: '#/components/schemas/TimelineEmergencyDrefOperationalUpdate'
+          readOnly: true
+          type: array
         title:
           maxLength: 255
           type: string
@@ -8090,6 +8101,7 @@ components:
       - planned_interventions
       - proposed_action
       - status_display
+      - timeline_operational_updates
       - title
       - type_of_dref_display
       type: object
@@ -8137,6 +8149,14 @@ components:
           allOf:
           - $ref: '#/components/schemas/DrefFile'
           readOnly: true
+        created_at:
+          format: date-time
+          readOnly: true
+          type: string
+        date_of_approval:
+          format: date
+          nullable: true
+          type: string
         disaster_type_details:
           allOf:
           - $ref: '#/components/schemas/DisasterType'
@@ -8194,6 +8214,10 @@ components:
           minimum: -2147483648
           nullable: true
           type: integer
+        modified_at:
+          format: date-time
+          nullable: true
+          type: string
         num_assisted:
           maximum: 2147483647
           minimum: -2147483648
@@ -8260,6 +8284,7 @@ components:
       required:
       - country_details
       - cover_image_file
+      - created_at
       - disaster_type_details
       - district_details
       - id
@@ -8375,11 +8400,6 @@ components:
             $ref: '#/components/schemas/PlannedIntervention'
           readOnly: true
           type: array
-        previous_operational_updates:
-          items:
-            $ref: '#/components/schemas/EmergencyPreviousDrefOperationalUpdate'
-          readOnly: true
-          type: array
         status:
           allOf:
           - $ref: '#/components/schemas/DrefDrefStatusEnumKey'
@@ -8413,7 +8433,6 @@ components:
       - district_details
       - id
       - planned_interventions
-      - previous_operational_updates
       - status_display
       type: object
     EmergencyFieldReport:
@@ -8657,11 +8676,6 @@ components:
           nullable: true
           title: Number of potentially affected (other)
           type: integer
-        previous_field_reports:
-          items:
-            $ref: '#/components/schemas/EmergencyPreviousFieldReport'
-          readOnly: true
-          type: array
         report_date:
           format: date-time
           nullable: true
@@ -8717,102 +8731,10 @@ components:
       - first_fr_request_assistance
       - id
       - imminent_dref_display
-      - previous_field_reports
       - report_date
       - status_display
       - updated_at
       - visibility_display
-      type: object
-    EmergencyPreviousDrefOperationalUpdate:
-      properties:
-        event_description:
-          nullable: true
-          type: string
-        event_scope:
-          nullable: true
-          type: string
-        id:
-          readOnly: true
-          type: integer
-        number_of_people_affected:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
-        number_of_people_targeted:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
-        operational_update_number:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
-        status:
-          allOf:
-          - $ref: '#/components/schemas/DrefDrefStatusEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-        status_display:
-          readOnly: true
-          type: string
-        title:
-          maxLength: 255
-          nullable: true
-          type: string
-        total_dref_allocation:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
-        total_targeted_population:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
-      required:
-      - id
-      - status_display
-      type: object
-    EmergencyPreviousFieldReport:
-      properties:
-        created_at:
-          format: date-time
-          readOnly: true
-          type: string
-        event_id:
-          nullable: true
-          readOnly: true
-          type: integer
-        fr_num:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Field report number
-          type: integer
-        id:
-          readOnly: true
-          type: integer
-        report_date:
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        start_date:
-          format: date-time
-          nullable: true
-          type: string
-        updated_at:
-          format: date-time
-          readOnly: true
-          type: string
-      required:
-      - created_at
-      - event_id
-      - id
-      - report_date
-      - updated_at
       type: object
     EmergencyProject:
       description: Mixin adds update nested feature
@@ -9405,6 +9327,30 @@ components:
       required:
       - actions
       - sectors
+      type: object
+    EmergencyTimelineFieldReport:
+      properties:
+        fr_num:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Field report number
+          type: integer
+        id:
+          readOnly: true
+          type: integer
+        report_date:
+          format: date-time
+          nullable: true
+          readOnly: true
+          type: string
+        start_date:
+          format: date-time
+          nullable: true
+          type: string
+      required:
+      - id
+      - report_date
       type: object
     EnablingApproach:
       description: Mixin adds update nested feature
@@ -28412,6 +28358,36 @@ components:
       - ifrc_severity_level_display
       - translation_module_original_language
       - updated_at
+      type: object
+    TimelineEmergencyDrefOperationalUpdate:
+      properties:
+        date_of_approval:
+          format: date
+          nullable: true
+          type: string
+        id:
+          readOnly: true
+          type: integer
+        operational_update_number:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        summary_of_change:
+          nullable: true
+          type: string
+        total_dref_allocation:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        total_targeted_population:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+      required:
+      - id
       type: object
     TranslationModuleOriginalLanguageEnum:
       description: |-
