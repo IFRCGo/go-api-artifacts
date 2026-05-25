@@ -3662,7 +3662,7 @@ components:
           type: string
         timeline_field_reports:
           items:
-            $ref: '#/components/schemas/EmergencyTimelineFieldReport'
+            $ref: '#/components/schemas/TimelineEmergencyFieldReport'
           readOnly: true
           type: array
         translation_module_original_language:
@@ -9327,30 +9327,6 @@ components:
       required:
       - actions
       - sectors
-      type: object
-    EmergencyTimelineFieldReport:
-      properties:
-        fr_num:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Field report number
-          type: integer
-        id:
-          readOnly: true
-          type: integer
-        report_date:
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        start_date:
-          format: date-time
-          nullable: true
-          type: string
-      required:
-      - id
-      - report_date
       type: object
     EnablingApproach:
       description: Mixin adds update nested feature
@@ -28388,6 +28364,30 @@ components:
           type: integer
       required:
       - id
+      type: object
+    TimelineEmergencyFieldReport:
+      properties:
+        fr_num:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Field report number
+          type: integer
+        id:
+          readOnly: true
+          type: integer
+        report_date:
+          format: date-time
+          nullable: true
+          readOnly: true
+          type: string
+        start_date:
+          format: date-time
+          nullable: true
+          type: string
+      required:
+      - id
+      - report_date
       type: object
     TranslationModuleOriginalLanguageEnum:
       description: |-
