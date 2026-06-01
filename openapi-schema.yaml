@@ -34839,7 +34839,6 @@ paths:
         name: country_iso3
         schema:
           items:
-            nullable: true
             type: string
           type: array
         style: form
@@ -35981,32 +35980,6 @@ paths:
     get:
       operationId: api_v2_event_severity_level_history_list
       parameters:
-      - in: query
-        name: id
-        schema:
-          type: integer
-      - description: Multiple values may be separated by commas.
-        explode: false
-        in: query
-        name: id__in
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: event
-        schema:
-          type: integer
-      - description: Multiple values may be separated by commas.
-        explode: false
-        in: query
-        name: event__in
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
       - description: A search term.
         in: query
         name: search
@@ -45054,7 +45027,6 @@ paths:
         name: country_iso3
         schema:
           items:
-            nullable: true
             type: string
           type: array
         style: form
