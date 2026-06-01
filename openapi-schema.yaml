@@ -28090,7 +28090,7 @@ components:
       type: http
     cookieAuth:
       in: cookie
-      name: GO-development-SESSIONID
+      name: sessionid
       type: apiKey
     tokenAuth:
       description: Token-based authentication with required prefix "Token"
@@ -33819,6 +33819,13 @@ paths:
           enum:
           - csv
           - json
+          type: string
+      - description: Ordering for paged appeal codes. Use 'created_at' or '-created_at'
+          to sort by the first DREF application created_at per appeal_code; any other
+          value defaults to appeal_code ordering.
+        in: query
+        name: order_by
+        schema:
           type: string
       responses:
         '200':
