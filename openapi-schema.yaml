@@ -9067,6 +9067,17 @@ components:
             $ref: '#/components/schemas/ExternalPartner'
           readOnly: true
           type: array
+        external_source:
+          description: External source system from which this field report created.
+          maxLength: 100
+          nullable: true
+          type: string
+        external_source_id:
+          description: Unique identifier of this field report in the external source
+            system.
+          maxLength: 100
+          nullable: true
+          type: string
         fact:
           allOf:
           - $ref: '#/components/schemas/ApiFieldReportBulletinEnumKey'
@@ -21011,6 +21022,17 @@ components:
             $ref: '#/components/schemas/ExternalPartner'
           readOnly: true
           type: array
+        external_source:
+          description: External source system from which this field report created.
+          maxLength: 100
+          nullable: true
+          type: string
+        external_source_id:
+          description: Unique identifier of this field report in the external source
+            system.
+          maxLength: 100
+          nullable: true
+          type: string
         fact:
           allOf:
           - $ref: '#/components/schemas/ApiFieldReportBulletinEnumKey'
