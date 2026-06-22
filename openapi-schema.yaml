@@ -6915,6 +6915,44 @@ components:
       - id
       - users_details
       type: object
+    DrefSummary:
+      properties:
+        challenges_identified:
+          nullable: true
+          type: string
+        id:
+          readOnly: true
+          type: integer
+        lessons_learned:
+          nullable: true
+          type: string
+        operational_strategy:
+          nullable: true
+          type: string
+        people_centered_approach:
+          nullable: true
+          type: string
+        situational_overview:
+          nullable: true
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/DrefSummaryStatusEnum'
+          maximum: 2147483647
+          minimum: -2147483648
+      required:
+      - id
+      type: object
+    DrefSummaryStatusEnum:
+      description: |-
+        * `100` - Pending
+        * `200` - Success
+        * `300` - Failed
+      enum:
+      - 100
+      - 200
+      - 300
+      type: integer
     EAPAction:
       properties:
         action:
@@ -8141,6 +8179,10 @@ components:
         status_display:
           readOnly: true
           type: string
+        summary:
+          allOf:
+          - $ref: '#/components/schemas/DrefSummary'
+          readOnly: true
         timeline_operational_updates:
           items:
             $ref: '#/components/schemas/TimelineEmergencyDrefOperationalUpdate'
@@ -8185,6 +8227,7 @@ components:
       - planned_interventions
       - proposed_action
       - status_display
+      - summary
       - timeline_operational_updates
       - title
       - type_of_dref_display
@@ -36095,6 +36138,7 @@ paths:
         name: country_iso3
         schema:
           items:
+            nullable: true
             type: string
           type: array
         style: form
@@ -37270,6 +37314,32 @@ paths:
     get:
       operationId: api_v2_event_severity_level_history_list
       parameters:
+      - in: query
+        name: id
+        schema:
+          type: integer
+      - description: Multiple values may be separated by commas.
+        explode: false
+        in: query
+        name: id__in
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - in: query
+        name: event
+        schema:
+          type: integer
+      - description: Multiple values may be separated by commas.
+        explode: false
+        in: query
+        name: event__in
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
       - description: A search term.
         in: query
         name: search
@@ -46765,6 +46835,7 @@ paths:
         name: country_iso3
         schema:
           items:
+            nullable: true
             type: string
           type: array
         style: form
