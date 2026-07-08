@@ -30321,6 +30321,22 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_list
       parameters:
+      - explode: true
+        in: query
+        name: country
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - in: query
+        name: region
+        schema:
+          type: integer
+      - in: query
+        name: id
+        schema:
+          type: integer
       - description: A search term.
         in: query
         name: search
@@ -30372,11 +30388,12 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_retrieve
       parameters:
-      - in: path
+      - description: A unique integer value identifying this PER General Overview.
+        in: path
         name: id
         required: true
         schema:
-          type: string
+          type: integer
       - in: query
         name: format
         schema:
@@ -45205,6 +45222,22 @@ paths:
     get:
       operationId: api_v2_per_overview_list
       parameters:
+      - explode: true
+        in: query
+        name: country
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - in: query
+        name: region
+        schema:
+          type: integer
+      - in: query
+        name: id
+        schema:
+          type: integer
       - description: A search term.
         in: query
         name: search
@@ -45293,11 +45326,12 @@ paths:
     delete:
       operationId: api_v2_per_overview_destroy
       parameters:
-      - in: path
+      - description: A unique integer value identifying this PER General Overview.
+        in: path
         name: id
         required: true
         schema:
-          type: string
+          type: integer
       - in: query
         name: format
         schema:
@@ -45317,11 +45351,12 @@ paths:
     get:
       operationId: api_v2_per_overview_retrieve
       parameters:
-      - in: path
+      - description: A unique integer value identifying this PER General Overview.
+        in: path
         name: id
         required: true
         schema:
-          type: string
+          type: integer
       - in: query
         name: format
         schema:
@@ -45348,11 +45383,12 @@ paths:
     patch:
       operationId: api_v2_per_overview_partial_update
       parameters:
-      - in: path
+      - description: A unique integer value identifying this PER General Overview.
+        in: path
         name: id
         required: true
         schema:
-          type: string
+          type: integer
       - in: query
         name: format
         schema:
@@ -45390,11 +45426,12 @@ paths:
     put:
       operationId: api_v2_per_overview_update
       parameters:
-      - in: path
+      - description: A unique integer value identifying this PER General Overview.
+        in: path
         name: id
         required: true
         schema:
-          type: string
+          type: integer
       - in: query
         name: format
         schema:
@@ -45669,6 +45706,22 @@ paths:
     get:
       operationId: api_v2_per_process_status_list
       parameters:
+      - explode: true
+        in: query
+        name: country
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - in: query
+        name: region
+        schema:
+          type: integer
+      - in: query
+        name: id
+        schema:
+          type: integer
       - description: A search term.
         in: query
         name: search
@@ -45720,11 +45773,12 @@ paths:
     get:
       operationId: api_v2_per_process_status_retrieve
       parameters:
-      - in: path
+      - description: A unique integer value identifying this PER General Overview.
+        in: path
         name: id
         required: true
         schema:
-          type: string
+          type: integer
       - in: query
         name: format
         schema:
