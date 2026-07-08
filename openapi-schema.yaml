@@ -623,6 +623,32 @@ components:
       - 4
       - 5
       type: integer
+    ApiEmergencyStageEnum:
+      properties:
+        key:
+          $ref: '#/components/schemas/ApiEmergencyStageEnumKey'
+        value:
+          type: string
+      required:
+      - key
+      - value
+      type: object
+    ApiEmergencyStageEnumKey:
+      description: |-
+        * `1` - Emergency Appeal
+        * `2` - DREF Application
+        * `3` - DREF Operational Update
+        * `4` - DREF Final Report
+        * `5` - Field Report
+        * `6` - DREF
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      type: integer
     ApiEpisourceChoicesEnum:
       properties:
         key:
@@ -642,6 +668,36 @@ components:
       - 0
       - 1
       - 2
+      type: integer
+    ApiEventSourceEnum:
+      properties:
+        key:
+          $ref: '#/components/schemas/ApiEventSourceEnumKey'
+        value:
+          type: string
+      required:
+      - key
+      - value
+      type: object
+    ApiEventSourceEnumKey:
+      description: |-
+        * `100` - Manual input
+        * `110` - GDACs scraper
+        * `120` - WHO scraper
+        * `130` - Field report DMIS ingest
+        * `140` - Field report admin
+        * `150` - Appeal admin
+        * `160` - New field report
+        * `170` - DREF
+      enum:
+      - 100
+      - 110
+      - 120
+      - 130
+      - 140
+      - 150
+      - 160
+      - 170
       type: integer
     ApiFieldReportBulletinEnum:
       properties:
@@ -3360,9 +3416,6 @@ components:
         * `17` - Outpatient Department (OPD) Module
         * `18` - MHPSS
         * `19` - Operations Support HUB
-        * `20` - Public Health
-        * `21` - Public Health IPC - Infection Prevention and Control
-        * `22` - Clinical Advances Team
       enum:
       - 1
       - 2
@@ -3380,9 +3433,6 @@ components:
       - 17
       - 18
       - 19
-      - 20
-      - 21
-      - 22
       type: integer
     DeploymentsPersonnelTypeEnum:
       properties:
@@ -3502,6 +3552,247 @@ components:
       - 3
       - 4
       type: integer
+    DetailEmergency:
+      description: Custom ModelSerializer with translaion logic (Also works for normal
+        models)
+      properties:
+        active_deployments_count:
+          readOnly: true
+          type: integer
+        appeal:
+          allOf:
+          - $ref: '#/components/schemas/RelatedAppeal'
+          readOnly: true
+        auto_generated:
+          readOnly: true
+          type: boolean
+        contacts:
+          items:
+            $ref: '#/components/schemas/EventContact'
+          readOnly: true
+          type: array
+        countries:
+          items:
+            $ref: '#/components/schemas/MiniCountry'
+          readOnly: true
+          type: array
+        created_at:
+          format: date-time
+          readOnly: true
+          type: string
+        disaster_start_date:
+          format: date-time
+          type: string
+        districts:
+          items:
+            $ref: '#/components/schemas/MiniDistrict'
+          type: array
+        dref:
+          allOf:
+          - $ref: '#/components/schemas/EmergencyDref'
+          readOnly: true
+        dtype:
+          nullable: true
+          title: Disaster type
+          type: integer
+        emergency_response_contact_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        featured_documents:
+          items:
+            $ref: '#/components/schemas/EventFeaturedDocument'
+          readOnly: true
+          type: array
+        field_report:
+          allOf:
+          - $ref: '#/components/schemas/EmergencyFieldReport'
+          readOnly: true
+        first_field_report_created_at:
+          format: date-time
+          readOnly: true
+          type: string
+        glide:
+          maxLength: 18
+          type: string
+        hide_attached_field_reports:
+          title: Hide field report numeric details
+          type: boolean
+        hide_field_report_map:
+          type: boolean
+        id:
+          readOnly: true
+          type: integer
+        ifrc_severity_level:
+          allOf:
+          - $ref: '#/components/schemas/ApiAlertLevelEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+        ifrc_severity_level_display:
+          readOnly: true
+          type: string
+        ifrc_severity_level_update_date:
+          format: date-time
+          nullable: true
+          type: string
+        is_featured:
+          title: Is featured on home page
+          type: boolean
+        is_featured_region:
+          title: Is featured on region page
+          type: boolean
+        key_figures:
+          items:
+            $ref: '#/components/schemas/KeyFigure'
+          readOnly: true
+          type: array
+        latest_field_report_created_at:
+          format: date-time
+          readOnly: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/EventLink'
+          readOnly: true
+          type: array
+        name:
+          maxLength: 256
+          nullable: true
+          title: Name [en]
+          type: string
+        num_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of affected
+          type: integer
+        num_dead:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of dead
+          type: integer
+        num_displaced:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of displaced
+          type: integer
+        num_injured:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of injured
+          type: integer
+        num_missing:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of missing
+          type: integer
+        parent_event:
+          description: If needed, you have to change the connected Appeals', Field
+            Reports', etc to point to the parent Emergency manually.
+          nullable: true
+          title: Parent Emergency
+          type: integer
+        previous_update:
+          format: date-time
+          nullable: true
+          type: string
+        response_activity_count:
+          readOnly: true
+          type: integer
+        slug:
+          description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
+            The string cannot start with a number and is forced to be lowercase. Recommend
+            using hyphens over underscores. Special characters like # is not allowed.'
+          maxLength: 50
+          nullable: true
+          pattern: ^[-a-zA-Z0-9_]+$
+          type: string
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ApiEventSourceEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Event source
+        source_display:
+          readOnly: true
+          type: string
+        stage:
+          readOnly: true
+          type: integer
+        stage_display:
+          readOnly: true
+          type: string
+        summary:
+          nullable: true
+          title: Summary [en]
+          type: string
+        surge_alerts_count:
+          readOnly: true
+          type: integer
+        tab_one_title:
+          maxLength: 50
+          type: string
+        tab_three_title:
+          maxLength: 50
+          nullable: true
+          type: string
+        tab_two_title:
+          maxLength: 50
+          nullable: true
+          type: string
+        timeline_field_reports:
+          items:
+            $ref: '#/components/schemas/TimelineEmergencyFieldReport'
+          readOnly: true
+          type: array
+        translation_module_original_language:
+          allOf:
+          - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
+          readOnly: true
+        updated_at:
+          format: date-time
+          readOnly: true
+          type: string
+        visibility:
+          allOf:
+          - $ref: '#/components/schemas/ApiVisibilityChoicesEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+        visibility_display:
+          readOnly: true
+          type: string
+      required:
+      - active_deployments_count
+      - appeal
+      - auto_generated
+      - contacts
+      - countries
+      - created_at
+      - disaster_start_date
+      - districts
+      - dref
+      - featured_documents
+      - field_report
+      - first_field_report_created_at
+      - id
+      - ifrc_severity_level_display
+      - key_figures
+      - latest_field_report_created_at
+      - links
+      - response_activity_count
+      - source_display
+      - stage
+      - stage_display
+      - surge_alerts_count
+      - timeline_field_reports
+      - translation_module_original_language
+      - updated_at
+      - visibility_display
+      type: object
     DetailEvent:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
@@ -3786,49 +4077,6 @@ components:
       - code
       - name
       type: object
-    DocumentDownloadLog:
-      properties:
-        document_type:
-          $ref: '#/components/schemas/DocumentTypeEnum'
-        id:
-          readOnly: true
-          type: integer
-        object_id:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
-        source:
-          $ref: '#/components/schemas/SourceEnum'
-        url:
-          format: uri
-          maxLength: 2000
-          type: string
-      required:
-      - document_type
-      - id
-      - url
-      type: object
-    DocumentTypeEnum:
-      description: |-
-        * `situation_report` - Situation Report
-        * `appeal_document` - Appeal Document
-        * `general_document` - General Document
-        * `country_document` - Country Key Document
-        * `featured_document` - Event Featured Document
-        * `dref_file` - DREF File
-        * `per_document` - PER Document
-        * `other` - Other
-      enum:
-      - situation_report
-      - appeal_document
-      - general_document
-      - country_document
-      - featured_document
-      - dref_file
-      - per_document
-      - other
-      type: string
     DomainWhitelist:
       properties:
         description:
@@ -4109,6 +4357,9 @@ components:
           minimum: -2147483648
           nullable: true
           type: integer
+        event:
+          nullable: true
+          type: integer
         event_date:
           description: Date of event/Approximate date of impact
           format: date
@@ -4131,9 +4382,6 @@ components:
           nullable: true
           title: Event text [en]
           type: string
-        field_report:
-          nullable: true
-          type: integer
         final_report_details:
           allOf:
           - $ref: '#/components/schemas/MiniDrefFinalReport'
@@ -5026,6 +5274,12 @@ components:
       - status_display
       - total_approved
       - type_of_onset
+      type: object
+    DrefApprove:
+      properties:
+        event:
+          nullable: true
+          type: integer
       type: object
     DrefDrefDisasterCategoryEnum:
       properties:
@@ -6661,6 +6915,72 @@ components:
       - id
       - users_details
       type: object
+    DrefSummary:
+      description: Custom ModelSerializer with translaion logic (Also works for normal
+        models)
+      properties:
+        challenges_identified:
+          nullable: true
+          title: Challenges identified [en]
+          type: string
+        created_at:
+          format: date-time
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          type: integer
+        lessons_learned:
+          nullable: true
+          title: Lessons learned [en]
+          type: string
+        operational_strategy:
+          nullable: true
+          title: Operational strategy [en]
+          type: string
+        people_centered_approach:
+          nullable: true
+          title: People centered approach [en]
+          type: string
+        situational_overview:
+          nullable: true
+          title: Situational overview [en]
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/DrefSummaryStatusEnum'
+          maximum: 2147483647
+          minimum: -2147483648
+        status_display:
+          readOnly: true
+          type: string
+        translation_module_original_language:
+          allOf:
+          - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
+          readOnly: true
+        updated_at:
+          format: date-time
+          readOnly: true
+          type: string
+      required:
+      - created_at
+      - id
+      - status_display
+      - translation_module_original_language
+      - updated_at
+      type: object
+    DrefSummaryStatusEnum:
+      description: |-
+        * `100` - Pending
+        * `200` - Processing
+        * `300` - Success
+        * `400` - Failed
+      enum:
+      - 100
+      - 200
+      - 300
+      - 400
+      type: integer
     EAPAction:
       properties:
         action:
@@ -7184,9 +7504,6 @@ components:
             * `17` - Outpatient Department (OPD) Module
             * `18` - MHPSS
             * `19` - Operations Support HUB
-            * `20` - Public Health
-            * `21` - Public Health IPC - Infection Prevention and Control
-            * `22` - Clinical Advances Team
           maximum: 2147483647
           minimum: -2147483648
         type_display:
@@ -7251,9 +7568,6 @@ components:
             * `17` - Outpatient Department (OPD) Module
             * `18` - MHPSS
             * `19` - Operations Support HUB
-            * `20` - Public Health
-            * `21` - Public Health IPC - Infection Prevention and Control
-            * `22` - Clinical Advances Team
           maximum: 2147483647
           minimum: -2147483648
         type_display:
@@ -7444,9 +7758,6 @@ components:
             * `17` - Outpatient Department (OPD) Module
             * `18` - MHPSS
             * `19` - Operations Support HUB
-            * `20` - Public Health
-            * `21` - Public Health IPC - Infection Prevention and Control
-            * `22` - Clinical Advances Team
           maximum: 2147483647
           minimum: -2147483648
         type_display:
@@ -7748,6 +8059,924 @@ components:
       - 4
       - 5
       type: integer
+    EmergencyDref:
+      properties:
+        amount_requested:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        appeal_code:
+          maxLength: 255
+          nullable: true
+          type: string
+        boys:
+          description: Boys under 18
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        country_details:
+          allOf:
+          - $ref: '#/components/schemas/MiniCountry'
+          readOnly: true
+        cover_image_file:
+          allOf:
+          - $ref: '#/components/schemas/DrefFile'
+          nullable: true
+        date_of_approval:
+          format: date
+          nullable: true
+          type: string
+        did_ns_request_fund:
+          description: Did the NS request funding from DREF?
+          nullable: true
+          type: boolean
+        disaster_category:
+          allOf:
+          - $ref: '#/components/schemas/ApiAlertLevelEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        disaster_category_display:
+          readOnly: true
+          type: string
+        disaster_type_details:
+          allOf:
+          - $ref: '#/components/schemas/DisasterType'
+          readOnly: true
+        district_details:
+          items:
+            $ref: '#/components/schemas/MiniDistrict'
+          readOnly: true
+          type: array
+        dref_contacts:
+          items:
+            $ref: '#/components/schemas/EmergencyDrefContact'
+          readOnly: true
+          type: array
+        emergency_appeal_planned:
+          nullable: true
+          type: boolean
+        end_date:
+          format: date
+          nullable: true
+          type: string
+        estimated_number_of_affected_boys_under_18:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        estimated_number_of_affected_female:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        estimated_number_of_affected_girls_under_18:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        estimated_number_of_affected_male:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        event_date:
+          description: Date of event/Approximate date of impact
+          format: date
+          nullable: true
+          type: string
+        event_description:
+          nullable: true
+          type: string
+        event_scope:
+          description: Scope and scale of event
+          nullable: true
+          type: string
+        final_report_details:
+          allOf:
+          - $ref: '#/components/schemas/EmergencyDrefFinalReport'
+          readOnly: true
+        glide_code:
+          maxLength: 255
+          nullable: true
+          title: Glide number
+          type: string
+        government_requested_assistance:
+          description: Has government requested assistance
+          nullable: true
+          type: boolean
+        hazard_date:
+          format: date
+          nullable: true
+          title: When is the hazard expected to happen?
+          type: string
+        hazard_date_and_location:
+          description: When and where is the hazard expected to happen?
+          nullable: true
+          type: string
+        id:
+          readOnly: true
+          type: integer
+        men:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        num_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of affected
+          type: integer
+        num_assisted:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of assisted
+          type: integer
+        operational_update_details:
+          allOf:
+          - $ref: '#/components/schemas/EmergencyDrefOperationalUpdate'
+          readOnly: true
+        people_assisted:
+          nullable: true
+          type: string
+        people_targeted_with_early_actions:
+          description: Number of persons targeted with early actions
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        planned_interventions:
+          items:
+            $ref: '#/components/schemas/PlannedIntervention'
+          readOnly: true
+          type: array
+        proposed_action:
+          items:
+            $ref: '#/components/schemas/ProposedAction'
+          readOnly: true
+          type: array
+        status:
+          allOf:
+          - $ref: '#/components/schemas/DrefDrefStatusEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+        status_display:
+          readOnly: true
+          type: string
+        summary:
+          allOf:
+          - $ref: '#/components/schemas/DrefSummary'
+          readOnly: true
+        timeline_operational_updates:
+          items:
+            $ref: '#/components/schemas/TimelineEmergencyDrefOperationalUpdate'
+          readOnly: true
+          type: array
+        title:
+          maxLength: 255
+          type: string
+        total_cost:
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
+          type: integer
+        total_targeted_population:
+          description: Estimated number of targeted people
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        type_of_dref:
+          allOf:
+          - $ref: '#/components/schemas/DrefDrefDrefTypeEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Dref type
+        type_of_dref_display:
+          readOnly: true
+          type: string
+        women:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+      required:
+      - country_details
+      - disaster_category_display
+      - disaster_type_details
+      - district_details
+      - dref_contacts
+      - final_report_details
+      - id
+      - operational_update_details
+      - planned_interventions
+      - proposed_action
+      - status_display
+      - summary
+      - timeline_operational_updates
+      - title
+      - type_of_dref_display
+      type: object
+    EmergencyDrefContact:
+      properties:
+        ctype:
+          type: string
+        email:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        phone:
+          type: string
+        title:
+          type: string
+      required:
+      - ctype
+      - email
+      - id
+      - name
+      - phone
+      - title
+      type: object
+    EmergencyDrefFinalReport:
+      properties:
+        appeal_code:
+          maxLength: 255
+          nullable: true
+          type: string
+        assisted_num_of_boys_under_18:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of boys under 18 assisted
+          type: integer
+        assisted_num_of_girls_under_18:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of girls under 18 assisted
+          type: integer
+        assisted_num_of_men:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of men assisted
+          type: integer
+        assisted_num_of_women:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of women assisted
+          type: integer
+        boys:
+          description: Boys under 18
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        country_details:
+          allOf:
+          - $ref: '#/components/schemas/MiniCountry'
+          readOnly: true
+        cover_image_file:
+          allOf:
+          - $ref: '#/components/schemas/DrefFile'
+          readOnly: true
+        created_at:
+          format: date-time
+          readOnly: true
+          type: string
+        date_of_approval:
+          format: date
+          nullable: true
+          type: string
+        disaster_category:
+          allOf:
+          - $ref: '#/components/schemas/ApiAlertLevelEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        disaster_category_display:
+          readOnly: true
+          type: string
+        disaster_type_details:
+          allOf:
+          - $ref: '#/components/schemas/DisasterType'
+          readOnly: true
+        district_details:
+          items:
+            $ref: '#/components/schemas/MiniDistrict'
+          readOnly: true
+          type: array
+        dref_contacts:
+          items:
+            $ref: '#/components/schemas/EmergencyDrefContact'
+          readOnly: true
+          type: array
+        estimated_number_of_affected_boys_under_18:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        estimated_number_of_affected_female:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        estimated_number_of_affected_girls_under_18:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        estimated_number_of_affected_male:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        event_date:
+          description: Date of event/Approximate date of impact
+          format: date
+          nullable: true
+          type: string
+        event_description:
+          nullable: true
+          type: string
+        event_scope:
+          nullable: true
+          type: string
+        glide_code:
+          maxLength: 255
+          nullable: true
+          title: Glide number
+          type: string
+        government_requested_assistance:
+          description: Has government requested assistance
+          nullable: true
+          type: boolean
+        id:
+          readOnly: true
+          type: integer
+        men:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        modified_at:
+          format: date-time
+          nullable: true
+          type: string
+        num_assisted:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of assisted
+          type: integer
+        number_of_people_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        number_of_people_targeted:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        operation_end_date:
+          format: date
+          nullable: true
+          type: string
+        operation_start_date:
+          format: date
+          nullable: true
+          type: string
+        people_assisted:
+          nullable: true
+          type: string
+        people_targeted_with_early_actions:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        planned_interventions:
+          items:
+            $ref: '#/components/schemas/PlannedIntervention'
+          readOnly: true
+          type: array
+        proposed_action:
+          items:
+            $ref: '#/components/schemas/ProposedAction'
+          type: array
+        status:
+          allOf:
+          - $ref: '#/components/schemas/DrefDrefStatusEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+        status_display:
+          readOnly: true
+          type: string
+        title:
+          maxLength: 255
+          nullable: true
+          type: string
+        total_dref_allocation:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        total_targeted_population:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        women:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+      required:
+      - country_details
+      - cover_image_file
+      - created_at
+      - disaster_category_display
+      - disaster_type_details
+      - district_details
+      - dref_contacts
+      - id
+      - planned_interventions
+      - status_display
+      type: object
+    EmergencyDrefOperationalUpdate:
+      properties:
+        appeal_code:
+          maxLength: 255
+          nullable: true
+          type: string
+        boys:
+          description: Boys under 18
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        country_details:
+          allOf:
+          - $ref: '#/components/schemas/MiniCountry'
+          readOnly: true
+        cover_image_file:
+          allOf:
+          - $ref: '#/components/schemas/DrefFile'
+          nullable: true
+        disaster_category:
+          allOf:
+          - $ref: '#/components/schemas/ApiAlertLevelEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        disaster_category_display:
+          readOnly: true
+          type: string
+        disaster_type_details:
+          allOf:
+          - $ref: '#/components/schemas/DisasterType'
+          readOnly: true
+        district_details:
+          items:
+            $ref: '#/components/schemas/MiniDistrict'
+          readOnly: true
+          type: array
+        dref_contacts:
+          items:
+            $ref: '#/components/schemas/EmergencyDrefContact'
+          readOnly: true
+          type: array
+        estimated_number_of_affected_boys_under_18:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        estimated_number_of_affected_female:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        estimated_number_of_affected_girls_under_18:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        estimated_number_of_affected_male:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        event_date:
+          format: date
+          nullable: true
+          type: string
+        event_description:
+          nullable: true
+          type: string
+        event_scope:
+          nullable: true
+          type: string
+        glide_code:
+          maxLength: 255
+          nullable: true
+          title: Glide number
+          type: string
+        government_requested_assistance:
+          description: Has government requested assistance
+          nullable: true
+          type: boolean
+        id:
+          readOnly: true
+          type: integer
+        men:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        new_operational_end_date:
+          format: date
+          nullable: true
+          title: New Operation End Date
+          type: string
+        new_operational_start_date:
+          format: date
+          nullable: true
+          title: New Operation Start Date
+          type: string
+        number_of_people_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        number_of_people_targeted:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        operational_update_number:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        people_assisted:
+          nullable: true
+          type: string
+        people_targeted_with_early_actions:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        planned_interventions:
+          items:
+            $ref: '#/components/schemas/PlannedIntervention'
+          readOnly: true
+          type: array
+        status:
+          allOf:
+          - $ref: '#/components/schemas/DrefDrefStatusEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+        status_display:
+          readOnly: true
+          type: string
+        title:
+          maxLength: 255
+          nullable: true
+          type: string
+        total_dref_allocation:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        total_targeted_population:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        women:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+      required:
+      - country_details
+      - disaster_category_display
+      - disaster_type_details
+      - district_details
+      - dref_contacts
+      - id
+      - planned_interventions
+      - status_display
+      type: object
+    EmergencyFieldReport:
+      properties:
+        actions_taken:
+          items:
+            $ref: '#/components/schemas/ActionsTaken'
+          type: array
+        appeal:
+          allOf:
+          - $ref: '#/components/schemas/ApiFieldReportBulletinEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        appeal_display:
+          readOnly: true
+          type: string
+        bulletin:
+          allOf:
+          - $ref: '#/components/schemas/ApiFieldReportBulletinEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        bulletin_display:
+          readOnly: true
+          type: string
+        contacts:
+          items:
+            $ref: '#/components/schemas/FieldReportContact'
+          type: array
+        countries:
+          items:
+            $ref: '#/components/schemas/MiniCountry'
+          type: array
+        created_at:
+          format: date-time
+          readOnly: true
+          type: string
+        description:
+          type: string
+        districts:
+          items:
+            $ref: '#/components/schemas/MiniDistrict'
+          type: array
+        dref:
+          allOf:
+          - $ref: '#/components/schemas/ApiFieldReportBulletinEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        dref_display:
+          readOnly: true
+          type: string
+        dtype:
+          allOf:
+          - $ref: '#/components/schemas/DisasterType'
+          readOnly: true
+        epi_num_dead:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of dead (epidemic)
+          type: integer
+        first_fr_ns_request_assistance:
+          readOnly: true
+          type: boolean
+        first_fr_request_assistance:
+          readOnly: true
+          type: boolean
+        gov_num_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of affected (government)
+          type: integer
+        gov_num_assisted:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of assisted (government)
+          type: integer
+        gov_num_dead:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of dead (government)
+          type: integer
+        gov_num_displaced:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of displaced (government)
+          type: integer
+        gov_num_highest_risk:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: People at highest risk (government)
+          type: integer
+        gov_num_injured:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of injured (government)
+          type: integer
+        gov_num_missing:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of missing (government)
+          type: integer
+        gov_num_potentially_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Potentially affected (government)
+          type: integer
+        id:
+          readOnly: true
+          type: integer
+        imminent_dref:
+          allOf:
+          - $ref: '#/components/schemas/ApiFieldReportBulletinEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        imminent_dref_display:
+          readOnly: true
+          type: string
+        num_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of affected
+          type: integer
+        num_assisted:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of assisted
+          type: integer
+        num_dead:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of dead
+          type: integer
+        num_displaced:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of displaced
+          type: integer
+        num_expats_delegates:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of expatriate delegates
+          type: integer
+        num_highest_risk:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of highest risk
+          type: integer
+        num_injured:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of injured
+          type: integer
+        num_localstaff:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of localstaff
+          type: integer
+        num_missing:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of missing
+          type: integer
+        num_potentially_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of potentially affected
+          type: integer
+        num_volunteers:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of volunteers
+          type: integer
+        other_num_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of affected (other)
+          type: integer
+        other_num_assisted:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of assisted (other)
+          type: integer
+        other_num_dead:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of dead (other)
+          type: integer
+        other_num_displaced:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of displace (other)
+          type: integer
+        other_num_highest_risk:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of highest risk (other)
+          type: integer
+        other_num_injured:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of injured (other)
+          type: integer
+        other_num_missing:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of missing (other)
+          type: integer
+        other_num_potentially_affected:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Number of potentially affected (other)
+          type: integer
+        report_date:
+          format: date-time
+          nullable: true
+          readOnly: true
+          type: string
+        start_date:
+          format: date-time
+          nullable: true
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/ApiFieldReportStatusEnumKey'
+          description: |-
+            <a target="_blank" href="/api/v2/fieldreportstatus">Key/value pairs</a>
+
+            * `0` - Unknown
+            * `2` - Two
+            * `3` - Three
+            * `8` - Early Warning / Early Action
+            * `9` - Event
+            * `10` - Ten
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Type
+        status_display:
+          readOnly: true
+          type: string
+        summary:
+          type: string
+        updated_at:
+          format: date-time
+          readOnly: true
+          type: string
+        visibility:
+          allOf:
+          - $ref: '#/components/schemas/ApiVisibilityChoicesEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+        visibility_display:
+          readOnly: true
+          type: string
+      required:
+      - actions_taken
+      - appeal_display
+      - bulletin_display
+      - contacts
+      - countries
+      - created_at
+      - districts
+      - dref_display
+      - dtype
+      - first_fr_ns_request_assistance
+      - first_fr_request_assistance
+      - id
+      - imminent_dref_display
+      - report_date
+      - status_display
+      - updated_at
+      - visibility_display
+      type: object
     EmergencyProject:
       description: Mixin adds update nested feature
       properties:
@@ -10991,9 +12220,17 @@ components:
           items:
             $ref: '#/components/schemas/ApiCountryTypeEnum'
           type: array
+        api_emergency_stage:
+          items:
+            $ref: '#/components/schemas/ApiEmergencyStageEnum'
+          type: array
         api_episource_choices:
           items:
             $ref: '#/components/schemas/ApiEpisourceChoicesEnum'
+          type: array
+        api_event_source:
+          items:
+            $ref: '#/components/schemas/ApiEventSourceEnum'
           type: array
         api_field_report_bulletin:
           items:
@@ -12430,10 +13667,6 @@ components:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
       properties:
-        auto_generated_source:
-          nullable: true
-          readOnly: true
-          type: string
         countries_for_preview:
           items:
             $ref: '#/components/schemas/MiniCountry'
@@ -12446,6 +13679,9 @@ components:
           nullable: true
           type: string
         id:
+          readOnly: true
+          type: integer
+        latest_field_report_id:
           readOnly: true
           type: integer
         name:
@@ -12461,14 +13697,24 @@ components:
           nullable: true
           pattern: ^[-a-zA-Z0-9_]+$
           type: string
+        source:
+          allOf:
+          - $ref: '#/components/schemas/ApiEventSourceEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Event source
+        source_display:
+          readOnly: true
+          type: string
         translation_module_original_language:
           allOf:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
       required:
-      - auto_generated_source
       - countries_for_preview
       - id
+      - latest_field_report_id
+      - source_display
       - translation_module_original_language
       type: object
     ListNiceDoc:
@@ -13478,6 +14724,9 @@ components:
           readOnly: true
           type: string
         disaster_type:
+          nullable: true
+          type: integer
+        event:
           nullable: true
           type: integer
         final_report_details:
@@ -15144,16 +16393,11 @@ components:
       properties:
         appeal_code:
           nullable: true
+          title: Appeal (MDR) code
           type: string
-        counts:
-          type: integer
-        tagging_status:
-          readOnly: true
-          type: string
-      required:
-      - appeal_code
-      - counts
-      - tagging_status
+        is_validated:
+          title: Is validated?
+          type: boolean
       type: object
     OpsLearningIn:
       properties:
@@ -18227,6 +19471,9 @@ components:
           minimum: -2147483648
           nullable: true
           type: integer
+        event:
+          nullable: true
+          type: integer
         event_date:
           description: Date of event/Approximate date of impact
           format: date
@@ -18249,9 +19496,6 @@ components:
           nullable: true
           title: Event text [en]
           type: string
-        field_report:
-          nullable: true
-          type: integer
         final_report_details:
           allOf:
           - $ref: '#/components/schemas/MiniDrefFinalReport'
@@ -27436,18 +28680,6 @@ components:
       - stype
       - translation_module_original_language
       type: object
-    SourceEnum:
-      description: |-
-        * `azure_blob` - Azure Blob
-        * `adore` - Adore
-        * `sharepoint` - SharePoint
-        * `other` - Other
-      enum:
-      - azure_blob
-      - adore
-      - sharepoint
-      - other
-      type: string
     SourceInformation:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
@@ -27876,6 +29108,64 @@ components:
       - ifrc_severity_level_display
       - translation_module_original_language
       - updated_at
+      type: object
+    TimelineEmergencyDrefOperationalUpdate:
+      properties:
+        date_of_approval:
+          format: date
+          nullable: true
+          type: string
+        id:
+          readOnly: true
+          type: integer
+        modified_at:
+          format: date-time
+          nullable: true
+          type: string
+        operational_update_number:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        summary_of_change:
+          nullable: true
+          type: string
+        total_dref_allocation:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        total_targeted_population:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+      required:
+      - id
+      type: object
+    TimelineEmergencyFieldReport:
+      properties:
+        fr_num:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Field report number
+          type: integer
+        id:
+          readOnly: true
+          type: integer
+        report_date:
+          format: date-time
+          nullable: true
+          readOnly: true
+          type: string
+        start_date:
+          format: date-time
+          nullable: true
+          type: string
+      required:
+      - id
+      - report_date
       type: object
     TranslationModuleOriginalLanguageEnum:
       description: |-
@@ -28519,6 +29809,10 @@ paths:
         name: appeal_code
         schema:
           type: string
+      - in: query
+        name: event
+        schema:
+          type: integer
       - description: A search term.
         in: query
         name: search
@@ -29027,22 +30321,6 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -29094,12 +30372,11 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -30142,6 +31419,10 @@ paths:
         name: appeal_code
         schema:
           type: string
+      - in: query
+        name: event
+        schema:
+          type: number
       - description: A search term.
         in: query
         name: search
@@ -32358,49 +33639,6 @@ paths:
       - {}
       tags:
       - api
-  /api/v2/document-download-log/:
-    post:
-      description: |-
-        Log a document download event.
-
-        The frontend calls this endpoint (fire-and-forget) each time a user
-        initiates a download.  Authentication is optional: anonymous downloads
-        are recorded with a null user.
-      operationId: api_v2_document_download_log_create
-      parameters:
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DocumentDownloadLog'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/DocumentDownloadLog'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/DocumentDownloadLog'
-        required: true
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DocumentDownloadLog'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/DocumentDownloadLog'
-          description: ''
-      security:
-      - tokenAuth: []
-      tags:
-      - api
   /api/v2/domainwhitelist/:
     get:
       operationId: api_v2_domainwhitelist_list
@@ -33880,6 +35118,17 @@ paths:
           - csv
           - json
           type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DrefApprove'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DrefApprove'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DrefApprove'
       responses:
         '200':
           content:
@@ -35311,6 +36560,40 @@ paths:
       - cookieAuth: []
       tags:
       - api
+  /api/v2/emergency/{id}/:
+    get:
+      operationId: api_v2_emergency_retrieve
+      parameters:
+      - description: A unique integer value identifying this emergency.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailEmergency'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/DetailEmergency'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
   /api/v2/eru-readiness-type/:
     get:
       operationId: api_v2_eru_readiness_type_list
@@ -35439,9 +36722,6 @@ paths:
           * `17` - Outpatient Department (OPD) Module
           * `18` - MHPSS
           * `19` - Operations Support HUB
-          * `20` - Public Health
-          * `21` - Public Health IPC - Infection Prevention and Control
-          * `22` - Clinical Advances Team
         in: query
         name: eru_type__in
         schema:
@@ -35455,9 +36735,6 @@ paths:
           - 18
           - 19
           - 2
-          - 20
-          - 21
-          - 22
           - 3
           - 4
           - 5
@@ -35904,9 +37181,6 @@ paths:
           * `17` - Outpatient Department (OPD) Module
           * `18` - MHPSS
           * `19` - Operations Support HUB
-          * `20` - Public Health
-          * `21` - Public Health IPC - Infection Prevention and Control
-          * `22` - Clinical Advances Team
         explode: true
         in: query
         name: eru_type
@@ -35922,9 +37196,6 @@ paths:
             - 18
             - 19
             - 2
-            - 20
-            - 21
-            - 22
             - 3
             - 4
             - 5
@@ -36009,9 +37280,6 @@ paths:
           * `17` - Outpatient Department (OPD) Module
           * `18` - MHPSS
           * `19` - Operations Support HUB
-          * `20` - Public Health
-          * `21` - Public Health IPC - Infection Prevention and Control
-          * `22` - Clinical Advances Team
         explode: true
         in: query
         name: eru_type
@@ -36027,9 +37295,6 @@ paths:
             - 18
             - 19
             - 2
-            - 20
-            - 21
-            - 22
             - 3
             - 4
             - 5
@@ -36330,26 +37595,28 @@ paths:
         schema:
           type: integer
       - description: |-
-          Auto generated source choices
-
-          * `GDACs scraper` - GDACs scraper
-          * `WHO scraper` - WHO scraper
-          * `Field report DMIS ingest` - Field report DMIS ingest
-          * `Field report admin` - Field report admin
-          * `Appeal admin` - Appeal admin
-          * `New field report` - New field report
+          * `100` - Manual input
+          * `110` - GDACs scraper
+          * `120` - WHO scraper
+          * `130` - Field report DMIS ingest
+          * `140` - Field report admin
+          * `150` - Appeal admin
+          * `160` - New field report
+          * `170` - DREF
         in: query
-        name: auto_generated_source
+        name: source
         schema:
           enum:
-          - Appeal admin
-          - Field report DMIS ingest
-          - Field report admin
-          - GDACs scraper
-          - New field report
-          - WHO scraper
-          nullable: true
-          type: string
+          - 100
+          - 110
+          - 120
+          - 130
+          - 140
+          - 150
+          - 160
+          - 170
+          title: Event source
+          type: integer
       - description: is_subscribed
         in: query
         name: is_subscribed
@@ -36501,26 +37768,28 @@ paths:
         schema:
           type: integer
       - description: |-
-          Auto generated source choices
-
-          * `GDACs scraper` - GDACs scraper
-          * `WHO scraper` - WHO scraper
-          * `Field report DMIS ingest` - Field report DMIS ingest
-          * `Field report admin` - Field report admin
-          * `Appeal admin` - Appeal admin
-          * `New field report` - New field report
+          * `100` - Manual input
+          * `110` - GDACs scraper
+          * `120` - WHO scraper
+          * `130` - Field report DMIS ingest
+          * `140` - Field report admin
+          * `150` - Appeal admin
+          * `160` - New field report
+          * `170` - DREF
         in: query
-        name: auto_generated_source
+        name: source
         schema:
           enum:
-          - Appeal admin
-          - Field report DMIS ingest
-          - Field report admin
-          - GDACs scraper
-          - New field report
-          - WHO scraper
-          nullable: true
-          type: string
+          - 100
+          - 110
+          - 120
+          - 130
+          - 140
+          - 150
+          - 160
+          - 170
+          title: Event source
+          type: integer
       - description: is_subscribed
         in: query
         name: is_subscribed
@@ -36672,26 +37941,28 @@ paths:
         schema:
           type: integer
       - description: |-
-          Auto generated source choices
-
-          * `GDACs scraper` - GDACs scraper
-          * `WHO scraper` - WHO scraper
-          * `Field report DMIS ingest` - Field report DMIS ingest
-          * `Field report admin` - Field report admin
-          * `Appeal admin` - Appeal admin
-          * `New field report` - New field report
+          * `100` - Manual input
+          * `110` - GDACs scraper
+          * `120` - WHO scraper
+          * `130` - Field report DMIS ingest
+          * `140` - Field report admin
+          * `150` - Appeal admin
+          * `160` - New field report
+          * `170` - DREF
         in: query
-        name: auto_generated_source
+        name: source
         schema:
           enum:
-          - Appeal admin
-          - Field report DMIS ingest
-          - Field report admin
-          - GDACs scraper
-          - New field report
-          - WHO scraper
-          nullable: true
-          type: string
+          - 100
+          - 110
+          - 120
+          - 130
+          - 140
+          - 150
+          - 160
+          - 170
+          title: Event source
+          type: integer
       - description: is_subscribed
         in: query
         name: is_subscribed
@@ -43934,22 +45205,6 @@ paths:
     get:
       operationId: api_v2_per_overview_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -44038,12 +45293,11 @@ paths:
     delete:
       operationId: api_v2_per_overview_destroy
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -44063,12 +45317,11 @@ paths:
     get:
       operationId: api_v2_per_overview_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -44095,12 +45348,11 @@ paths:
     patch:
       operationId: api_v2_per_overview_partial_update
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -44138,12 +45390,11 @@ paths:
     put:
       operationId: api_v2_per_overview_update
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -44418,22 +45669,6 @@ paths:
     get:
       operationId: api_v2_per_process_status_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -44485,12 +45720,11 @@ paths:
     get:
       operationId: api_v2_per_process_status_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
