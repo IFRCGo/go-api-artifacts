@@ -28143,7 +28143,7 @@ components:
       type: http
     cookieAuth:
       in: cookie
-      name: sessionid
+      name: GO-development-SESSIONID
       type: apiKey
     tokenAuth:
       description: Token-based authentication with required prefix "Token"
