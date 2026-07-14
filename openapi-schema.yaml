@@ -3786,49 +3786,6 @@ components:
       - code
       - name
       type: object
-    DocumentDownloadLog:
-      properties:
-        document_type:
-          $ref: '#/components/schemas/DocumentTypeEnum'
-        id:
-          readOnly: true
-          type: integer
-        object_id:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
-        source:
-          $ref: '#/components/schemas/SourceEnum'
-        url:
-          format: uri
-          maxLength: 2000
-          type: string
-      required:
-      - document_type
-      - id
-      - url
-      type: object
-    DocumentTypeEnum:
-      description: |-
-        * `situation_report` - Situation Report
-        * `appeal_document` - Appeal Document
-        * `general_document` - General Document
-        * `country_document` - Country Key Document
-        * `featured_document` - Event Featured Document
-        * `dref_file` - DREF File
-        * `per_document` - PER Document
-        * `other` - Other
-      enum:
-      - situation_report
-      - appeal_document
-      - general_document
-      - country_document
-      - featured_document
-      - dref_file
-      - per_document
-      - other
-      type: string
     DomainWhitelist:
       properties:
         description:
@@ -27436,20 +27393,6 @@ components:
       - stype
       - translation_module_original_language
       type: object
-    SourceEnum:
-      description: |-
-        * `azure_blob` - Azure Blob
-        * `adore` - Adore
-        * `goapi` - GOAPI
-        * `sharepoint` - SharePoint
-        * `other` - Other
-      enum:
-      - azure_blob
-      - adore
-      - goapi
-      - sharepoint
-      - other
-      type: string
     SourceInformation:
       description: Custom ModelSerializer with translaion logic (Also works for normal
         models)
@@ -32360,49 +32303,6 @@ paths:
       - {}
       tags:
       - api
-  /api/v2/document-download-log/:
-    post:
-      description: |-
-        Log a document download event.
-
-        The frontend calls this endpoint (fire-and-forget) each time a user
-        initiates a download.  Authentication is optional: anonymous downloads
-        are recorded with a null user.
-      operationId: api_v2_document_download_log_create
-      parameters:
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DocumentDownloadLog'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/DocumentDownloadLog'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/DocumentDownloadLog'
-        required: true
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DocumentDownloadLog'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/DocumentDownloadLog'
-          description: ''
-      security:
-      - tokenAuth: []
-      tags:
-      - api
   /api/v2/domainwhitelist/:
     get:
       operationId: api_v2_domainwhitelist_list
@@ -34992,7 +34892,6 @@ paths:
         name: country_iso3
         schema:
           items:
-            nullable: true
             type: string
           type: array
         style: form
@@ -36152,32 +36051,6 @@ paths:
     get:
       operationId: api_v2_event_severity_level_history_list
       parameters:
-      - in: query
-        name: id
-        schema:
-          type: integer
-      - description: Multiple values may be separated by commas.
-        explode: false
-        in: query
-        name: id__in
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: event
-        schema:
-          type: integer
-      - description: Multiple values may be separated by commas.
-        explode: false
-        in: query
-        name: event__in
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
       - description: A search term.
         in: query
         name: search
@@ -45667,7 +45540,6 @@ paths:
         name: country_iso3
         schema:
           items:
-            nullable: true
             type: string
           type: array
         style: form
