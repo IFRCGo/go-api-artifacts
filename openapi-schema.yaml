@@ -23585,6 +23585,9 @@ components:
         expire_timestamp:
           format: date-time
           type: string
+        id:
+          readOnly: true
+          type: integer
         is_disabled:
           readOnly: true
           type: boolean
@@ -27912,6 +27915,9 @@ components:
         expire_timestamp:
           format: date-time
           type: string
+        id:
+          readOnly: true
+          type: integer
         is_disabled:
           readOnly: true
           type: boolean
@@ -27927,6 +27933,7 @@ components:
           type: string
       required:
       - created_at
+      - id
       - is_disabled
       - is_old_token
       - title
