@@ -24930,6 +24930,12 @@ components:
         expire_timestamp:
           format: date-time
           type: string
+        id:
+          readOnly: true
+          type: integer
+        is_disabled:
+          readOnly: true
+          type: boolean
         is_old_token:
           readOnly: true
           type: boolean
@@ -24937,6 +24943,7 @@ components:
           maxLength: 255
           type: string
         token:
+          nullable: true
           readOnly: true
           type: string
       type: object
@@ -29311,6 +29318,12 @@ components:
         expire_timestamp:
           format: date-time
           type: string
+        id:
+          readOnly: true
+          type: integer
+        is_disabled:
+          readOnly: true
+          type: boolean
         is_old_token:
           readOnly: true
           type: boolean
@@ -29318,13 +29331,33 @@ components:
           maxLength: 255
           type: string
         token:
+          nullable: true
           readOnly: true
           type: string
       required:
       - created_at
+      - id
+      - is_disabled
       - is_old_token
       - title
       - token
+      type: object
+    UserExternalTokenVerify:
+      description: Input serializer for the external-token verify endpoint.
+      properties:
+        jti:
+          format: uuid
+          type: string
+      required:
+      - jti
+      type: object
+    UserExternalTokenVerifyResponse:
+      description: Output serializer for the external-token verify endpoint.
+      properties:
+        active:
+          type: boolean
+      required:
+      - active
       type: object
     UserMe:
       description: Custom ModelSerializer with translaion logic (Also works for normal
@@ -38480,6 +38513,46 @@ paths:
       - cookieAuth: []
       tags:
       - api
+  /api/v2/external-token/verify/:
+    post:
+      operationId: api_v2_external_token_verify_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserExternalTokenVerify'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserExternalTokenVerify'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserExternalTokenVerify'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserExternalTokenVerifyResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/UserExternalTokenVerifyResponse'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
   /api/v2/external-token/{id}/:
     delete:
       operationId: api_v2_external_token_destroy
@@ -38605,6 +38678,38 @@ paths:
             schema:
               $ref: '#/components/schemas/UserExternalToken'
         required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserExternalToken'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/UserExternalToken'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - api
+  /api/v2/external-token/{id}/revoke/:
+    post:
+      operationId: api_v2_external_token_revoke_create
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
       responses:
         '200':
           content:
