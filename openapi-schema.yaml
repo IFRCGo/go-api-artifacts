@@ -3858,7 +3858,7 @@ components:
     DocumentDownloadLog:
       properties:
         document_type:
-          $ref: '#/components/schemas/DocumentTypeEnum'
+          type: string
         id:
           readOnly: true
           type: integer
@@ -3879,28 +3879,6 @@ components:
       - id
       - url
       type: object
-    DocumentTypeEnum:
-      description: |-
-        * `situation_report` - Situation Report
-        * `appeal_document` - Appeal Document
-        * `general_document` - General Document
-        * `country_document` - Country Key Document
-        * `featured_document` - Event Featured Document
-        * `dref_file` - DREF File
-        * `per_document` - PER Document
-        * `surge_catalogue_resource` - SURGE Catalogue Resource
-        * `other` - Other
-      enum:
-      - situation_report
-      - appeal_document
-      - general_document
-      - country_document
-      - featured_document
-      - dref_file
-      - per_document
-      - surge_catalogue_resource
-      - other
-      type: string
     DomainWhitelist:
       properties:
         description:
@@ -32521,7 +32499,7 @@ paths:
         Log a document download event.
 
         The frontend calls this endpoint (fire-and-forget) each time a user
-        initiates a download.  Authentication is optional: anonymous downloads
+        initiates a download. Authentication is optional: anonymous downloads
         are recorded with a null user.
       operationId: api_v2_document_download_log_create
       parameters:
