@@ -3786,6 +3786,30 @@ components:
       - code
       - name
       type: object
+    DocumentDownloadLog:
+      properties:
+        document_type:
+          type: string
+        id:
+          readOnly: true
+          type: integer
+        object_id:
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
+          type: integer
+        source:
+          nullable: true
+          type: string
+        url:
+          format: uri
+          maxLength: 2000
+          type: string
+      required:
+      - document_type
+      - id
+      - url
+      type: object
     DomainWhitelist:
       properties:
         description:
@@ -28999,6 +29023,22 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_list
       parameters:
+      - explode: true
+        in: query
+        name: country
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - in: query
+        name: region
+        schema:
+          type: integer
+      - in: query
+        name: id
+        schema:
+          type: integer
       - description: A search term.
         in: query
         name: search
@@ -29050,11 +29090,12 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_retrieve
       parameters:
-      - in: path
+      - description: A unique integer value identifying this PER General Overview.
+        in: path
         name: id
         required: true
         schema:
-          type: string
+          type: integer
       - in: query
         name: format
         schema:
@@ -32311,6 +32352,49 @@ paths:
       - basicAuth: []
       - cookieAuth: []
       - {}
+      tags:
+      - api
+  /api/v2/document-download-log/:
+    post:
+      description: |-
+        Log a document download event.
+
+        The frontend calls this endpoint (fire-and-forget) each time a user
+        initiates a download. Authentication is optional: anonymous downloads
+        are recorded with a null user.
+      operationId: api_v2_document_download_log_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentDownloadLog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DocumentDownloadLog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DocumentDownloadLog'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentDownloadLog'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/DocumentDownloadLog'
+          description: ''
+      security:
+      - tokenAuth: []
       tags:
       - api
   /api/v2/domainwhitelist/:
@@ -43846,6 +43930,22 @@ paths:
     get:
       operationId: api_v2_per_overview_list
       parameters:
+      - explode: true
+        in: query
+        name: country
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - in: query
+        name: region
+        schema:
+          type: integer
+      - in: query
+        name: id
+        schema:
+          type: integer
       - description: A search term.
         in: query
         name: search
@@ -43934,11 +44034,12 @@ paths:
     delete:
       operationId: api_v2_per_overview_destroy
       parameters:
-      - in: path
+      - description: A unique integer value identifying this PER General Overview.
+        in: path
         name: id
         required: true
         schema:
-          type: string
+          type: integer
       - in: query
         name: format
         schema:
@@ -43958,11 +44059,12 @@ paths:
     get:
       operationId: api_v2_per_overview_retrieve
       parameters:
-      - in: path
+      - description: A unique integer value identifying this PER General Overview.
+        in: path
         name: id
         required: true
         schema:
-          type: string
+          type: integer
       - in: query
         name: format
         schema:
@@ -43989,11 +44091,12 @@ paths:
     patch:
       operationId: api_v2_per_overview_partial_update
       parameters:
-      - in: path
+      - description: A unique integer value identifying this PER General Overview.
+        in: path
         name: id
         required: true
         schema:
-          type: string
+          type: integer
       - in: query
         name: format
         schema:
@@ -44031,11 +44134,12 @@ paths:
     put:
       operationId: api_v2_per_overview_update
       parameters:
-      - in: path
+      - description: A unique integer value identifying this PER General Overview.
+        in: path
         name: id
         required: true
         schema:
-          type: string
+          type: integer
       - in: query
         name: format
         schema:
@@ -44310,6 +44414,22 @@ paths:
     get:
       operationId: api_v2_per_process_status_list
       parameters:
+      - explode: true
+        in: query
+        name: country
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - in: query
+        name: region
+        schema:
+          type: integer
+      - in: query
+        name: id
+        schema:
+          type: integer
       - description: A search term.
         in: query
         name: search
@@ -44361,11 +44481,12 @@ paths:
     get:
       operationId: api_v2_per_process_status_retrieve
       parameters:
-      - in: path
+      - description: A unique integer value identifying this PER General Overview.
+        in: path
         name: id
         required: true
         schema:
-          type: string
+          type: integer
       - in: query
         name: format
         schema:
