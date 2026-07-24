@@ -929,12 +929,9 @@ components:
           nullable: true
           type: string
         document_url:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
+          type: string
         id:
           readOnly: true
           type: integer
@@ -1299,21 +1296,15 @@ components:
           description: Is this an active, valid country?
           type: boolean
         iso:
+          maxLength: 2
           nullable: true
-          oneOf:
-          - maxLength: 2
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         key_priorities:
           nullable: true
           type: string
@@ -1351,25 +1342,19 @@ components:
           title: Society name [en]
           type: string
         society_url:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
           title: URL - Society
+          type: string
         translation_module_original_language:
           allOf:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
         url_ifrc:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
           title: URL - IFRC
+          type: string
       required:
       - id
       - record_type_display
@@ -1550,21 +1535,15 @@ components:
           description: Is this an active, valid country?
           type: boolean
         iso:
+          maxLength: 2
           nullable: true
-          oneOf:
-          - maxLength: 2
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         key_priorities:
           nullable: true
           type: string
@@ -1611,25 +1590,19 @@ components:
           title: Society name [en]
           type: string
         society_url:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
           title: URL - Society
+          type: string
         translation_module_original_language:
           allOf:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
         url_ifrc:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
           title: URL - IFRC
+          type: string
         website:
           maxLength: 255
           nullable: true
@@ -2675,21 +2648,15 @@ components:
           readOnly: true
           type: array
         iso:
+          maxLength: 2
           nullable: true
-          oneOf:
-          - maxLength: 2
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         key_priorities:
           nullable: true
           type: string
@@ -2793,13 +2760,10 @@ components:
           title: Society name [en]
           type: string
         society_url:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
           title: URL - Society
+          type: string
         sovereign_state_id:
           nullable: true
           readOnly: true
@@ -2810,13 +2774,10 @@ components:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
         url_ifrc:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
           title: URL - IFRC
+          type: string
         wash_kit10:
           maximum: 2147483647
           minimum: -2147483648
@@ -2880,13 +2841,10 @@ components:
         models)
       properties:
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         name:
           maxLength: 100
           nullable: true
@@ -3023,13 +2981,10 @@ components:
           nullable: true
           type: string
         assistant_email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         assistant_name:
           maxLength: 255
           nullable: true
@@ -3052,13 +3007,10 @@ components:
         dotype:
           $ref: '#/components/schemas/DelegationOfficeType'
         hod_email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         hod_first_name:
           maxLength: 255
           nullable: true
@@ -3093,23 +3045,17 @@ components:
           title: Postal code
           type: string
         society_url:
+          format: uri
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: uri
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
           title: URL of national society
+          type: string
         url_ifrc:
+          format: uri
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: uri
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
           title: URL on IFRC webpage
+          type: string
         visibility:
           allOf:
           - $ref: '#/components/schemas/ApiVisibilityChoicesEnumKey'
@@ -3126,13 +3072,10 @@ components:
     DelegationOfficeCountry:
       properties:
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         name:
           maxLength: 100
           type: string
@@ -3162,21 +3105,15 @@ components:
           readOnly: true
           type: integer
         iso:
+          maxLength: 2
           nullable: true
-          oneOf:
-          - maxLength: 2
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         name:
           maxLength: 100
           type: string
@@ -3232,13 +3169,10 @@ components:
         models)
       properties:
         email:
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          format: email
+          maxLength: 254
           title: Email address
+          type: string
         first_name:
           maxLength: 150
           type: string
@@ -3688,13 +3622,10 @@ components:
           description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
             The string cannot start with a number and is forced to be lowercase. Recommend
             using hyphens over underscores. Special characters like # is not allowed.'
+          maxLength: 50
           nullable: true
-          oneOf:
-          - maxLength: 50
-            pattern: ^[-a-zA-Z0-9_]+$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+          type: string
         summary:
           nullable: true
           title: Summary [en]
@@ -3855,30 +3786,6 @@ components:
       - code
       - name
       type: object
-    DocumentDownloadLog:
-      properties:
-        document_type:
-          type: string
-        id:
-          readOnly: true
-          type: integer
-        object_id:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
-        source:
-          nullable: true
-          type: string
-        url:
-          format: uri
-          maxLength: 2000
-          type: string
-      required:
-      - document_type
-      - id
-      - url
-      type: object
     DomainWhitelist:
       properties:
         description:
@@ -3912,13 +3819,10 @@ components:
     Donors:
       properties:
         email:
+          format: email
+          maxLength: 254
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         first_name:
           maxLength: 300
           nullable: true
@@ -5176,7 +5080,6 @@ components:
           readOnly: true
         file:
           format: uri
-          nullable: true
           type: string
         id:
           type: integer
@@ -6827,7 +6730,6 @@ components:
           readOnly: true
         file:
           format: uri
-          nullable: true
           type: string
         id:
           type: integer
@@ -6912,6 +6814,10 @@ components:
           format: date-time
           nullable: true
           title: Deadline reminder email sent at
+          type: string
+        disaster_sub_type:
+          maxLength: 255
+          nullable: true
           type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
@@ -7030,8 +6936,8 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
-        pending_pfa_at:
-          description: Timestamp when the EAP was marked as pending PFA.
+        project_agreement_signed_at:
+          description: Timestamp when the project agreement was signed.
           format: date-time
           nullable: true
           type: string
@@ -7049,9 +6955,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically Validated
-            * `50` - Approved(Pending PFA)
-            * `60` - Approved
+            * `40` - Technically validated by VC
+            * `50` - Approved
+            * `60` - Project Agreement Signed
           readOnly: true
           title: EAP Status
         status_display:
@@ -7158,7 +7064,6 @@ components:
           readOnly: true
         review_checklist_file:
           format: uri
-          nullable: true
           type: string
           writeOnly: true
         status:
@@ -7170,9 +7075,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically Validated
-            * `50` - Approved(Pending PFA)
-            * `60` - Approved
+            * `40` - Technically validated by VC
+            * `50` - Approved
+            * `60` - Project Agreement Signed
           maximum: 2147483647
           minimum: -2147483648
           title: EAP Status
@@ -7629,9 +7534,9 @@ components:
         * `10` - Under Development
         * `20` - Under Review
         * `30` - NS Addressing Comments
-        * `40` - Technically Validated
-        * `50` - Approved(Pending PFA)
-        * `60` - Approved
+        * `40` - Technically validated by VC
+        * `50` - Approved
+        * `60` - Project Agreement Signed
       enum:
       - 10
       - 20
@@ -9687,13 +9592,10 @@ components:
         models)
       properties:
         email:
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          format: email
+          maxLength: 254
           title: Email address
+          type: string
         first_name:
           maxLength: 150
           type: string
@@ -9821,7 +9723,6 @@ components:
           readOnly: true
         file:
           format: uri
-          nullable: true
           type: string
         id:
           readOnly: true
@@ -10481,7 +10382,7 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -10700,6 +10601,9 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        include_rcrc_climate_center:
+          title: Include RCRC Climate Center.
+          type: boolean
         is_locked:
           description: Indicates whether the Full EAP is locked for editing.
           readOnly: true
@@ -10816,7 +10720,7 @@ components:
           type: array
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -10839,7 +10743,7 @@ components:
           type: array
         readiness_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -10898,7 +10802,7 @@ components:
           readOnly: true
         total_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -11445,13 +11349,10 @@ components:
           nullable: true
           type: string
         focal_point_email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         focal_point_phone_number:
           maxLength: 255
           nullable: true
@@ -11694,13 +11595,10 @@ components:
           readOnly: true
           type: integer
         email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         english_branch_name:
           maxLength: 255
           nullable: true
@@ -11763,14 +11661,11 @@ components:
           readOnly: true
           type: boolean
         link:
+          format: uri
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: uri
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
           title: Social link
+          type: string
         local_branch_name:
           maxLength: 255
           nullable: true
@@ -12020,21 +11915,16 @@ components:
           type: string
         id:
           type: integer
-        national_society:
-          description: Select the National Society involved in the EAP development.
-          title: EAP Actors
-          type: integer
-        national_society_details:
-          allOf:
-          - $ref: '#/components/schemas/MiniCountry'
-          readOnly: true
+        partner:
+          description: Name of the partner organization or entity.
+          maxLength: 255
+          type: string
         previous_id:
           readOnly: true
           type: integer
       required:
       - description
-      - national_society
-      - national_society_details
+      - partner
       - previous_id
       type: object
     KeyClimateEvent:
@@ -12442,13 +12332,10 @@ components:
           description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
             The string cannot start with a number and is forced to be lowercase. Recommend
             using hyphens over underscores. Special characters like # is not allowed.'
+          maxLength: 50
           nullable: true
-          oneOf:
-          - maxLength: 50
-            pattern: ^[-a-zA-Z0-9_]+$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+          type: string
         summary:
           nullable: true
           title: Summary [en]
@@ -12529,13 +12416,10 @@ components:
           description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
             The string cannot start with a number and is forced to be lowercase. Recommend
             using hyphens over underscores. Special characters like # is not allowed.'
+          maxLength: 50
           nullable: true
-          oneOf:
-          - maxLength: 50
-            pattern: ^[-a-zA-Z0-9_]+$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+          type: string
         translation_module_original_language:
           allOf:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
@@ -12555,12 +12439,9 @@ components:
           nullable: true
           type: string
         document_url:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
+          type: string
         name:
           maxLength: 100
           type: string
@@ -12767,13 +12648,10 @@ components:
           readOnly: true
           type: integer
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         name:
           maxLength: 100
           type: string
@@ -12847,14 +12725,11 @@ components:
           - $ref: '#/components/schemas/LocalUnitLevel'
           readOnly: true
         link:
+          format: uri
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: uri
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
           title: Social link
+          type: string
         local_branch_name:
           maxLength: 255
           nullable: true
@@ -12943,13 +12818,10 @@ components:
     LocalUnitMiniUser:
       properties:
         email:
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          format: email
+          maxLength: 254
           title: Email address
+          type: string
         first_name:
           maxLength: 150
           type: string
@@ -13336,21 +13208,15 @@ components:
           description: Is this an active, valid country?
           type: boolean
         iso:
+          maxLength: 2
           nullable: true
-          oneOf:
-          - maxLength: 2
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         name:
           maxLength: 100
           nullable: true
@@ -13403,13 +13269,10 @@ components:
           readOnly: true
           type: string
         hod_email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         hod_first_name:
           maxLength: 255
           nullable: true
@@ -13777,6 +13640,10 @@ components:
           format: date-time
           readOnly: true
           type: string
+        disaster_sub_type:
+          maxLength: 255
+          nullable: true
+          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -13817,9 +13684,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically Validated
-            * `50` - Approved(Pending PFA)
-            * `60` - Approved
+            * `40` - Technically validated by VC
+            * `50` - Approved
+            * `60` - Project Agreement Signed
           maximum: 2147483647
           minimum: -2147483648
           title: EAP Status
@@ -13960,13 +13827,10 @@ components:
           description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
             The string cannot start with a number and is forced to be lowercase. Recommend
             using hyphens over underscores. Special characters like # is not allowed.'
+          maxLength: 50
           nullable: true
-          oneOf:
-          - maxLength: 50
-            pattern: ^[-a-zA-Z0-9_]+$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+          type: string
         start_date:
           readOnly: true
           type: string
@@ -14391,7 +14255,7 @@ components:
           type: string
         early_action_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -14411,13 +14275,13 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
         readiness_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -14431,7 +14295,7 @@ components:
           readOnly: true
         total_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -14694,7 +14558,7 @@ components:
           type: string
         early_action_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -14710,13 +14574,13 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
         readiness_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -14732,7 +14596,7 @@ components:
           type: integer
         total_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -15102,12 +14966,9 @@ components:
           nullable: true
           type: string
         document_url:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
+          type: string
         id:
           readOnly: true
           type: integer
@@ -15190,18 +15051,23 @@ components:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
         url_ifrc:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
           title: URL - IFRC
+          type: string
       required:
       - translation_module_original_language
       type: object
     OperationActivity:
       properties:
+        activation_one:
+          nullable: true
+          title: Activation 1
+          type: boolean
+        activation_two:
+          nullable: true
+          title: Activation 2
+          type: boolean
         activity:
           maxLength: 255
           type: string
@@ -20477,6 +20343,10 @@ components:
           nullable: true
           title: Deadline reminder email sent at
           type: string
+        disaster_sub_type:
+          maxLength: 255
+          nullable: true
+          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -20594,8 +20464,8 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
-        pending_pfa_at:
-          description: Timestamp when the EAP was marked as pending PFA.
+        project_agreement_signed_at:
+          description: Timestamp when the project agreement was signed.
           format: date-time
           nullable: true
           type: string
@@ -20613,9 +20483,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically Validated
-            * `50` - Approved(Pending PFA)
-            * `60` - Approved
+            * `40` - Technically validated by VC
+            * `50` - Approved
+            * `60` - Project Agreement Signed
           readOnly: true
           title: EAP Status
         status_display:
@@ -21872,7 +21742,7 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -22091,6 +21961,9 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        include_rcrc_climate_center:
+          title: Include RCRC Climate Center.
+          type: boolean
         is_locked:
           description: Indicates whether the Full EAP is locked for editing.
           readOnly: true
@@ -22207,7 +22080,7 @@ components:
           type: array
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -22230,7 +22103,7 @@ components:
           type: array
         readiness_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -22289,7 +22162,7 @@ components:
           readOnly: true
         total_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -22407,14 +22280,11 @@ components:
           - $ref: '#/components/schemas/LocalUnitLevel'
           readOnly: true
         link:
+          format: uri
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: uri
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
           title: Social link
+          type: string
         local_branch_name:
           maxLength: 255
           nullable: true
@@ -22888,13 +22758,10 @@ components:
         draft:
           type: boolean
         email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         english_branch_name:
           maxLength: 255
           nullable: true
@@ -22926,14 +22793,11 @@ components:
           - $ref: '#/components/schemas/LocalUnitLevel'
           readOnly: true
         link:
+          format: uri
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: uri
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
           title: Social link
+          type: string
         local_branch_name:
           maxLength: 255
           nullable: true
@@ -23352,7 +23216,7 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -23478,6 +23342,9 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        include_rcrc_climate_center:
+          title: Include RCRC Climate Center.
+          type: boolean
         is_locked:
           description: Indicates whether the Simplified EAP is locked for editing.
           readOnly: true
@@ -23563,7 +23430,7 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -23578,7 +23445,7 @@ components:
           type: string
         readiness_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -23630,7 +23497,7 @@ components:
           type: string
         total_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -23699,13 +23566,10 @@ components:
         models)
       properties:
         email:
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          format: email
+          maxLength: 254
           title: Email address
+          type: string
         first_name:
           maxLength: 150
           type: string
@@ -23925,13 +23789,10 @@ components:
     PerMiniUser:
       properties:
         email:
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          format: email
+          maxLength: 254
           title: Email address
+          type: string
         first_name:
           maxLength: 150
           type: string
@@ -24636,7 +24497,7 @@ components:
       properties:
         budget_per_sector:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           title: Budget per sector (CHF)
           type: integer
         early_action_activities:
@@ -24651,7 +24512,7 @@ components:
           type: array
         people_targeted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           type: integer
         prepositioning_activities:
           items:
@@ -24723,13 +24584,10 @@ components:
           - $ref: '#/components/schemas/LocalUnitCountry'
           readOnly: true
         email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         english_branch_name:
           maxLength: 255
           nullable: true
@@ -24857,13 +24715,10 @@ components:
         draft:
           type: boolean
         email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         english_branch_name:
           maxLength: 255
           nullable: true
@@ -24895,14 +24750,11 @@ components:
           - $ref: '#/components/schemas/LocalUnitLevel'
           readOnly: true
         link:
+          format: uri
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: uri
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
           title: Social link
+          type: string
         local_branch_name:
           maxLength: 255
           nullable: true
@@ -27093,7 +26945,7 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -27219,6 +27071,9 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        include_rcrc_climate_center:
+          title: Include RCRC Climate Center.
+          type: boolean
         is_locked:
           description: Indicates whether the Simplified EAP is locked for editing.
           readOnly: true
@@ -27304,7 +27159,7 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -27319,7 +27174,7 @@ components:
           type: string
         readiness_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -27371,7 +27226,7 @@ components:
           type: string
         total_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -27423,12 +27278,9 @@ components:
           nullable: true
           type: string
         document_url:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
+          type: string
         event:
           type: integer
         id:
@@ -27959,13 +27811,10 @@ components:
           description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
             The string cannot start with a number and is forced to be lowercase. Recommend
             using hyphens over underscores. Special characters like # is not allowed.'
+          maxLength: 50
           nullable: true
-          oneOf:
-          - maxLength: 50
-            pattern: ^[-a-zA-Z0-9_]+$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+          type: string
         summary:
           nullable: true
           title: Summary [en]
@@ -28017,13 +27866,10 @@ components:
         models)
       properties:
         email:
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          format: email
+          maxLength: 254
           title: Email address
+          type: string
         first_name:
           maxLength: 150
           type: string
@@ -28109,13 +27955,10 @@ components:
         models)
       properties:
         email:
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          format: email
+          maxLength: 254
           title: Email address
+          type: string
         first_name:
           maxLength: 150
           type: string
@@ -28276,21 +28119,15 @@ components:
           readOnly: true
           type: integer
         iso:
+          maxLength: 2
           nullable: true
-          oneOf:
-          - maxLength: 2
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         name:
           maxLength: 100
           type: string
@@ -28333,7 +28170,7 @@ components:
       type: http
     cookieAuth:
       in: cookie
-      name: GO-development-SESSIONID
+      name: GO-ALPHA-2-SESSIONID
       type: apiKey
     tokenAuth:
       description: Token-based authentication with required prefix "Token"
@@ -28772,9 +28609,9 @@ paths:
           * `10` - Under Development
           * `20` - Under Review
           * `30` - NS Addressing Comments
-          * `40` - Technically Validated
-          * `50` - Approved(Pending PFA)
-          * `60` - Approved
+          * `40` - Technically validated by VC
+          * `50` - Approved
+          * `60` - Project Agreement Signed
         in: query
         name: status
         schema:
@@ -29162,22 +28999,6 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -29229,12 +29050,11 @@ paths:
     get:
       operationId: api_v2_aggregated_per_process_status_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -32493,49 +32313,6 @@ paths:
       - {}
       tags:
       - api
-  /api/v2/document-download-log/:
-    post:
-      description: |-
-        Log a document download event.
-
-        The frontend calls this endpoint (fire-and-forget) each time a user
-        initiates a download. Authentication is optional: anonymous downloads
-        are recorded with a null user.
-      operationId: api_v2_document_download_log_create
-      parameters:
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DocumentDownloadLog'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/DocumentDownloadLog'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/DocumentDownloadLog'
-        required: true
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DocumentDownloadLog'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/DocumentDownloadLog'
-          description: ''
-      security:
-      - tokenAuth: []
-      tags:
-      - api
   /api/v2/domainwhitelist/:
     get:
       operationId: api_v2_domainwhitelist_list
@@ -34505,9 +34282,9 @@ paths:
           * `10` - Under Development
           * `20` - Under Review
           * `30` - NS Addressing Comments
-          * `40` - Technically Validated
-          * `50` - Approved(Pending PFA)
-          * `60` - Approved
+          * `40` - Technically validated by VC
+          * `50` - Approved
+          * `60` - Project Agreement Signed
         in: query
         name: status
         schema:
@@ -44069,22 +43846,6 @@ paths:
     get:
       operationId: api_v2_per_overview_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -44173,12 +43934,11 @@ paths:
     delete:
       operationId: api_v2_per_overview_destroy
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -44198,12 +43958,11 @@ paths:
     get:
       operationId: api_v2_per_overview_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -44230,12 +43989,11 @@ paths:
     patch:
       operationId: api_v2_per_overview_partial_update
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -44273,12 +44031,11 @@ paths:
     put:
       operationId: api_v2_per_overview_update
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
@@ -44553,22 +44310,6 @@ paths:
     get:
       operationId: api_v2_per_process_status_list
       parameters:
-      - explode: true
-        in: query
-        name: country
-        schema:
-          items:
-            type: integer
-          type: array
-        style: form
-      - in: query
-        name: region
-        schema:
-          type: integer
-      - in: query
-        name: id
-        schema:
-          type: integer
       - description: A search term.
         in: query
         name: search
@@ -44620,12 +44361,11 @@ paths:
     get:
       operationId: api_v2_per_process_status_retrieve
       parameters:
-      - description: A unique integer value identifying this PER General Overview.
-        in: path
+      - in: path
         name: id
         required: true
         schema:
-          type: integer
+          type: string
       - in: query
         name: format
         schema:
