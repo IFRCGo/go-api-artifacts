@@ -929,9 +929,12 @@ components:
           nullable: true
           type: string
         document_url:
-          format: uri
-          maxLength: 200
-          type: string
+          oneOf:
+          - format: uri
+            maxLength: 200
+            type: string
+          - maxLength: 0
+            type: string
         id:
           readOnly: true
           type: integer
@@ -1296,15 +1299,21 @@ components:
           description: Is this an active, valid country?
           type: boolean
         iso:
-          maxLength: 2
           nullable: true
-          pattern: ^[A-Z]*$
-          type: string
+          oneOf:
+          - maxLength: 2
+            pattern: ^[A-Z]*$
+            type: string
+          - maxLength: 0
+            type: string
         iso3:
-          maxLength: 3
           nullable: true
-          pattern: ^[A-Z]*$
-          type: string
+          oneOf:
+          - maxLength: 3
+            pattern: ^[A-Z]*$
+            type: string
+          - maxLength: 0
+            type: string
         key_priorities:
           nullable: true
           type: string
@@ -1342,19 +1351,25 @@ components:
           title: Society name [en]
           type: string
         society_url:
-          format: uri
-          maxLength: 200
+          oneOf:
+          - format: uri
+            maxLength: 200
+            type: string
+          - maxLength: 0
+            type: string
           title: URL - Society
-          type: string
         translation_module_original_language:
           allOf:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
         url_ifrc:
-          format: uri
-          maxLength: 200
+          oneOf:
+          - format: uri
+            maxLength: 200
+            type: string
+          - maxLength: 0
+            type: string
           title: URL - IFRC
-          type: string
       required:
       - id
       - record_type_display
@@ -1535,15 +1550,21 @@ components:
           description: Is this an active, valid country?
           type: boolean
         iso:
-          maxLength: 2
           nullable: true
-          pattern: ^[A-Z]*$
-          type: string
+          oneOf:
+          - maxLength: 2
+            pattern: ^[A-Z]*$
+            type: string
+          - maxLength: 0
+            type: string
         iso3:
-          maxLength: 3
           nullable: true
-          pattern: ^[A-Z]*$
-          type: string
+          oneOf:
+          - maxLength: 3
+            pattern: ^[A-Z]*$
+            type: string
+          - maxLength: 0
+            type: string
         key_priorities:
           nullable: true
           type: string
@@ -1590,19 +1611,25 @@ components:
           title: Society name [en]
           type: string
         society_url:
-          format: uri
-          maxLength: 200
+          oneOf:
+          - format: uri
+            maxLength: 200
+            type: string
+          - maxLength: 0
+            type: string
           title: URL - Society
-          type: string
         translation_module_original_language:
           allOf:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
         url_ifrc:
-          format: uri
-          maxLength: 200
+          oneOf:
+          - format: uri
+            maxLength: 200
+            type: string
+          - maxLength: 0
+            type: string
           title: URL - IFRC
-          type: string
         website:
           maxLength: 255
           nullable: true
@@ -2648,15 +2675,21 @@ components:
           readOnly: true
           type: array
         iso:
-          maxLength: 2
           nullable: true
-          pattern: ^[A-Z]*$
-          type: string
+          oneOf:
+          - maxLength: 2
+            pattern: ^[A-Z]*$
+            type: string
+          - maxLength: 0
+            type: string
         iso3:
-          maxLength: 3
           nullable: true
-          pattern: ^[A-Z]*$
-          type: string
+          oneOf:
+          - maxLength: 3
+            pattern: ^[A-Z]*$
+            type: string
+          - maxLength: 0
+            type: string
         key_priorities:
           nullable: true
           type: string
@@ -2760,10 +2793,13 @@ components:
           title: Society name [en]
           type: string
         society_url:
-          format: uri
-          maxLength: 200
+          oneOf:
+          - format: uri
+            maxLength: 200
+            type: string
+          - maxLength: 0
+            type: string
           title: URL - Society
-          type: string
         sovereign_state_id:
           nullable: true
           readOnly: true
@@ -2774,10 +2810,13 @@ components:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
         url_ifrc:
-          format: uri
-          maxLength: 200
+          oneOf:
+          - format: uri
+            maxLength: 200
+            type: string
+          - maxLength: 0
+            type: string
           title: URL - IFRC
-          type: string
         wash_kit10:
           maximum: 2147483647
           minimum: -2147483648
@@ -2841,10 +2880,13 @@ components:
         models)
       properties:
         iso3:
-          maxLength: 3
           nullable: true
-          pattern: ^[A-Z]*$
-          type: string
+          oneOf:
+          - maxLength: 3
+            pattern: ^[A-Z]*$
+            type: string
+          - maxLength: 0
+            type: string
         name:
           maxLength: 100
           nullable: true
@@ -2981,10 +3023,13 @@ components:
           nullable: true
           type: string
         assistant_email:
-          format: email
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         assistant_name:
           maxLength: 255
           nullable: true
@@ -3007,10 +3052,13 @@ components:
         dotype:
           $ref: '#/components/schemas/DelegationOfficeType'
         hod_email:
-          format: email
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         hod_first_name:
           maxLength: 255
           nullable: true
@@ -3045,17 +3093,23 @@ components:
           title: Postal code
           type: string
         society_url:
-          format: uri
-          maxLength: 255
           nullable: true
+          oneOf:
+          - format: uri
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
           title: URL of national society
-          type: string
         url_ifrc:
-          format: uri
-          maxLength: 255
           nullable: true
+          oneOf:
+          - format: uri
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
           title: URL on IFRC webpage
-          type: string
         visibility:
           allOf:
           - $ref: '#/components/schemas/ApiVisibilityChoicesEnumKey'
@@ -3072,10 +3126,13 @@ components:
     DelegationOfficeCountry:
       properties:
         iso3:
-          maxLength: 3
           nullable: true
-          pattern: ^[A-Z]*$
-          type: string
+          oneOf:
+          - maxLength: 3
+            pattern: ^[A-Z]*$
+            type: string
+          - maxLength: 0
+            type: string
         name:
           maxLength: 100
           type: string
@@ -3105,15 +3162,21 @@ components:
           readOnly: true
           type: integer
         iso:
-          maxLength: 2
           nullable: true
-          pattern: ^[A-Z]*$
-          type: string
+          oneOf:
+          - maxLength: 2
+            pattern: ^[A-Z]*$
+            type: string
+          - maxLength: 0
+            type: string
         iso3:
-          maxLength: 3
           nullable: true
-          pattern: ^[A-Z]*$
-          type: string
+          oneOf:
+          - maxLength: 3
+            pattern: ^[A-Z]*$
+            type: string
+          - maxLength: 0
+            type: string
         name:
           maxLength: 100
           type: string
@@ -3169,10 +3232,13 @@ components:
         models)
       properties:
         email:
-          format: email
-          maxLength: 254
+          oneOf:
+          - format: email
+            maxLength: 254
+            type: string
+          - maxLength: 0
+            type: string
           title: Email address
-          type: string
         first_name:
           maxLength: 150
           type: string
@@ -3622,10 +3688,13 @@ components:
           description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
             The string cannot start with a number and is forced to be lowercase. Recommend
             using hyphens over underscores. Special characters like # is not allowed.'
-          maxLength: 50
           nullable: true
-          pattern: ^[-a-zA-Z0-9_]+$
-          type: string
+          oneOf:
+          - maxLength: 50
+            pattern: ^[-a-zA-Z0-9_]+$
+            type: string
+          - maxLength: 0
+            type: string
         summary:
           nullable: true
           title: Summary [en]
@@ -3843,10 +3912,13 @@ components:
     Donors:
       properties:
         email:
-          format: email
-          maxLength: 254
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 254
+            type: string
+          - maxLength: 0
+            type: string
         first_name:
           maxLength: 300
           nullable: true
@@ -5104,6 +5176,7 @@ components:
           readOnly: true
         file:
           format: uri
+          nullable: true
           type: string
         id:
           type: integer
@@ -6754,6 +6827,7 @@ components:
           readOnly: true
         file:
           format: uri
+          nullable: true
           type: string
         id:
           type: integer
@@ -7088,6 +7162,7 @@ components:
           readOnly: true
         review_checklist_file:
           format: uri
+          nullable: true
           type: string
           writeOnly: true
         status:
@@ -9616,10 +9691,13 @@ components:
         models)
       properties:
         email:
-          format: email
-          maxLength: 254
+          oneOf:
+          - format: email
+            maxLength: 254
+            type: string
+          - maxLength: 0
+            type: string
           title: Email address
-          type: string
         first_name:
           maxLength: 150
           type: string
@@ -9747,6 +9825,7 @@ components:
           readOnly: true
         file:
           format: uri
+          nullable: true
           type: string
         id:
           readOnly: true
@@ -11373,10 +11452,13 @@ components:
           nullable: true
           type: string
         focal_point_email:
-          format: email
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         focal_point_phone_number:
           maxLength: 255
           nullable: true
@@ -11619,10 +11701,13 @@ components:
           readOnly: true
           type: integer
         email:
-          format: email
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         english_branch_name:
           maxLength: 255
           nullable: true
@@ -11685,11 +11770,14 @@ components:
           readOnly: true
           type: boolean
         link:
-          format: uri
-          maxLength: 255
           nullable: true
+          oneOf:
+          - format: uri
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
           title: Social link
-          type: string
         local_branch_name:
           maxLength: 255
           nullable: true
@@ -12356,10 +12444,13 @@ components:
           description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
             The string cannot start with a number and is forced to be lowercase. Recommend
             using hyphens over underscores. Special characters like # is not allowed.'
-          maxLength: 50
           nullable: true
-          pattern: ^[-a-zA-Z0-9_]+$
-          type: string
+          oneOf:
+          - maxLength: 50
+            pattern: ^[-a-zA-Z0-9_]+$
+            type: string
+          - maxLength: 0
+            type: string
         summary:
           nullable: true
           title: Summary [en]
@@ -12440,10 +12531,13 @@ components:
           description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
             The string cannot start with a number and is forced to be lowercase. Recommend
             using hyphens over underscores. Special characters like # is not allowed.'
-          maxLength: 50
           nullable: true
-          pattern: ^[-a-zA-Z0-9_]+$
-          type: string
+          oneOf:
+          - maxLength: 50
+            pattern: ^[-a-zA-Z0-9_]+$
+            type: string
+          - maxLength: 0
+            type: string
         translation_module_original_language:
           allOf:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
@@ -12463,9 +12557,12 @@ components:
           nullable: true
           type: string
         document_url:
-          format: uri
-          maxLength: 200
-          type: string
+          oneOf:
+          - format: uri
+            maxLength: 200
+            type: string
+          - maxLength: 0
+            type: string
         name:
           maxLength: 100
           type: string
@@ -12672,10 +12769,13 @@ components:
           readOnly: true
           type: integer
         iso3:
-          maxLength: 3
           nullable: true
-          pattern: ^[A-Z]*$
-          type: string
+          oneOf:
+          - maxLength: 3
+            pattern: ^[A-Z]*$
+            type: string
+          - maxLength: 0
+            type: string
         name:
           maxLength: 100
           type: string
@@ -12749,11 +12849,14 @@ components:
           - $ref: '#/components/schemas/LocalUnitLevel'
           readOnly: true
         link:
-          format: uri
-          maxLength: 255
           nullable: true
+          oneOf:
+          - format: uri
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
           title: Social link
-          type: string
         local_branch_name:
           maxLength: 255
           nullable: true
@@ -12842,10 +12945,13 @@ components:
     LocalUnitMiniUser:
       properties:
         email:
-          format: email
-          maxLength: 254
+          oneOf:
+          - format: email
+            maxLength: 254
+            type: string
+          - maxLength: 0
+            type: string
           title: Email address
-          type: string
         first_name:
           maxLength: 150
           type: string
@@ -13232,15 +13338,21 @@ components:
           description: Is this an active, valid country?
           type: boolean
         iso:
-          maxLength: 2
           nullable: true
-          pattern: ^[A-Z]*$
-          type: string
+          oneOf:
+          - maxLength: 2
+            pattern: ^[A-Z]*$
+            type: string
+          - maxLength: 0
+            type: string
         iso3:
-          maxLength: 3
           nullable: true
-          pattern: ^[A-Z]*$
-          type: string
+          oneOf:
+          - maxLength: 3
+            pattern: ^[A-Z]*$
+            type: string
+          - maxLength: 0
+            type: string
         name:
           maxLength: 100
           nullable: true
@@ -13293,10 +13405,13 @@ components:
           readOnly: true
           type: string
         hod_email:
-          format: email
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         hod_first_name:
           maxLength: 255
           nullable: true
@@ -13851,10 +13966,13 @@ components:
           description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
             The string cannot start with a number and is forced to be lowercase. Recommend
             using hyphens over underscores. Special characters like # is not allowed.'
-          maxLength: 50
           nullable: true
-          pattern: ^[-a-zA-Z0-9_]+$
-          type: string
+          oneOf:
+          - maxLength: 50
+            pattern: ^[-a-zA-Z0-9_]+$
+            type: string
+          - maxLength: 0
+            type: string
         start_date:
           readOnly: true
           type: string
@@ -14990,9 +15108,12 @@ components:
           nullable: true
           type: string
         document_url:
-          format: uri
-          maxLength: 200
-          type: string
+          oneOf:
+          - format: uri
+            maxLength: 200
+            type: string
+          - maxLength: 0
+            type: string
         id:
           readOnly: true
           type: integer
@@ -15075,10 +15196,13 @@ components:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
         url_ifrc:
-          format: uri
-          maxLength: 200
+          oneOf:
+          - format: uri
+            maxLength: 200
+            type: string
+          - maxLength: 0
+            type: string
           title: URL - IFRC
-          type: string
       required:
       - translation_module_original_language
       type: object
@@ -22304,11 +22428,14 @@ components:
           - $ref: '#/components/schemas/LocalUnitLevel'
           readOnly: true
         link:
-          format: uri
-          maxLength: 255
           nullable: true
+          oneOf:
+          - format: uri
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
           title: Social link
-          type: string
         local_branch_name:
           maxLength: 255
           nullable: true
@@ -22782,10 +22909,13 @@ components:
         draft:
           type: boolean
         email:
-          format: email
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         english_branch_name:
           maxLength: 255
           nullable: true
@@ -22817,11 +22947,14 @@ components:
           - $ref: '#/components/schemas/LocalUnitLevel'
           readOnly: true
         link:
-          format: uri
-          maxLength: 255
           nullable: true
+          oneOf:
+          - format: uri
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
           title: Social link
-          type: string
         local_branch_name:
           maxLength: 255
           nullable: true
@@ -23590,10 +23723,13 @@ components:
         models)
       properties:
         email:
-          format: email
-          maxLength: 254
+          oneOf:
+          - format: email
+            maxLength: 254
+            type: string
+          - maxLength: 0
+            type: string
           title: Email address
-          type: string
         first_name:
           maxLength: 150
           type: string
@@ -23813,10 +23949,13 @@ components:
     PerMiniUser:
       properties:
         email:
-          format: email
-          maxLength: 254
+          oneOf:
+          - format: email
+            maxLength: 254
+            type: string
+          - maxLength: 0
+            type: string
           title: Email address
-          type: string
         first_name:
           maxLength: 150
           type: string
@@ -24608,10 +24747,13 @@ components:
           - $ref: '#/components/schemas/LocalUnitCountry'
           readOnly: true
         email:
-          format: email
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         english_branch_name:
           maxLength: 255
           nullable: true
@@ -24739,10 +24881,13 @@ components:
         draft:
           type: boolean
         email:
-          format: email
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         english_branch_name:
           maxLength: 255
           nullable: true
@@ -24774,11 +24919,14 @@ components:
           - $ref: '#/components/schemas/LocalUnitLevel'
           readOnly: true
         link:
-          format: uri
-          maxLength: 255
           nullable: true
+          oneOf:
+          - format: uri
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
           title: Social link
-          type: string
         local_branch_name:
           maxLength: 255
           nullable: true
@@ -27302,9 +27450,12 @@ components:
           nullable: true
           type: string
         document_url:
-          format: uri
-          maxLength: 200
-          type: string
+          oneOf:
+          - format: uri
+            maxLength: 200
+            type: string
+          - maxLength: 0
+            type: string
         event:
           type: integer
         id:
@@ -27835,10 +27986,13 @@ components:
           description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
             The string cannot start with a number and is forced to be lowercase. Recommend
             using hyphens over underscores. Special characters like # is not allowed.'
-          maxLength: 50
           nullable: true
-          pattern: ^[-a-zA-Z0-9_]+$
-          type: string
+          oneOf:
+          - maxLength: 50
+            pattern: ^[-a-zA-Z0-9_]+$
+            type: string
+          - maxLength: 0
+            type: string
         summary:
           nullable: true
           title: Summary [en]
@@ -27890,10 +28044,13 @@ components:
         models)
       properties:
         email:
-          format: email
-          maxLength: 254
+          oneOf:
+          - format: email
+            maxLength: 254
+            type: string
+          - maxLength: 0
+            type: string
           title: Email address
-          type: string
         first_name:
           maxLength: 150
           type: string
@@ -27979,10 +28136,13 @@ components:
         models)
       properties:
         email:
-          format: email
-          maxLength: 254
+          oneOf:
+          - format: email
+            maxLength: 254
+            type: string
+          - maxLength: 0
+            type: string
           title: Email address
-          type: string
         first_name:
           maxLength: 150
           type: string
@@ -28143,15 +28303,21 @@ components:
           readOnly: true
           type: integer
         iso:
-          maxLength: 2
           nullable: true
-          pattern: ^[A-Z]*$
-          type: string
+          oneOf:
+          - maxLength: 2
+            pattern: ^[A-Z]*$
+            type: string
+          - maxLength: 0
+            type: string
         iso3:
-          maxLength: 3
           nullable: true
-          pattern: ^[A-Z]*$
-          type: string
+          oneOf:
+          - maxLength: 3
+            pattern: ^[A-Z]*$
+            type: string
+          - maxLength: 0
+            type: string
         name:
           maxLength: 100
           type: string
@@ -28194,7 +28360,7 @@ components:
       type: http
     cookieAuth:
       in: cookie
-      name: GO-ALPHA-2-SESSIONID
+      name: GO-development-SESSIONID
       type: apiKey
     tokenAuth:
       description: Token-based authentication with required prefix "Token"
