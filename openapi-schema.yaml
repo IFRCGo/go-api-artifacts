@@ -6913,10 +6913,6 @@ components:
           nullable: true
           title: Deadline reminder email sent at
           type: string
-        disaster_sub_type:
-          maxLength: 255
-          nullable: true
-          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -7034,8 +7030,8 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
-        project_agreement_signed_at:
-          description: Timestamp when the project agreement was signed.
+        pending_pfa_at:
+          description: Timestamp when the EAP was marked as pending PFA.
           format: date-time
           nullable: true
           type: string
@@ -7053,9 +7049,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically validated by VC
-            * `50` - Approved
-            * `60` - Project Agreement Signed
+            * `40` - Technically Validated
+            * `50` - Approved(Pending PFA)
+            * `60` - Approved
           readOnly: true
           title: EAP Status
         status_display:
@@ -7174,9 +7170,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically validated by VC
-            * `50` - Approved
-            * `60` - Project Agreement Signed
+            * `40` - Technically Validated
+            * `50` - Approved(Pending PFA)
+            * `60` - Approved
           maximum: 2147483647
           minimum: -2147483648
           title: EAP Status
@@ -7633,9 +7629,9 @@ components:
         * `10` - Under Development
         * `20` - Under Review
         * `30` - NS Addressing Comments
-        * `40` - Technically validated by VC
-        * `50` - Approved
-        * `60` - Project Agreement Signed
+        * `40` - Technically Validated
+        * `50` - Approved(Pending PFA)
+        * `60` - Approved
       enum:
       - 10
       - 20
@@ -10485,7 +10481,7 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -10704,9 +10700,6 @@ components:
           maxLength: 255
           nullable: true
           type: string
-        include_rcrc_climate_center:
-          title: Include RCRC Climate Center.
-          type: boolean
         is_locked:
           description: Indicates whether the Full EAP is locked for editing.
           readOnly: true
@@ -10823,7 +10816,7 @@ components:
           type: array
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -10846,7 +10839,7 @@ components:
           type: array
         readiness_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -10905,7 +10898,7 @@ components:
           readOnly: true
         total_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -12027,16 +12020,21 @@ components:
           type: string
         id:
           type: integer
-        partner:
-          description: Name of the partner organization or entity.
-          maxLength: 255
-          type: string
+        national_society:
+          description: Select the National Society involved in the EAP development.
+          title: EAP Actors
+          type: integer
+        national_society_details:
+          allOf:
+          - $ref: '#/components/schemas/MiniCountry'
+          readOnly: true
         previous_id:
           readOnly: true
           type: integer
       required:
       - description
-      - partner
+      - national_society
+      - national_society_details
       - previous_id
       type: object
     KeyClimateEvent:
@@ -13779,10 +13777,6 @@ components:
           format: date-time
           readOnly: true
           type: string
-        disaster_sub_type:
-          maxLength: 255
-          nullable: true
-          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -13823,9 +13817,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically validated by VC
-            * `50` - Approved
-            * `60` - Project Agreement Signed
+            * `40` - Technically Validated
+            * `50` - Approved(Pending PFA)
+            * `60` - Approved
           maximum: 2147483647
           minimum: -2147483648
           title: EAP Status
@@ -14397,7 +14391,7 @@ components:
           type: string
         early_action_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -14417,13 +14411,13 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
         readiness_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -14437,7 +14431,7 @@ components:
           readOnly: true
         total_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -14700,7 +14694,7 @@ components:
           type: string
         early_action_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -14716,13 +14710,13 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
         readiness_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -14738,7 +14732,7 @@ components:
           type: integer
         total_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -15208,14 +15202,6 @@ components:
       type: object
     OperationActivity:
       properties:
-        activation_one:
-          nullable: true
-          title: Activation 1
-          type: boolean
-        activation_two:
-          nullable: true
-          title: Activation 2
-          type: boolean
         activity:
           maxLength: 255
           type: string
@@ -20491,10 +20477,6 @@ components:
           nullable: true
           title: Deadline reminder email sent at
           type: string
-        disaster_sub_type:
-          maxLength: 255
-          nullable: true
-          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -20612,8 +20594,8 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
-        project_agreement_signed_at:
-          description: Timestamp when the project agreement was signed.
+        pending_pfa_at:
+          description: Timestamp when the EAP was marked as pending PFA.
           format: date-time
           nullable: true
           type: string
@@ -20631,9 +20613,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically validated by VC
-            * `50` - Approved
-            * `60` - Project Agreement Signed
+            * `40` - Technically Validated
+            * `50` - Approved(Pending PFA)
+            * `60` - Approved
           readOnly: true
           title: EAP Status
         status_display:
@@ -21890,7 +21872,7 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -22109,9 +22091,6 @@ components:
           maxLength: 255
           nullable: true
           type: string
-        include_rcrc_climate_center:
-          title: Include RCRC Climate Center.
-          type: boolean
         is_locked:
           description: Indicates whether the Full EAP is locked for editing.
           readOnly: true
@@ -22228,7 +22207,7 @@ components:
           type: array
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -22251,7 +22230,7 @@ components:
           type: array
         readiness_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -22310,7 +22289,7 @@ components:
           readOnly: true
         total_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -23373,7 +23352,7 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -23499,9 +23478,6 @@ components:
           maxLength: 255
           nullable: true
           type: string
-        include_rcrc_climate_center:
-          title: Include RCRC Climate Center.
-          type: boolean
         is_locked:
           description: Indicates whether the Simplified EAP is locked for editing.
           readOnly: true
@@ -23587,7 +23563,7 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -23602,7 +23578,7 @@ components:
           type: string
         readiness_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -23654,7 +23630,7 @@ components:
           type: string
         total_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -24660,7 +24636,7 @@ components:
       properties:
         budget_per_sector:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           title: Budget per sector (CHF)
           type: integer
         early_action_activities:
@@ -24675,7 +24651,7 @@ components:
           type: array
         people_targeted:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           type: integer
         prepositioning_activities:
           items:
@@ -27117,7 +27093,7 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -27243,9 +27219,6 @@ components:
           maxLength: 255
           nullable: true
           type: string
-        include_rcrc_climate_center:
-          title: Include RCRC Climate Center.
-          type: boolean
         is_locked:
           description: Indicates whether the Simplified EAP is locked for editing.
           readOnly: true
@@ -27331,7 +27304,7 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -27346,7 +27319,7 @@ components:
           type: string
         readiness_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -27398,7 +27371,7 @@ components:
           type: string
         total_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -28799,9 +28772,9 @@ paths:
           * `10` - Under Development
           * `20` - Under Review
           * `30` - NS Addressing Comments
-          * `40` - Technically validated by VC
-          * `50` - Approved
-          * `60` - Project Agreement Signed
+          * `40` - Technically Validated
+          * `50` - Approved(Pending PFA)
+          * `60` - Approved
         in: query
         name: status
         schema:
@@ -34532,9 +34505,9 @@ paths:
           * `10` - Under Development
           * `20` - Under Review
           * `30` - NS Addressing Comments
-          * `40` - Technically validated by VC
-          * `50` - Approved
-          * `60` - Project Agreement Signed
+          * `40` - Technically Validated
+          * `50` - Approved(Pending PFA)
+          * `60` - Approved
         in: query
         name: status
         schema:
