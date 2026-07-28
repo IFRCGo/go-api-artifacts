@@ -3855,30 +3855,6 @@ components:
       - code
       - name
       type: object
-    DocumentDownloadLog:
-      properties:
-        document_type:
-          type: string
-        id:
-          readOnly: true
-          type: integer
-        object_id:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
-        source:
-          nullable: true
-          type: string
-        url:
-          format: uri
-          maxLength: 2000
-          type: string
-      required:
-      - document_type
-      - id
-      - url
-      type: object
     DomainWhitelist:
       properties:
         description:
@@ -6913,10 +6889,6 @@ components:
           nullable: true
           title: Deadline reminder email sent at
           type: string
-        disaster_sub_type:
-          maxLength: 255
-          nullable: true
-          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -7018,6 +6990,7 @@ components:
           type: string
         national_society_contact_title:
           maxLength: 255
+          nullable: true
           type: string
         national_society_details:
           allOf:
@@ -7033,8 +7006,8 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
-        project_agreement_signed_at:
-          description: Timestamp when the project agreement was signed.
+        pending_pfa_at:
+          description: Timestamp when the EAP was marked as pending PFA.
           format: date-time
           nullable: true
           type: string
@@ -7052,9 +7025,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically validated by VC
-            * `50` - Approved
-            * `60` - Project Agreement Signed
+            * `40` - Technically Validated
+            * `50` - Approved(Pending PFA)
+            * `60` - Approved
           readOnly: true
           title: EAP Status
         status_display:
@@ -7100,7 +7073,6 @@ components:
       - national_society
       - national_society_contact_email
       - national_society_contact_name
-      - national_society_contact_title
       - national_society_details
       - partners_details
       - simplified_eap_details
@@ -7174,9 +7146,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically validated by VC
-            * `50` - Approved
-            * `60` - Project Agreement Signed
+            * `40` - Technically Validated
+            * `50` - Approved(Pending PFA)
+            * `60` - Approved
           maximum: 2147483647
           minimum: -2147483648
           title: EAP Status
@@ -7633,9 +7605,9 @@ components:
         * `10` - Under Development
         * `20` - Under Review
         * `30` - NS Addressing Comments
-        * `40` - Technically validated by VC
-        * `50` - Approved
-        * `60` - Project Agreement Signed
+        * `40` - Technically Validated
+        * `50` - Approved(Pending PFA)
+        * `60` - Approved
       enum:
       - 10
       - 20
@@ -10449,7 +10421,7 @@ components:
           nullable: true
           title: Definition and Justification of Impact Level
           type: string
-        definition_and_justification_impact_level_files:
+        definition_and_justification_impact_level_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10485,14 +10457,14 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
         early_action_cost_description:
           nullable: true
           type: string
-        early_action_implementation_files:
+        early_action_implementation_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10504,7 +10476,7 @@ components:
         early_action_selection_process:
           nullable: true
           type: string
-        early_action_selection_process_files:
+        early_action_selection_process_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10554,7 +10526,7 @@ components:
           nullable: true
           title: Exposed elements and vulnerability factors
           type: string
-        exposed_element_and_vulnerability_factor_files:
+        exposed_element_and_vulnerability_factor_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10570,7 +10542,7 @@ components:
             why they are chosen
           nullable: true
           type: string
-        forecast_selection_files:
+        forecast_selection_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10587,7 +10559,7 @@ components:
             FbF system.
           nullable: true
           type: string
-        hazard_selection_files:
+        hazard_selection_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10599,11 +10571,59 @@ components:
           nullable: true
           title: Identification of Intervention Area
           type: string
-        identification_of_the_intervention_area_files:
+        identification_of_the_intervention_area_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
           type: array
+        ifrc_delegation_focal_point_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_delegation_focal_point_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_delegation_focal_point_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        ifrc_delegation_focal_point_title:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_title:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_title:
+          maxLength: 255
+          nullable: true
+          type: string
         ifrc_regional_focal_point_email:
           maxLength: 255
           nullable: true
@@ -10656,9 +10676,6 @@ components:
           maxLength: 255
           nullable: true
           type: string
-        include_rcrc_climate_center:
-          title: Include RCRC Climate Center.
-          type: boolean
         is_locked:
           description: Indicates whether the Full EAP is locked for editing.
           readOnly: true
@@ -10728,6 +10745,7 @@ components:
           type: string
         national_society_contact_title:
           maxLength: 255
+          nullable: true
           type: string
         ns_capacity_source_of_information:
           items:
@@ -10764,13 +10782,17 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
+        people_targeted:
+          minimum: 10000
+          nullable: true
+          type: integer
         planned_operations:
           items:
             $ref: '#/components/schemas/PlannedOperation'
           type: array
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -10782,7 +10804,7 @@ components:
             most likely to be affected.
           nullable: true
           type: string
-        prioritized_impact_files:
+        prioritized_impact_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10793,7 +10815,7 @@ components:
           type: array
         readiness_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -10852,19 +10874,15 @@ components:
           readOnly: true
         total_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Total Budget (CHF)
-          type: integer
-        total_people_targeted:
-          minimum: 10000
-          nullable: true
           type: integer
         trigger_activation_system:
           description: Describe the automatic system used to monitor the forecasts.
           nullable: true
           type: string
-        trigger_activation_system_files:
+        trigger_activation_system_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10936,7 +10954,6 @@ components:
       - modified_by_details
       - national_society_contact_email
       - national_society_contact_name
-      - national_society_contact_title
       - objective
       - partners_details
       - prioritized_impacts
@@ -11979,16 +11996,21 @@ components:
           type: string
         id:
           type: integer
-        partner:
-          description: Name of the partner organization or entity.
-          maxLength: 255
-          type: string
+        national_society:
+          description: Select the National Society involved in the EAP development.
+          title: EAP Actors
+          type: integer
+        national_society_details:
+          allOf:
+          - $ref: '#/components/schemas/MiniCountry'
+          readOnly: true
         previous_id:
           readOnly: true
           type: integer
       required:
       - description
-      - partner
+      - national_society
+      - national_society_details
       - previous_id
       type: object
     KeyClimateEvent:
@@ -13731,10 +13753,6 @@ components:
           format: date-time
           readOnly: true
           type: string
-        disaster_sub_type:
-          maxLength: 255
-          nullable: true
-          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -13775,9 +13793,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically validated by VC
-            * `50` - Approved
-            * `60` - Project Agreement Signed
+            * `40` - Technically Validated
+            * `50` - Approved(Pending PFA)
+            * `60` - Approved
           maximum: 2147483647
           minimum: -2147483648
           title: EAP Status
@@ -14349,7 +14367,7 @@ components:
           type: string
         early_action_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -14369,13 +14387,13 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
         readiness_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -14389,7 +14407,7 @@ components:
           readOnly: true
         total_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -14652,7 +14670,7 @@ components:
           type: string
         early_action_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -14668,13 +14686,13 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
         readiness_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -14690,7 +14708,7 @@ components:
           type: integer
         total_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -15160,14 +15178,6 @@ components:
       type: object
     OperationActivity:
       properties:
-        activation_one:
-          nullable: true
-          title: Activation 1
-          type: boolean
-        activation_two:
-          nullable: true
-          title: Activation 2
-          type: boolean
         activity:
           maxLength: 255
           type: string
@@ -20443,10 +20453,6 @@ components:
           nullable: true
           title: Deadline reminder email sent at
           type: string
-        disaster_sub_type:
-          maxLength: 255
-          nullable: true
-          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -20548,6 +20554,7 @@ components:
           type: string
         national_society_contact_title:
           maxLength: 255
+          nullable: true
           type: string
         national_society_details:
           allOf:
@@ -20563,8 +20570,8 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
-        project_agreement_signed_at:
-          description: Timestamp when the project agreement was signed.
+        pending_pfa_at:
+          description: Timestamp when the EAP was marked as pending PFA.
           format: date-time
           nullable: true
           type: string
@@ -20582,9 +20589,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically validated by VC
-            * `50` - Approved
-            * `60` - Project Agreement Signed
+            * `40` - Technically Validated
+            * `50` - Approved(Pending PFA)
+            * `60` - Approved
           readOnly: true
           title: EAP Status
         status_display:
@@ -21805,7 +21812,7 @@ components:
           nullable: true
           title: Definition and Justification of Impact Level
           type: string
-        definition_and_justification_impact_level_files:
+        definition_and_justification_impact_level_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -21841,14 +21848,14 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
         early_action_cost_description:
           nullable: true
           type: string
-        early_action_implementation_files:
+        early_action_implementation_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -21860,7 +21867,7 @@ components:
         early_action_selection_process:
           nullable: true
           type: string
-        early_action_selection_process_files:
+        early_action_selection_process_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -21910,7 +21917,7 @@ components:
           nullable: true
           title: Exposed elements and vulnerability factors
           type: string
-        exposed_element_and_vulnerability_factor_files:
+        exposed_element_and_vulnerability_factor_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -21926,7 +21933,7 @@ components:
             why they are chosen
           nullable: true
           type: string
-        forecast_selection_files:
+        forecast_selection_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -21943,7 +21950,7 @@ components:
             FbF system.
           nullable: true
           type: string
-        hazard_selection_files:
+        hazard_selection_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -21955,11 +21962,59 @@ components:
           nullable: true
           title: Identification of Intervention Area
           type: string
-        identification_of_the_intervention_area_files:
+        identification_of_the_intervention_area_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
           type: array
+        ifrc_delegation_focal_point_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_delegation_focal_point_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_delegation_focal_point_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        ifrc_delegation_focal_point_title:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_title:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_title:
+          maxLength: 255
+          nullable: true
+          type: string
         ifrc_regional_focal_point_email:
           maxLength: 255
           nullable: true
@@ -22012,9 +22067,6 @@ components:
           maxLength: 255
           nullable: true
           type: string
-        include_rcrc_climate_center:
-          title: Include RCRC Climate Center.
-          type: boolean
         is_locked:
           description: Indicates whether the Full EAP is locked for editing.
           readOnly: true
@@ -22084,6 +22136,7 @@ components:
           type: string
         national_society_contact_title:
           maxLength: 255
+          nullable: true
           type: string
         ns_capacity_source_of_information:
           items:
@@ -22120,13 +22173,17 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
+        people_targeted:
+          minimum: 10000
+          nullable: true
+          type: integer
         planned_operations:
           items:
             $ref: '#/components/schemas/PlannedOperation'
           type: array
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -22138,7 +22195,7 @@ components:
             most likely to be affected.
           nullable: true
           type: string
-        prioritized_impact_files:
+        prioritized_impact_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -22149,7 +22206,7 @@ components:
           type: array
         readiness_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -22208,19 +22265,15 @@ components:
           readOnly: true
         total_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Total Budget (CHF)
-          type: integer
-        total_people_targeted:
-          minimum: 10000
-          nullable: true
           type: integer
         trigger_activation_system:
           description: Describe the automatic system used to monitor the forecasts.
           nullable: true
           type: string
-        trigger_activation_system_files:
+        trigger_activation_system_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -23213,20 +23266,6 @@ components:
     PatchedSimplifiedEAP:
       description: Mixin adds update nested feature
       properties:
-        activation_timeframe:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
-        activation_timeframe_unit:
-          allOf:
-          - $ref: '#/components/schemas/EapTimeframeEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-        activation_timeframe_unit_display:
-          readOnly: true
-          type: string
         admin2:
           items:
             title: Admin
@@ -23289,7 +23328,7 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -23308,13 +23347,61 @@ components:
           nullable: true
           title: EAP Export File
           type: string
-        hazard_impact_files:
+        hazard_impact_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           type: array
         id:
           readOnly: true
           type: integer
+        ifrc_delegation_focal_point_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_delegation_focal_point_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_delegation_focal_point_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        ifrc_delegation_focal_point_title:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_title:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_title:
+          maxLength: 255
+          nullable: true
+          type: string
         ifrc_regional_focal_point_email:
           maxLength: 255
           nullable: true
@@ -23367,9 +23454,6 @@ components:
           maxLength: 255
           nullable: true
           type: string
-        include_rcrc_climate_center:
-          title: Include RCRC Climate Center.
-          type: boolean
         is_locked:
           description: Indicates whether the Simplified EAP is locked for editing.
           readOnly: true
@@ -23396,10 +23480,26 @@ components:
           type: string
         national_society_contact_title:
           maxLength: 255
+          nullable: true
           type: string
         next_step_towards_full_eap:
           nullable: true
           title: Next Steps towards Full EAP
+          type: string
+        operational_timeframe:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Operational Time
+          type: integer
+        operational_timeframe_unit:
+          allOf:
+          - $ref: '#/components/schemas/EapTimeframeEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        operational_timeframe_unit_display:
+          readOnly: true
           type: string
         overall_objective_intervention:
           description: Provide an objective statement that describe the main of the
@@ -23426,6 +23526,10 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
+        people_targeted:
+          minimum: 2000
+          nullable: true
+          type: integer
         planned_operations:
           items:
             $ref: '#/components/schemas/PlannedOperation'
@@ -23435,7 +23539,7 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -23450,7 +23554,7 @@ components:
           type: string
         readiness_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -23458,7 +23562,7 @@ components:
           format: uri
           nullable: true
           type: string
-        risk_selected_protocols_files:
+        risk_selected_protocols_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -23490,7 +23594,7 @@ components:
         selected_early_actions:
           nullable: true
           type: string
-        selected_early_actions_files:
+        selected_early_actions_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -23502,13 +23606,9 @@ components:
           type: string
         total_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Total Budget (CHF)
-          type: integer
-        total_people_targeted:
-          minimum: 2000
-          nullable: true
           type: integer
         trigger_statement:
           nullable: true
@@ -24512,7 +24612,7 @@ components:
       properties:
         budget_per_sector:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           title: Budget per sector (CHF)
           type: integer
         early_action_activities:
@@ -24527,7 +24627,7 @@ components:
           type: array
         people_targeted:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           type: integer
         prepositioning_activities:
           items:
@@ -26907,20 +27007,6 @@ components:
     SimplifiedEAP:
       description: Mixin adds update nested feature
       properties:
-        activation_timeframe:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          type: integer
-        activation_timeframe_unit:
-          allOf:
-          - $ref: '#/components/schemas/EapTimeframeEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-        activation_timeframe_unit_display:
-          readOnly: true
-          type: string
         admin2:
           items:
             title: Admin
@@ -26983,7 +27069,7 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -27002,13 +27088,61 @@ components:
           nullable: true
           title: EAP Export File
           type: string
-        hazard_impact_files:
+        hazard_impact_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           type: array
         id:
           readOnly: true
           type: integer
+        ifrc_delegation_focal_point_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_delegation_focal_point_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_delegation_focal_point_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        ifrc_delegation_focal_point_title:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        ifrc_global_ops_coordinator_title:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_email:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_name:
+          maxLength: 255
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_phone_number:
+          maxLength: 100
+          nullable: true
+          type: string
+        ifrc_head_of_delegation_title:
+          maxLength: 255
+          nullable: true
+          type: string
         ifrc_regional_focal_point_email:
           maxLength: 255
           nullable: true
@@ -27061,9 +27195,6 @@ components:
           maxLength: 255
           nullable: true
           type: string
-        include_rcrc_climate_center:
-          title: Include RCRC Climate Center.
-          type: boolean
         is_locked:
           description: Indicates whether the Simplified EAP is locked for editing.
           readOnly: true
@@ -27090,10 +27221,26 @@ components:
           type: string
         national_society_contact_title:
           maxLength: 255
+          nullable: true
           type: string
         next_step_towards_full_eap:
           nullable: true
           title: Next Steps towards Full EAP
+          type: string
+        operational_timeframe:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Operational Time
+          type: integer
+        operational_timeframe_unit:
+          allOf:
+          - $ref: '#/components/schemas/EapTimeframeEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        operational_timeframe_unit_display:
+          readOnly: true
           type: string
         overall_objective_intervention:
           description: Provide an objective statement that describe the main of the
@@ -27120,6 +27267,10 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
+        people_targeted:
+          minimum: 2000
+          nullable: true
+          type: integer
         planned_operations:
           items:
             $ref: '#/components/schemas/PlannedOperation'
@@ -27129,7 +27280,7 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -27144,7 +27295,7 @@ components:
           type: string
         readiness_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -27152,7 +27303,7 @@ components:
           format: uri
           nullable: true
           type: string
-        risk_selected_protocols_files:
+        risk_selected_protocols_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -27184,7 +27335,7 @@ components:
         selected_early_actions:
           nullable: true
           type: string
-        selected_early_actions_files:
+        selected_early_actions_images:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -27196,13 +27347,9 @@ components:
           type: string
         total_budget:
           maximum: 2147483647
-          minimum: 0
+          minimum: -2147483648
           nullable: true
           title: Total Budget (CHF)
-          type: integer
-        total_people_targeted:
-          minimum: 2000
-          nullable: true
           type: integer
         trigger_statement:
           nullable: true
@@ -27224,7 +27371,6 @@ components:
           readOnly: true
           type: integer
       required:
-      - activation_timeframe_unit_display
       - admin2_details
       - budget_file_details
       - created_at
@@ -27235,7 +27381,7 @@ components:
       - modified_by_details
       - national_society_contact_email
       - national_society_contact_name
-      - national_society_contact_title
+      - operational_timeframe_unit_display
       - partners_details
       - seap_lead_timeframe_unit_display
       - seap_timeframe
@@ -28602,9 +28748,9 @@ paths:
           * `10` - Under Development
           * `20` - Under Review
           * `30` - NS Addressing Comments
-          * `40` - Technically validated by VC
-          * `50` - Approved
-          * `60` - Project Agreement Signed
+          * `40` - Technically Validated
+          * `50` - Approved(Pending PFA)
+          * `60` - Approved
         in: query
         name: status
         schema:
@@ -32323,49 +32469,6 @@ paths:
       - {}
       tags:
       - api
-  /api/v2/document-download-log/:
-    post:
-      description: |-
-        Log a document download event.
-
-        The frontend calls this endpoint (fire-and-forget) each time a user
-        initiates a download. Authentication is optional: anonymous downloads
-        are recorded with a null user.
-      operationId: api_v2_document_download_log_create
-      parameters:
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DocumentDownloadLog'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/DocumentDownloadLog'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/DocumentDownloadLog'
-        required: true
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DocumentDownloadLog'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/DocumentDownloadLog'
-          description: ''
-      security:
-      - tokenAuth: []
-      tags:
-      - api
   /api/v2/domainwhitelist/:
     get:
       operationId: api_v2_domainwhitelist_list
@@ -34335,9 +34438,9 @@ paths:
           * `10` - Under Development
           * `20` - Under Review
           * `30` - NS Addressing Comments
-          * `40` - Technically validated by VC
-          * `50` - Approved
-          * `60` - Project Agreement Signed
+          * `40` - Technically Validated
+          * `50` - Approved(Pending PFA)
+          * `60` - Approved
         in: query
         name: status
         schema:
