@@ -929,12 +929,9 @@ components:
           nullable: true
           type: string
         document_url:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
+          type: string
         id:
           readOnly: true
           type: integer
@@ -1299,21 +1296,15 @@ components:
           description: Is this an active, valid country?
           type: boolean
         iso:
+          maxLength: 2
           nullable: true
-          oneOf:
-          - maxLength: 2
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         key_priorities:
           nullable: true
           type: string
@@ -1351,25 +1342,19 @@ components:
           title: Society name [en]
           type: string
         society_url:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
           title: URL - Society
+          type: string
         translation_module_original_language:
           allOf:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
         url_ifrc:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
           title: URL - IFRC
+          type: string
       required:
       - id
       - record_type_display
@@ -1550,21 +1535,15 @@ components:
           description: Is this an active, valid country?
           type: boolean
         iso:
+          maxLength: 2
           nullable: true
-          oneOf:
-          - maxLength: 2
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         key_priorities:
           nullable: true
           type: string
@@ -1611,25 +1590,19 @@ components:
           title: Society name [en]
           type: string
         society_url:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
           title: URL - Society
+          type: string
         translation_module_original_language:
           allOf:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
         url_ifrc:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
           title: URL - IFRC
+          type: string
         website:
           maxLength: 255
           nullable: true
@@ -2675,21 +2648,15 @@ components:
           readOnly: true
           type: array
         iso:
+          maxLength: 2
           nullable: true
-          oneOf:
-          - maxLength: 2
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         key_priorities:
           nullable: true
           type: string
@@ -2793,13 +2760,10 @@ components:
           title: Society name [en]
           type: string
         society_url:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
           title: URL - Society
+          type: string
         sovereign_state_id:
           nullable: true
           readOnly: true
@@ -2810,13 +2774,10 @@ components:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
         url_ifrc:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
           title: URL - IFRC
+          type: string
         wash_kit10:
           maximum: 2147483647
           minimum: -2147483648
@@ -2880,13 +2841,10 @@ components:
         models)
       properties:
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         name:
           maxLength: 100
           nullable: true
@@ -3023,13 +2981,10 @@ components:
           nullable: true
           type: string
         assistant_email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         assistant_name:
           maxLength: 255
           nullable: true
@@ -3052,13 +3007,10 @@ components:
         dotype:
           $ref: '#/components/schemas/DelegationOfficeType'
         hod_email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         hod_first_name:
           maxLength: 255
           nullable: true
@@ -3093,23 +3045,17 @@ components:
           title: Postal code
           type: string
         society_url:
+          format: uri
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: uri
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
           title: URL of national society
+          type: string
         url_ifrc:
+          format: uri
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: uri
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
           title: URL on IFRC webpage
+          type: string
         visibility:
           allOf:
           - $ref: '#/components/schemas/ApiVisibilityChoicesEnumKey'
@@ -3126,13 +3072,10 @@ components:
     DelegationOfficeCountry:
       properties:
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         name:
           maxLength: 100
           type: string
@@ -3162,21 +3105,15 @@ components:
           readOnly: true
           type: integer
         iso:
+          maxLength: 2
           nullable: true
-          oneOf:
-          - maxLength: 2
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         name:
           maxLength: 100
           type: string
@@ -3232,13 +3169,10 @@ components:
         models)
       properties:
         email:
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          format: email
+          maxLength: 254
           title: Email address
+          type: string
         first_name:
           maxLength: 150
           type: string
@@ -3688,13 +3622,10 @@ components:
           description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
             The string cannot start with a number and is forced to be lowercase. Recommend
             using hyphens over underscores. Special characters like # is not allowed.'
+          maxLength: 50
           nullable: true
-          oneOf:
-          - maxLength: 50
-            pattern: ^[-a-zA-Z0-9_]+$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+          type: string
         summary:
           nullable: true
           title: Summary [en]
@@ -3912,13 +3843,10 @@ components:
     Donors:
       properties:
         email:
+          format: email
+          maxLength: 254
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         first_name:
           maxLength: 300
           nullable: true
@@ -5176,7 +5104,6 @@ components:
           readOnly: true
         file:
           format: uri
-          nullable: true
           type: string
         id:
           type: integer
@@ -6827,7 +6754,6 @@ components:
           readOnly: true
         file:
           format: uri
-          nullable: true
           type: string
         id:
           type: integer
@@ -6912,6 +6838,10 @@ components:
           format: date-time
           nullable: true
           title: Deadline reminder email sent at
+          type: string
+        disaster_sub_type:
+          maxLength: 255
+          nullable: true
           type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
@@ -7014,7 +6944,6 @@ components:
           type: string
         national_society_contact_title:
           maxLength: 255
-          nullable: true
           type: string
         national_society_details:
           allOf:
@@ -7030,8 +6959,8 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
-        pending_pfa_at:
-          description: Timestamp when the EAP was marked as pending PFA.
+        project_agreement_signed_at:
+          description: Timestamp when the project agreement was signed.
           format: date-time
           nullable: true
           type: string
@@ -7049,9 +6978,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically Validated
-            * `50` - Approved(Pending PFA)
-            * `60` - Approved
+            * `40` - Technically validated by VC
+            * `50` - Approved
+            * `60` - Project Agreement Signed
           readOnly: true
           title: EAP Status
         status_display:
@@ -7097,6 +7026,7 @@ components:
       - national_society
       - national_society_contact_email
       - national_society_contact_name
+      - national_society_contact_title
       - national_society_details
       - partners_details
       - simplified_eap_details
@@ -7158,7 +7088,6 @@ components:
           readOnly: true
         review_checklist_file:
           format: uri
-          nullable: true
           type: string
           writeOnly: true
         status:
@@ -7170,9 +7099,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically Validated
-            * `50` - Approved(Pending PFA)
-            * `60` - Approved
+            * `40` - Technically validated by VC
+            * `50` - Approved
+            * `60` - Project Agreement Signed
           maximum: 2147483647
           minimum: -2147483648
           title: EAP Status
@@ -7629,9 +7558,9 @@ components:
         * `10` - Under Development
         * `20` - Under Review
         * `30` - NS Addressing Comments
-        * `40` - Technically Validated
-        * `50` - Approved(Pending PFA)
-        * `60` - Approved
+        * `40` - Technically validated by VC
+        * `50` - Approved
+        * `60` - Project Agreement Signed
       enum:
       - 10
       - 20
@@ -9687,13 +9616,10 @@ components:
         models)
       properties:
         email:
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          format: email
+          maxLength: 254
           title: Email address
+          type: string
         first_name:
           maxLength: 150
           type: string
@@ -9821,7 +9747,6 @@ components:
           readOnly: true
         file:
           format: uri
-          nullable: true
           type: string
         id:
           readOnly: true
@@ -10445,7 +10370,7 @@ components:
           nullable: true
           title: Definition and Justification of Impact Level
           type: string
-        definition_and_justification_impact_level_images:
+        definition_and_justification_impact_level_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10481,14 +10406,14 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
         early_action_cost_description:
           nullable: true
           type: string
-        early_action_implementation_images:
+        early_action_implementation_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10500,7 +10425,7 @@ components:
         early_action_selection_process:
           nullable: true
           type: string
-        early_action_selection_process_images:
+        early_action_selection_process_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10550,7 +10475,7 @@ components:
           nullable: true
           title: Exposed elements and vulnerability factors
           type: string
-        exposed_element_and_vulnerability_factor_images:
+        exposed_element_and_vulnerability_factor_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10566,7 +10491,7 @@ components:
             why they are chosen
           nullable: true
           type: string
-        forecast_selection_images:
+        forecast_selection_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10583,7 +10508,7 @@ components:
             FbF system.
           nullable: true
           type: string
-        hazard_selection_images:
+        hazard_selection_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10595,59 +10520,11 @@ components:
           nullable: true
           title: Identification of Intervention Area
           type: string
-        identification_of_the_intervention_area_images:
+        identification_of_the_intervention_area_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
           type: array
-        ifrc_delegation_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_title:
-          maxLength: 255
-          nullable: true
-          type: string
         ifrc_regional_focal_point_email:
           maxLength: 255
           nullable: true
@@ -10700,6 +10577,9 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        include_rcrc_climate_center:
+          title: Include RCRC Climate Center.
+          type: boolean
         is_locked:
           description: Indicates whether the Full EAP is locked for editing.
           readOnly: true
@@ -10769,7 +10649,6 @@ components:
           type: string
         national_society_contact_title:
           maxLength: 255
-          nullable: true
           type: string
         ns_capacity_source_of_information:
           items:
@@ -10806,17 +10685,13 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
-        people_targeted:
-          minimum: 10000
-          nullable: true
-          type: integer
         planned_operations:
           items:
             $ref: '#/components/schemas/PlannedOperation'
           type: array
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -10828,7 +10703,7 @@ components:
             most likely to be affected.
           nullable: true
           type: string
-        prioritized_impact_images:
+        prioritized_impact_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10839,7 +10714,7 @@ components:
           type: array
         readiness_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -10898,15 +10773,19 @@ components:
           readOnly: true
         total_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Total Budget (CHF)
+          type: integer
+        total_people_targeted:
+          minimum: 10000
+          nullable: true
           type: integer
         trigger_activation_system:
           description: Describe the automatic system used to monitor the forecasts.
           nullable: true
           type: string
-        trigger_activation_system_images:
+        trigger_activation_system_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -10978,6 +10857,7 @@ components:
       - modified_by_details
       - national_society_contact_email
       - national_society_contact_name
+      - national_society_contact_title
       - objective
       - partners_details
       - prioritized_impacts
@@ -11445,13 +11325,10 @@ components:
           nullable: true
           type: string
         focal_point_email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         focal_point_phone_number:
           maxLength: 255
           nullable: true
@@ -11694,13 +11571,10 @@ components:
           readOnly: true
           type: integer
         email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         english_branch_name:
           maxLength: 255
           nullable: true
@@ -11763,14 +11637,11 @@ components:
           readOnly: true
           type: boolean
         link:
+          format: uri
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: uri
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
           title: Social link
+          type: string
         local_branch_name:
           maxLength: 255
           nullable: true
@@ -12020,21 +11891,16 @@ components:
           type: string
         id:
           type: integer
-        national_society:
-          description: Select the National Society involved in the EAP development.
-          title: EAP Actors
-          type: integer
-        national_society_details:
-          allOf:
-          - $ref: '#/components/schemas/MiniCountry'
-          readOnly: true
+        partner:
+          description: Name of the partner organization or entity.
+          maxLength: 255
+          type: string
         previous_id:
           readOnly: true
           type: integer
       required:
       - description
-      - national_society
-      - national_society_details
+      - partner
       - previous_id
       type: object
     KeyClimateEvent:
@@ -12442,13 +12308,10 @@ components:
           description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
             The string cannot start with a number and is forced to be lowercase. Recommend
             using hyphens over underscores. Special characters like # is not allowed.'
+          maxLength: 50
           nullable: true
-          oneOf:
-          - maxLength: 50
-            pattern: ^[-a-zA-Z0-9_]+$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+          type: string
         summary:
           nullable: true
           title: Summary [en]
@@ -12529,13 +12392,10 @@ components:
           description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
             The string cannot start with a number and is forced to be lowercase. Recommend
             using hyphens over underscores. Special characters like # is not allowed.'
+          maxLength: 50
           nullable: true
-          oneOf:
-          - maxLength: 50
-            pattern: ^[-a-zA-Z0-9_]+$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+          type: string
         translation_module_original_language:
           allOf:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
@@ -12555,12 +12415,9 @@ components:
           nullable: true
           type: string
         document_url:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
+          type: string
         name:
           maxLength: 100
           type: string
@@ -12767,13 +12624,10 @@ components:
           readOnly: true
           type: integer
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         name:
           maxLength: 100
           type: string
@@ -12847,14 +12701,11 @@ components:
           - $ref: '#/components/schemas/LocalUnitLevel'
           readOnly: true
         link:
+          format: uri
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: uri
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
           title: Social link
+          type: string
         local_branch_name:
           maxLength: 255
           nullable: true
@@ -12943,13 +12794,10 @@ components:
     LocalUnitMiniUser:
       properties:
         email:
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          format: email
+          maxLength: 254
           title: Email address
+          type: string
         first_name:
           maxLength: 150
           type: string
@@ -13336,21 +13184,15 @@ components:
           description: Is this an active, valid country?
           type: boolean
         iso:
+          maxLength: 2
           nullable: true
-          oneOf:
-          - maxLength: 2
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         name:
           maxLength: 100
           nullable: true
@@ -13403,13 +13245,10 @@ components:
           readOnly: true
           type: string
         hod_email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         hod_first_name:
           maxLength: 255
           nullable: true
@@ -13777,6 +13616,10 @@ components:
           format: date-time
           readOnly: true
           type: string
+        disaster_sub_type:
+          maxLength: 255
+          nullable: true
+          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -13817,9 +13660,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically Validated
-            * `50` - Approved(Pending PFA)
-            * `60` - Approved
+            * `40` - Technically validated by VC
+            * `50` - Approved
+            * `60` - Project Agreement Signed
           maximum: 2147483647
           minimum: -2147483648
           title: EAP Status
@@ -13960,13 +13803,10 @@ components:
           description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
             The string cannot start with a number and is forced to be lowercase. Recommend
             using hyphens over underscores. Special characters like # is not allowed.'
+          maxLength: 50
           nullable: true
-          oneOf:
-          - maxLength: 50
-            pattern: ^[-a-zA-Z0-9_]+$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+          type: string
         start_date:
           readOnly: true
           type: string
@@ -14391,7 +14231,7 @@ components:
           type: string
         early_action_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -14411,13 +14251,13 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
         readiness_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -14431,7 +14271,7 @@ components:
           readOnly: true
         total_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -14694,7 +14534,7 @@ components:
           type: string
         early_action_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -14710,13 +14550,13 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
         readiness_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -14732,7 +14572,7 @@ components:
           type: integer
         total_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Total Budget (CHF)
           type: integer
@@ -15102,12 +14942,9 @@ components:
           nullable: true
           type: string
         document_url:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
+          type: string
         id:
           readOnly: true
           type: integer
@@ -15190,18 +15027,23 @@ components:
           - $ref: '#/components/schemas/TranslationModuleOriginalLanguageEnum'
           readOnly: true
         url_ifrc:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
           title: URL - IFRC
+          type: string
       required:
       - translation_module_original_language
       type: object
     OperationActivity:
       properties:
+        activation_one:
+          nullable: true
+          title: Activation 1
+          type: boolean
+        activation_two:
+          nullable: true
+          title: Activation 2
+          type: boolean
         activity:
           maxLength: 255
           type: string
@@ -20477,6 +20319,10 @@ components:
           nullable: true
           title: Deadline reminder email sent at
           type: string
+        disaster_sub_type:
+          maxLength: 255
+          nullable: true
+          type: string
         disaster_type:
           description: Select the disaster type for which the EAP is needed
           type: integer
@@ -20578,7 +20424,6 @@ components:
           type: string
         national_society_contact_title:
           maxLength: 255
-          nullable: true
           type: string
         national_society_details:
           allOf:
@@ -20594,8 +20439,8 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
-        pending_pfa_at:
-          description: Timestamp when the EAP was marked as pending PFA.
+        project_agreement_signed_at:
+          description: Timestamp when the project agreement was signed.
           format: date-time
           nullable: true
           type: string
@@ -20613,9 +20458,9 @@ components:
             * `10` - Under Development
             * `20` - Under Review
             * `30` - NS Addressing Comments
-            * `40` - Technically Validated
-            * `50` - Approved(Pending PFA)
-            * `60` - Approved
+            * `40` - Technically validated by VC
+            * `50` - Approved
+            * `60` - Project Agreement Signed
           readOnly: true
           title: EAP Status
         status_display:
@@ -21836,7 +21681,7 @@ components:
           nullable: true
           title: Definition and Justification of Impact Level
           type: string
-        definition_and_justification_impact_level_images:
+        definition_and_justification_impact_level_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -21872,14 +21717,14 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
         early_action_cost_description:
           nullable: true
           type: string
-        early_action_implementation_images:
+        early_action_implementation_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -21891,7 +21736,7 @@ components:
         early_action_selection_process:
           nullable: true
           type: string
-        early_action_selection_process_images:
+        early_action_selection_process_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -21941,7 +21786,7 @@ components:
           nullable: true
           title: Exposed elements and vulnerability factors
           type: string
-        exposed_element_and_vulnerability_factor_images:
+        exposed_element_and_vulnerability_factor_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -21957,7 +21802,7 @@ components:
             why they are chosen
           nullable: true
           type: string
-        forecast_selection_images:
+        forecast_selection_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -21974,7 +21819,7 @@ components:
             FbF system.
           nullable: true
           type: string
-        hazard_selection_images:
+        hazard_selection_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -21986,59 +21831,11 @@ components:
           nullable: true
           title: Identification of Intervention Area
           type: string
-        identification_of_the_intervention_area_images:
+        identification_of_the_intervention_area_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
           type: array
-        ifrc_delegation_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_title:
-          maxLength: 255
-          nullable: true
-          type: string
         ifrc_regional_focal_point_email:
           maxLength: 255
           nullable: true
@@ -22091,6 +21888,9 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        include_rcrc_climate_center:
+          title: Include RCRC Climate Center.
+          type: boolean
         is_locked:
           description: Indicates whether the Full EAP is locked for editing.
           readOnly: true
@@ -22160,7 +21960,6 @@ components:
           type: string
         national_society_contact_title:
           maxLength: 255
-          nullable: true
           type: string
         ns_capacity_source_of_information:
           items:
@@ -22197,17 +21996,13 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
-        people_targeted:
-          minimum: 10000
-          nullable: true
-          type: integer
         planned_operations:
           items:
             $ref: '#/components/schemas/PlannedOperation'
           type: array
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -22219,7 +22014,7 @@ components:
             most likely to be affected.
           nullable: true
           type: string
-        prioritized_impact_images:
+        prioritized_impact_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -22230,7 +22025,7 @@ components:
           type: array
         readiness_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -22289,15 +22084,19 @@ components:
           readOnly: true
         total_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Total Budget (CHF)
+          type: integer
+        total_people_targeted:
+          minimum: 10000
+          nullable: true
           type: integer
         trigger_activation_system:
           description: Describe the automatic system used to monitor the forecasts.
           nullable: true
           type: string
-        trigger_activation_system_images:
+        trigger_activation_system_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -22407,14 +22206,11 @@ components:
           - $ref: '#/components/schemas/LocalUnitLevel'
           readOnly: true
         link:
+          format: uri
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: uri
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
           title: Social link
+          type: string
         local_branch_name:
           maxLength: 255
           nullable: true
@@ -22888,13 +22684,10 @@ components:
         draft:
           type: boolean
         email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         english_branch_name:
           maxLength: 255
           nullable: true
@@ -22926,14 +22719,11 @@ components:
           - $ref: '#/components/schemas/LocalUnitLevel'
           readOnly: true
         link:
+          format: uri
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: uri
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
           title: Social link
+          type: string
         local_branch_name:
           maxLength: 255
           nullable: true
@@ -23290,6 +23080,20 @@ components:
     PatchedSimplifiedEAP:
       description: Mixin adds update nested feature
       properties:
+        activation_timeframe:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        activation_timeframe_unit:
+          allOf:
+          - $ref: '#/components/schemas/EapTimeframeEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        activation_timeframe_unit_display:
+          readOnly: true
+          type: string
         admin2:
           items:
             title: Admin
@@ -23352,7 +23156,7 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -23371,61 +23175,13 @@ components:
           nullable: true
           title: EAP Export File
           type: string
-        hazard_impact_images:
+        hazard_impact_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           type: array
         id:
           readOnly: true
           type: integer
-        ifrc_delegation_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_title:
-          maxLength: 255
-          nullable: true
-          type: string
         ifrc_regional_focal_point_email:
           maxLength: 255
           nullable: true
@@ -23478,6 +23234,9 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        include_rcrc_climate_center:
+          title: Include RCRC Climate Center.
+          type: boolean
         is_locked:
           description: Indicates whether the Simplified EAP is locked for editing.
           readOnly: true
@@ -23504,26 +23263,10 @@ components:
           type: string
         national_society_contact_title:
           maxLength: 255
-          nullable: true
           type: string
         next_step_towards_full_eap:
           nullable: true
           title: Next Steps towards Full EAP
-          type: string
-        operational_timeframe:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Operational Time
-          type: integer
-        operational_timeframe_unit:
-          allOf:
-          - $ref: '#/components/schemas/EapTimeframeEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-        operational_timeframe_unit_display:
-          readOnly: true
           type: string
         overall_objective_intervention:
           description: Provide an objective statement that describe the main of the
@@ -23550,10 +23293,6 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
-        people_targeted:
-          minimum: 2000
-          nullable: true
-          type: integer
         planned_operations:
           items:
             $ref: '#/components/schemas/PlannedOperation'
@@ -23563,7 +23302,7 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -23578,7 +23317,7 @@ components:
           type: string
         readiness_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -23586,7 +23325,7 @@ components:
           format: uri
           nullable: true
           type: string
-        risk_selected_protocols_images:
+        risk_selected_protocols_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -23618,7 +23357,7 @@ components:
         selected_early_actions:
           nullable: true
           type: string
-        selected_early_actions_images:
+        selected_early_actions_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -23630,9 +23369,13 @@ components:
           type: string
         total_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Total Budget (CHF)
+          type: integer
+        total_people_targeted:
+          minimum: 2000
+          nullable: true
           type: integer
         trigger_statement:
           nullable: true
@@ -23699,13 +23442,10 @@ components:
         models)
       properties:
         email:
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          format: email
+          maxLength: 254
           title: Email address
+          type: string
         first_name:
           maxLength: 150
           type: string
@@ -23925,13 +23665,10 @@ components:
     PerMiniUser:
       properties:
         email:
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          format: email
+          maxLength: 254
           title: Email address
+          type: string
         first_name:
           maxLength: 150
           type: string
@@ -24636,7 +24373,7 @@ components:
       properties:
         budget_per_sector:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           title: Budget per sector (CHF)
           type: integer
         early_action_activities:
@@ -24651,7 +24388,7 @@ components:
           type: array
         people_targeted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           type: integer
         prepositioning_activities:
           items:
@@ -24723,13 +24460,10 @@ components:
           - $ref: '#/components/schemas/LocalUnitCountry'
           readOnly: true
         email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         english_branch_name:
           maxLength: 255
           nullable: true
@@ -24857,13 +24591,10 @@ components:
         draft:
           type: boolean
         email:
+          format: email
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: email
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
+          type: string
         english_branch_name:
           maxLength: 255
           nullable: true
@@ -24895,14 +24626,11 @@ components:
           - $ref: '#/components/schemas/LocalUnitLevel'
           readOnly: true
         link:
+          format: uri
+          maxLength: 255
           nullable: true
-          oneOf:
-          - format: uri
-            maxLength: 255
-            type: string
-          - maxLength: 0
-            type: string
           title: Social link
+          type: string
         local_branch_name:
           maxLength: 255
           nullable: true
@@ -27031,6 +26759,20 @@ components:
     SimplifiedEAP:
       description: Mixin adds update nested feature
       properties:
+        activation_timeframe:
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          type: integer
+        activation_timeframe_unit:
+          allOf:
+          - $ref: '#/components/schemas/EapTimeframeEnumKey'
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        activation_timeframe_unit_display:
+          readOnly: true
+          type: string
         admin2:
           items:
             title: Admin
@@ -27093,7 +26835,7 @@ components:
           type: integer
         early_action_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Early Actions Budget (CHF)
           type: integer
@@ -27112,61 +26854,13 @@ components:
           nullable: true
           title: EAP Export File
           type: string
-        hazard_impact_images:
+        hazard_impact_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           type: array
         id:
           readOnly: true
           type: integer
-        ifrc_delegation_focal_point_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_delegation_focal_point_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_global_ops_coordinator_title:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_email:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_name:
-          maxLength: 255
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_phone_number:
-          maxLength: 100
-          nullable: true
-          type: string
-        ifrc_head_of_delegation_title:
-          maxLength: 255
-          nullable: true
-          type: string
         ifrc_regional_focal_point_email:
           maxLength: 255
           nullable: true
@@ -27219,6 +26913,9 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        include_rcrc_climate_center:
+          title: Include RCRC Climate Center.
+          type: boolean
         is_locked:
           description: Indicates whether the Simplified EAP is locked for editing.
           readOnly: true
@@ -27245,26 +26942,10 @@ components:
           type: string
         national_society_contact_title:
           maxLength: 255
-          nullable: true
           type: string
         next_step_towards_full_eap:
           nullable: true
           title: Next Steps towards Full EAP
-          type: string
-        operational_timeframe:
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-          title: Operational Time
-          type: integer
-        operational_timeframe_unit:
-          allOf:
-          - $ref: '#/components/schemas/EapTimeframeEnumKey'
-          maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
-        operational_timeframe_unit_display:
-          readOnly: true
           type: string
         overall_objective_intervention:
           description: Provide an objective statement that describe the main of the
@@ -27291,10 +26972,6 @@ components:
             $ref: '#/components/schemas/MiniCountry'
           readOnly: true
           type: array
-        people_targeted:
-          minimum: 2000
-          nullable: true
-          type: integer
         planned_operations:
           items:
             $ref: '#/components/schemas/PlannedOperation'
@@ -27304,7 +26981,7 @@ components:
           type: string
         pre_positioning_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Pre-positioning Budget (CHF)
           type: integer
@@ -27319,7 +26996,7 @@ components:
           type: string
         readiness_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Readiness Budget (CHF)
           type: integer
@@ -27327,7 +27004,7 @@ components:
           format: uri
           nullable: true
           type: string
-        risk_selected_protocols_images:
+        risk_selected_protocols_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -27359,7 +27036,7 @@ components:
         selected_early_actions:
           nullable: true
           type: string
-        selected_early_actions_images:
+        selected_early_actions_files:
           items:
             $ref: '#/components/schemas/EAPFileUpdate'
           nullable: true
@@ -27371,9 +27048,13 @@ components:
           type: string
         total_budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Total Budget (CHF)
+          type: integer
+        total_people_targeted:
+          minimum: 2000
+          nullable: true
           type: integer
         trigger_statement:
           nullable: true
@@ -27395,6 +27076,7 @@ components:
           readOnly: true
           type: integer
       required:
+      - activation_timeframe_unit_display
       - admin2_details
       - budget_file_details
       - created_at
@@ -27405,7 +27087,7 @@ components:
       - modified_by_details
       - national_society_contact_email
       - national_society_contact_name
-      - operational_timeframe_unit_display
+      - national_society_contact_title
       - partners_details
       - seap_lead_timeframe_unit_display
       - seap_timeframe
@@ -27423,12 +27105,9 @@ components:
           nullable: true
           type: string
         document_url:
-          oneOf:
-          - format: uri
-            maxLength: 200
-            type: string
-          - maxLength: 0
-            type: string
+          format: uri
+          maxLength: 200
+          type: string
         event:
           type: integer
         id:
@@ -27959,13 +27638,10 @@ components:
           description: 'Optional string for a clean URL. For example, go.ifrc.org/emergency/hurricane-katrina-2019.
             The string cannot start with a number and is forced to be lowercase. Recommend
             using hyphens over underscores. Special characters like # is not allowed.'
+          maxLength: 50
           nullable: true
-          oneOf:
-          - maxLength: 50
-            pattern: ^[-a-zA-Z0-9_]+$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+          type: string
         summary:
           nullable: true
           title: Summary [en]
@@ -28017,13 +27693,10 @@ components:
         models)
       properties:
         email:
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          format: email
+          maxLength: 254
           title: Email address
+          type: string
         first_name:
           maxLength: 150
           type: string
@@ -28109,13 +27782,10 @@ components:
         models)
       properties:
         email:
-          oneOf:
-          - format: email
-            maxLength: 254
-            type: string
-          - maxLength: 0
-            type: string
+          format: email
+          maxLength: 254
           title: Email address
+          type: string
         first_name:
           maxLength: 150
           type: string
@@ -28276,21 +27946,15 @@ components:
           readOnly: true
           type: integer
         iso:
+          maxLength: 2
           nullable: true
-          oneOf:
-          - maxLength: 2
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         iso3:
+          maxLength: 3
           nullable: true
-          oneOf:
-          - maxLength: 3
-            pattern: ^[A-Z]*$
-            type: string
-          - maxLength: 0
-            type: string
+          pattern: ^[A-Z]*$
+          type: string
         name:
           maxLength: 100
           type: string
@@ -28772,9 +28436,9 @@ paths:
           * `10` - Under Development
           * `20` - Under Review
           * `30` - NS Addressing Comments
-          * `40` - Technically Validated
-          * `50` - Approved(Pending PFA)
-          * `60` - Approved
+          * `40` - Technically validated by VC
+          * `50` - Approved
+          * `60` - Project Agreement Signed
         in: query
         name: status
         schema:
@@ -34505,9 +34169,9 @@ paths:
           * `10` - Under Development
           * `20` - Under Review
           * `30` - NS Addressing Comments
-          * `40` - Technically Validated
-          * `50` - Approved(Pending PFA)
-          * `60` - Approved
+          * `40` - Technically validated by VC
+          * `50` - Approved
+          * `60` - Project Agreement Signed
         in: query
         name: status
         schema:
