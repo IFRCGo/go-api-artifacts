@@ -36355,31 +36355,6 @@ paths:
           format: date-time
           type: string
       - in: query
-        name: updated_at
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
         name: dtype
         schema:
           type: integer
@@ -36551,31 +36526,6 @@ paths:
           format: date-time
           type: string
       - in: query
-        name: updated_at
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
         name: dtype
         schema:
           type: integer
@@ -36743,31 +36693,6 @@ paths:
           type: string
       - in: query
         name: created_at__lte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__gt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__gte
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__lt
-        schema:
-          format: date-time
-          type: string
-      - in: query
-        name: updated_at__lte
         schema:
           format: date-time
           type: string
