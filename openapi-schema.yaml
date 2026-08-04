@@ -3855,30 +3855,6 @@ components:
       - code
       - name
       type: object
-    DocumentDownloadLog:
-      properties:
-        document_type:
-          type: string
-        id:
-          readOnly: true
-          type: integer
-        object_id:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
-        source:
-          nullable: true
-          type: string
-        url:
-          format: uri
-          maxLength: 2000
-          type: string
-      required:
-      - document_type
-      - id
-      - url
-      type: object
     DomainWhitelist:
       properties:
         description:
@@ -23655,6 +23631,12 @@ components:
         expire_timestamp:
           format: date-time
           type: string
+        id:
+          readOnly: true
+          type: integer
+        is_disabled:
+          readOnly: true
+          type: boolean
         is_old_token:
           readOnly: true
           type: boolean
@@ -23662,6 +23644,7 @@ components:
           maxLength: 255
           type: string
         token:
+          nullable: true
           readOnly: true
           type: string
       type: object
@@ -28089,6 +28072,12 @@ components:
         expire_timestamp:
           format: date-time
           type: string
+        id:
+          readOnly: true
+          type: integer
+        is_disabled:
+          readOnly: true
+          type: boolean
         is_old_token:
           readOnly: true
           type: boolean
@@ -28096,13 +28085,33 @@ components:
           maxLength: 255
           type: string
         token:
+          nullable: true
           readOnly: true
           type: string
       required:
       - created_at
+      - id
+      - is_disabled
       - is_old_token
       - title
       - token
+      type: object
+    UserExternalTokenVerify:
+      description: Input serializer for the external-token verify endpoint.
+      properties:
+        jti:
+          format: uuid
+          type: string
+      required:
+      - jti
+      type: object
+    UserExternalTokenVerifyResponse:
+      description: Output serializer for the external-token verify endpoint.
+      properties:
+        active:
+          type: boolean
+      required:
+      - active
       type: object
     UserMe:
       description: Custom ModelSerializer with translaion logic (Also works for normal
@@ -32493,49 +32502,6 @@ paths:
       - {}
       tags:
       - api
-  /api/v2/document-download-log/:
-    post:
-      description: |-
-        Log a document download event.
-
-        The frontend calls this endpoint (fire-and-forget) each time a user
-        initiates a download. Authentication is optional: anonymous downloads
-        are recorded with a null user.
-      operationId: api_v2_document_download_log_create
-      parameters:
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DocumentDownloadLog'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/DocumentDownloadLog'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/DocumentDownloadLog'
-        required: true
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DocumentDownloadLog'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/DocumentDownloadLog'
-          description: ''
-      security:
-      - tokenAuth: []
-      tags:
-      - api
   /api/v2/domainwhitelist/:
     get:
       operationId: api_v2_domainwhitelist_list
@@ -36422,6 +36388,31 @@ paths:
           format: date-time
           type: string
       - in: query
+        name: updated_at
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: updated_at__gt
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: updated_at__gte
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: updated_at__lt
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: updated_at__lte
+        schema:
+          format: date-time
+          type: string
+      - in: query
         name: dtype
         schema:
           type: integer
@@ -36593,6 +36584,31 @@ paths:
           format: date-time
           type: string
       - in: query
+        name: updated_at
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: updated_at__gt
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: updated_at__gte
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: updated_at__lt
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: updated_at__lte
+        schema:
+          format: date-time
+          type: string
+      - in: query
         name: dtype
         schema:
           type: integer
@@ -36760,6 +36776,31 @@ paths:
           type: string
       - in: query
         name: created_at__lte
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: updated_at
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: updated_at__gt
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: updated_at__gte
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: updated_at__lt
+        schema:
+          format: date-time
+          type: string
+      - in: query
+        name: updated_at__lte
         schema:
           format: date-time
           type: string
@@ -37269,6 +37310,46 @@ paths:
       - cookieAuth: []
       tags:
       - api
+  /api/v2/external-token/verify/:
+    post:
+      operationId: api_v2_external_token_verify_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserExternalTokenVerify'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserExternalTokenVerify'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserExternalTokenVerify'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserExternalTokenVerifyResponse'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/UserExternalTokenVerifyResponse'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      tags:
+      - api
   /api/v2/external-token/{id}/:
     delete:
       operationId: api_v2_external_token_destroy
@@ -37394,6 +37475,38 @@ paths:
             schema:
               $ref: '#/components/schemas/UserExternalToken'
         required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserExternalToken'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/UserExternalToken'
+          description: ''
+      security:
+      - tokenAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      tags:
+      - api
+  /api/v2/external-token/{id}/revoke/:
+    post:
+      operationId: api_v2_external_token_revoke_create
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: format
+        schema:
+          enum:
+          - csv
+          - json
+          type: string
       responses:
         '200':
           content:
