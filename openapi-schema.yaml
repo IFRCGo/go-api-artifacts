@@ -18868,252 +18868,6 @@ components:
           nullable: true
           type: integer
       type: object
-    PatchedDref3:
-      properties:
-        allocation:
-          readOnly: true
-          type: string
-        allocation_type:
-          readOnly: true
-          type: string
-        amount_approved:
-          readOnly: true
-          type: string
-        appeal_id:
-          readOnly: true
-          type: string
-        appeal_type:
-          readOnly: true
-          type: string
-        approved:
-          readOnly: true
-          type: string
-        country:
-          readOnly: true
-          type: string
-        country_iso3:
-          readOnly: true
-          type: string
-        crisis_categorization:
-          readOnly: true
-          type: string
-        data_origin:
-          readOnly: true
-          type: string
-        date_of_appeal_request_from_ns:
-          readOnly: true
-          type: string
-        date_of_approval:
-          readOnly: true
-          type: string
-        date_of_disaster:
-          readOnly: true
-          type: string
-        date_of_summary_publication:
-          readOnly: true
-          type: string
-        disaster_definition:
-          readOnly: true
-          type: string
-        disaster_name:
-          readOnly: true
-          type: string
-        district_codes:
-          readOnly: true
-          type: string
-        districts:
-          readOnly: true
-          type: string
-        end_date_of_operation:
-          readOnly: true
-          type: string
-        id:
-          readOnly: true
-          type: string
-        indicators_id:
-          readOnly: true
-          type: string
-        is_latest_stage:
-          readOnly: true
-          type: string
-        link_to_emergency_page:
-          readOnly: true
-          type: string
-        modified_at:
-          readOnly: true
-          type: string
-        operation_status:
-          readOnly: true
-          type: string
-        operation_timeframe:
-          readOnly: true
-          type: string
-        people_affected:
-          readOnly: true
-          type: string
-        people_assisted:
-          readOnly: true
-          type: string
-        people_targeted:
-          readOnly: true
-          type: string
-        pillar:
-          readOnly: true
-          type: string
-        population_disaggregation:
-          readOnly: true
-          type: string
-        public:
-          readOnly: true
-          type: string
-        region:
-          readOnly: true
-          type: string
-        sector_community_engagement_and_accountability:
-          readOnly: true
-          type: string
-        sector_community_engagement_and_accountability_budget:
-          readOnly: true
-          type: string
-        sector_community_engagement_and_accountability_people_targeted:
-          readOnly: true
-          type: string
-        sector_coordination_and_partnerships:
-          readOnly: true
-          type: string
-        sector_coordination_and_partnerships_budget:
-          readOnly: true
-          type: string
-        sector_coordination_and_partnerships_people_targeted:
-          readOnly: true
-          type: string
-        sector_education:
-          readOnly: true
-          type: string
-        sector_education_budget:
-          readOnly: true
-          type: string
-        sector_education_people_targeted:
-          readOnly: true
-          type: string
-        sector_environmental_sustainability:
-          readOnly: true
-          type: string
-        sector_environmental_sustainability_budget:
-          readOnly: true
-          type: string
-        sector_environmental_sustainability_people_targeted:
-          readOnly: true
-          type: string
-        sector_health:
-          readOnly: true
-          type: string
-        sector_health_budget:
-          readOnly: true
-          type: string
-        sector_health_people_targeted:
-          readOnly: true
-          type: string
-        sector_livelihoods:
-          readOnly: true
-          type: string
-        sector_livelihoods_budget:
-          readOnly: true
-          type: string
-        sector_livelihoods_people_targeted:
-          readOnly: true
-          type: string
-        sector_migration_and_displacement:
-          readOnly: true
-          type: string
-        sector_migration_and_displacement_budget:
-          readOnly: true
-          type: string
-        sector_migration_and_displacement_people_targeted:
-          readOnly: true
-          type: string
-        sector_multi_purpose_cash_grants:
-          readOnly: true
-          type: string
-        sector_multi_purpose_cash_grants_budget:
-          readOnly: true
-          type: string
-        sector_multi_purpose_cash_grants_people_targeted:
-          readOnly: true
-          type: string
-        sector_national_society_strengthening:
-          readOnly: true
-          type: string
-        sector_national_society_strengthening_budget:
-          readOnly: true
-          type: string
-        sector_national_society_strengthening_people_targeted:
-          readOnly: true
-          type: string
-        sector_protection_gender_and_inclusion:
-          readOnly: true
-          type: string
-        sector_protection_gender_and_inclusion_budget:
-          readOnly: true
-          type: string
-        sector_protection_gender_and_inclusion_people_targeted:
-          readOnly: true
-          type: string
-        sector_risk_reduction_climate_adaptation_and_recovery:
-          readOnly: true
-          type: string
-        sector_risk_reduction_climate_adaptation_and_recovery_budget:
-          readOnly: true
-          type: string
-        sector_risk_reduction_climate_adaptation_and_recovery_people_targeted:
-          readOnly: true
-          type: string
-        sector_secretariat_services:
-          readOnly: true
-          type: string
-        sector_secretariat_services_budget:
-          readOnly: true
-          type: string
-        sector_secretariat_services_people_targeted:
-          readOnly: true
-          type: string
-        sector_shelter_and_basic_household_items:
-          readOnly: true
-          type: string
-        sector_shelter_and_basic_household_items_budget:
-          readOnly: true
-          type: string
-        sector_shelter_and_basic_household_items_people_targeted:
-          readOnly: true
-          type: string
-        sector_water_sanitation_and_hygiene:
-          readOnly: true
-          type: string
-        sector_water_sanitation_and_hygiene_budget:
-          readOnly: true
-          type: string
-        sector_water_sanitation_and_hygiene_people_targeted:
-          readOnly: true
-          type: string
-        stage:
-          readOnly: true
-          type: string
-        start_date_of_operation:
-          readOnly: true
-          type: string
-        status:
-          readOnly: true
-          type: integer
-        status_display:
-          readOnly: true
-          type: string
-        total_approved:
-          readOnly: true
-          type: string
-        type_of_onset:
-          readOnly: true
-          type: string
-      type: object
     PatchedDrefFinalReport:
       description: Mixin adds update nested feature
       properties:
@@ -34036,23 +33790,12 @@ paths:
   /api/v2/dref3/:
     get:
       description: |-
-        A class-based view mixin that wraps the request in a revision.
-
-        The revision will have it's user set from the request automatically.
+        Read-only listing of all DREF stages (application / operational
+        updates / final report) as flat rows, backed by a single UNION ALL
+        queryset across the three stage models: standard filters, ordering and
+        limit/offset pagination.
       operationId: api_v2_dref3_list
       parameters:
-      - description: A search term.
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-      - description: Which field to use when ordering the results.
-        in: query
-        name: ordering
-        required: false
-        schema:
-          type: string
       - description: Number of results to return per page.
         in: query
         name: limit
@@ -34072,12 +33815,219 @@ paths:
           - csv
           - json
           type: string
-      - description: Ordering for paged appeal codes. Use 'created_at' or '-created_at'
-          to sort by the first DREF application created_at per appeal_code; any other
-          value defaults to appeal_code ordering.
+      - description: Rows whose `appeal_code` starts with this value (case-sensitive).
+        in: query
+        name: appeal_code_prefix
+        schema:
+          type: string
+      - description: Region id of the national society.
+        in: query
+        name: region
+        schema:
+          type: integer
+      - description: ISO3 country code of the national society (case-insensitive).
+        in: query
+        name: country_iso3
+        schema:
+          type: string
+      - description: 'DREF type (`type_of_dref`): `0` Imminent, `1` Assessment, `2`
+          Response, `3` Loan.'
+        in: query
+        name: appeal_type
+        schema:
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          type: integer
+      - description: Status as an id, label or name (`1` Draft, `2` Finalizing, `3`
+          Finalized, `4` Approved, `5` Failed), e.g. `4` or `Approved`. Unrecognised
+          values are ignored.
+        in: query
+        name: operation_status
+        schema:
+          type: string
+      - description: 'Lower bound (inclusive) on each stage''s own start date: `date_of_approval`
+          for applications, `new_operational_start_date` for operational updates,
+          `operation_start_date` for final reports.'
+        in: query
+        name: start_date_of_operation
+        schema:
+          format: date
+          type: string
+      - description: 'Upper bound (inclusive) on each stage''s own end date: `end_date`
+          for applications, `new_operational_end_date` for operational updates, `operation_end_date`
+          for final reports.'
+        in: query
+        name: end_date_of_operation
+        schema:
+          format: date
+          type: string
+      - description: Lower bound (inclusive) on `event_date`. Constrains Application
+          rows only; rows of other stages are unaffected.
+        in: query
+        name: event_date_from
+        schema:
+          format: date
+          type: string
+      - description: Upper bound (inclusive) on `event_date`. Constrains Application
+          rows only; rows of other stages are unaffected.
+        in: query
+        name: event_date_to
+        schema:
+          format: date
+          type: string
+      - description: Lower bound (inclusive) on `ns_respond_date`. Constrains Application
+          rows only; rows of other stages are unaffected.
+        in: query
+        name: ns_respond_date_from
+        schema:
+          format: date
+          type: string
+      - description: Upper bound (inclusive) on `ns_respond_date`. Constrains Application
+          rows only; rows of other stages are unaffected.
+        in: query
+        name: ns_respond_date_to
+        schema:
+          format: date
+          type: string
+      - description: Lower bound (inclusive) on `government_requested_assistance_date`.
+          Constrains Application rows only; rows of other stages are unaffected.
+        in: query
+        name: government_requested_assistance_date_from
+        schema:
+          format: date
+          type: string
+      - description: Upper bound (inclusive) on `government_requested_assistance_date`.
+          Constrains Application rows only; rows of other stages are unaffected.
+        in: query
+        name: government_requested_assistance_date_to
+        schema:
+          format: date
+          type: string
+      - description: Lower bound (inclusive) on `ns_request_date`. Constrains Application
+          rows only; rows of other stages are unaffected.
+        in: query
+        name: ns_request_date_from
+        schema:
+          format: date
+          type: string
+      - description: Upper bound (inclusive) on `ns_request_date`. Constrains Application
+          rows only; rows of other stages are unaffected.
+        in: query
+        name: ns_request_date_to
+        schema:
+          format: date
+          type: string
+      - description: Lower bound (inclusive) on `submission_to_geneva`. Constrains
+          Application rows only; rows of other stages are unaffected.
+        in: query
+        name: submission_to_geneva_from
+        schema:
+          format: date
+          type: string
+      - description: Upper bound (inclusive) on `submission_to_geneva`. Constrains
+          Application rows only; rows of other stages are unaffected.
+        in: query
+        name: submission_to_geneva_to
+        schema:
+          format: date
+          type: string
+      - description: Lower bound (inclusive) on `date_of_approval`. Constrains Application
+          rows only; rows of other stages are unaffected.
+        in: query
+        name: date_of_approval_from
+        schema:
+          format: date
+          type: string
+      - description: Upper bound (inclusive) on `date_of_approval`. Constrains Application
+          rows only; rows of other stages are unaffected.
+        in: query
+        name: date_of_approval_to
+        schema:
+          format: date
+          type: string
+      - description: Lower bound (inclusive) on `publishing_date`. Constrains Application
+          rows only; rows of other stages are unaffected.
+        in: query
+        name: publishing_date_from
+        schema:
+          format: date
+          type: string
+      - description: Upper bound (inclusive) on `publishing_date`. Constrains Application
+          rows only; rows of other stages are unaffected.
+        in: query
+        name: publishing_date_to
+        schema:
+          format: date
+          type: string
+      - description: Lower bound on `hazard_date_and_location`, compared as text rather
+          than as a date. Constrains Application rows only; rows of other stages are
+          unaffected.
+        in: query
+        name: hazard_date_and_location_from
+        schema:
+          type: string
+      - description: Upper bound on `hazard_date_and_location`, compared as text rather
+          than as a date. Constrains Application rows only; rows of other stages are
+          unaffected.
+        in: query
+        name: hazard_date_and_location_to
+        schema:
+          type: string
+      - description: Lower bound (inclusive) on `end_date`. Constrains Application
+          rows only; rows of other stages are unaffected.
+        in: query
+        name: end_date_from
+        schema:
+          format: date
+          type: string
+      - description: Upper bound (inclusive) on `end_date`. Constrains Application
+          rows only; rows of other stages are unaffected.
+        in: query
+        name: end_date_to
+        schema:
+          format: date
+          type: string
+      - description: 'Comma-separated list of stages to include. Case-insensitive,
+          accepts aliases: `application`/`app`/`dref`, `operational_update`/`operationalupdate`/`op_update`/`op`/`update`,
+          `final_report`/`finalreport`/`final`/`report`. Unknown tokens are ignored;
+          if none are recognised the filter is not applied.'
+        in: query
+        name: stage
+        schema:
+          type: string
+      - description: Primary key of a Dref, DrefOperationalUpdate or DrefFinalReport
+          (probed in that order). Resolved to that record's `appeal_code` and applied
+          as an appeal_code filter, so it returns the whole group. A pk that resolves
+          to no appeal_code yields an empty result.
+        in: query
+        name: appeal_id
+        schema:
+          type: integer
+      - description: Comma-separated composite row ids as returned in the `id` field,
+          e.g. `Dref-6,DrefOperationalUpdate-4,DrefFinalReport-1`. Malformed tokens
+          are ignored; a present param matching nothing yields an empty result.
+        in: query
+        name: id
+        schema:
+          type: string
+      - description: Use `created_at` or `-created_at` to order row groups by the
+          first DREF application created_at per appeal_code; any other value defaults
+          to appeal_code ordering. Rows of one appeal_code always stay contiguous
+          (stage-major, then created_at).
         in: query
         name: order_by
         schema:
+          type: string
+      - description: '`csv` streams the full filtered set as a CSV attachment, bypassing
+          pagination.'
+        in: query
+        name: export
+        schema:
+          enum:
+          - csv
           type: string
       responses:
         '200':
@@ -34096,83 +34046,13 @@ paths:
       - {}
       tags:
       - api
-    post:
-      description: |-
-        A class-based view mixin that wraps the request in a revision.
-
-        The revision will have it's user set from the request automatically.
-      operationId: api_v2_dref3_create
-      parameters:
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Dref3'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Dref3'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Dref3'
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Dref3'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/Dref3'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      - {}
-      tags:
-      - api
   /api/v2/dref3/{appeal_code}/:
-    delete:
-      description: |-
-        A class-based view mixin that wraps the request in a revision.
-
-        The revision will have it's user set from the request automatically.
-      operationId: api_v2_dref3_destroy
-      parameters:
-      - in: path
-        name: appeal_code
-        required: true
-        schema:
-          type: string
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      responses:
-        '204':
-          description: No response body
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      - {}
-      tags:
-      - api
     get:
       description: |-
-        A class-based view mixin that wraps the request in a revision.
-
-        The revision will have it's user set from the request automatically.
+        Read-only listing of all DREF stages (application / operational
+        updates / final report) as flat rows, backed by a single UNION ALL
+        queryset across the three stage models: standard filters, ordering and
+        limit/offset pagination.
       operationId: api_v2_dref3_retrieve
       parameters:
       - in: path
@@ -34187,100 +34067,6 @@ paths:
           - csv
           - json
           type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Dref3'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/Dref3'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      - {}
-      tags:
-      - api
-    patch:
-      description: |-
-        A class-based view mixin that wraps the request in a revision.
-
-        The revision will have it's user set from the request automatically.
-      operationId: api_v2_dref3_partial_update
-      parameters:
-      - in: path
-        name: appeal_code
-        required: true
-        schema:
-          type: string
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedDref3'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedDref3'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedDref3'
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Dref3'
-            text/csv:
-              schema:
-                $ref: '#/components/schemas/Dref3'
-          description: ''
-      security:
-      - tokenAuth: []
-      - basicAuth: []
-      - cookieAuth: []
-      - {}
-      tags:
-      - api
-    put:
-      description: |-
-        A class-based view mixin that wraps the request in a revision.
-
-        The revision will have it's user set from the request automatically.
-      operationId: api_v2_dref3_update
-      parameters:
-      - in: path
-        name: appeal_code
-        required: true
-        schema:
-          type: string
-      - in: query
-        name: format
-        schema:
-          enum:
-          - csv
-          - json
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Dref3'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Dref3'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Dref3'
       responses:
         '200':
           content:
