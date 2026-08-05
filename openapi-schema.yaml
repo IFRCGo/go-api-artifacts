@@ -10687,10 +10687,9 @@ components:
             $ref: '#/components/schemas/KeyActor'
           type: array
         lead_time:
-          maximum: 2147483647
-          minimum: -2147483648
+          maxLength: 255
           nullable: true
-          type: integer
+          type: string
         lead_timeframe_unit:
           allOf:
           - $ref: '#/components/schemas/EapTimeframeEnumKey'
@@ -10867,6 +10866,7 @@ components:
           title: Total Budget (CHF)
           type: integer
         total_people_targeted:
+          maximum: 10000000
           minimum: 10000
           nullable: true
           type: integer
@@ -22043,10 +22043,9 @@ components:
             $ref: '#/components/schemas/KeyActor'
           type: array
         lead_time:
-          maximum: 2147483647
-          minimum: -2147483648
+          maxLength: 255
           nullable: true
-          type: integer
+          type: string
         lead_timeframe_unit:
           allOf:
           - $ref: '#/components/schemas/EapTimeframeEnumKey'
@@ -22223,6 +22222,7 @@ components:
           title: Total Budget (CHF)
           type: integer
         total_people_targeted:
+          maximum: 10000000
           minimum: 10000
           nullable: true
           type: integer
@@ -23517,6 +23517,7 @@ components:
           title: Total Budget (CHF)
           type: integer
         total_people_targeted:
+          maximum: 10000000
           minimum: 2000
           nullable: true
           type: integer
@@ -27253,6 +27254,7 @@ components:
           title: Total Budget (CHF)
           type: integer
         total_people_targeted:
+          maximum: 10000000
           minimum: 2000
           nullable: true
           type: integer
