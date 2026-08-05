@@ -4835,6 +4835,9 @@ components:
         sector_community_engagement_and_accountability_budget:
           readOnly: true
           type: string
+        sector_community_engagement_and_accountability_people_assisted:
+          readOnly: true
+          type: string
         sector_community_engagement_and_accountability_people_targeted:
           readOnly: true
           type: string
@@ -4842,6 +4845,9 @@ components:
           readOnly: true
           type: string
         sector_coordination_and_partnerships_budget:
+          readOnly: true
+          type: string
+        sector_coordination_and_partnerships_people_assisted:
           readOnly: true
           type: string
         sector_coordination_and_partnerships_people_targeted:
@@ -4853,6 +4859,9 @@ components:
         sector_education_budget:
           readOnly: true
           type: string
+        sector_education_people_assisted:
+          readOnly: true
+          type: string
         sector_education_people_targeted:
           readOnly: true
           type: string
@@ -4860,6 +4869,9 @@ components:
           readOnly: true
           type: string
         sector_environmental_sustainability_budget:
+          readOnly: true
+          type: string
+        sector_environmental_sustainability_people_assisted:
           readOnly: true
           type: string
         sector_environmental_sustainability_people_targeted:
@@ -4871,6 +4883,9 @@ components:
         sector_health_budget:
           readOnly: true
           type: string
+        sector_health_people_assisted:
+          readOnly: true
+          type: string
         sector_health_people_targeted:
           readOnly: true
           type: string
@@ -4878,6 +4893,9 @@ components:
           readOnly: true
           type: string
         sector_livelihoods_budget:
+          readOnly: true
+          type: string
+        sector_livelihoods_people_assisted:
           readOnly: true
           type: string
         sector_livelihoods_people_targeted:
@@ -4889,6 +4907,9 @@ components:
         sector_migration_and_displacement_budget:
           readOnly: true
           type: string
+        sector_migration_and_displacement_people_assisted:
+          readOnly: true
+          type: string
         sector_migration_and_displacement_people_targeted:
           readOnly: true
           type: string
@@ -4896,6 +4917,9 @@ components:
           readOnly: true
           type: string
         sector_multi_purpose_cash_grants_budget:
+          readOnly: true
+          type: string
+        sector_multi_purpose_cash_grants_people_assisted:
           readOnly: true
           type: string
         sector_multi_purpose_cash_grants_people_targeted:
@@ -4907,6 +4931,9 @@ components:
         sector_national_society_strengthening_budget:
           readOnly: true
           type: string
+        sector_national_society_strengthening_people_assisted:
+          readOnly: true
+          type: string
         sector_national_society_strengthening_people_targeted:
           readOnly: true
           type: string
@@ -4914,6 +4941,9 @@ components:
           readOnly: true
           type: string
         sector_protection_gender_and_inclusion_budget:
+          readOnly: true
+          type: string
+        sector_protection_gender_and_inclusion_people_assisted:
           readOnly: true
           type: string
         sector_protection_gender_and_inclusion_people_targeted:
@@ -4925,6 +4955,9 @@ components:
         sector_risk_reduction_climate_adaptation_and_recovery_budget:
           readOnly: true
           type: string
+        sector_risk_reduction_climate_adaptation_and_recovery_people_assisted:
+          readOnly: true
+          type: string
         sector_risk_reduction_climate_adaptation_and_recovery_people_targeted:
           readOnly: true
           type: string
@@ -4932,6 +4965,9 @@ components:
           readOnly: true
           type: string
         sector_secretariat_services_budget:
+          readOnly: true
+          type: string
+        sector_secretariat_services_people_assisted:
           readOnly: true
           type: string
         sector_secretariat_services_people_targeted:
@@ -4943,6 +4979,9 @@ components:
         sector_shelter_and_basic_household_items_budget:
           readOnly: true
           type: string
+        sector_shelter_and_basic_household_items_people_assisted:
+          readOnly: true
+          type: string
         sector_shelter_and_basic_household_items_people_targeted:
           readOnly: true
           type: string
@@ -4950,6 +4989,9 @@ components:
           readOnly: true
           type: string
         sector_water_sanitation_and_hygiene_budget:
+          readOnly: true
+          type: string
+        sector_water_sanitation_and_hygiene_people_assisted:
           readOnly: true
           type: string
         sector_water_sanitation_and_hygiene_people_targeted:
@@ -5009,45 +5051,59 @@ components:
       - region
       - sector_community_engagement_and_accountability
       - sector_community_engagement_and_accountability_budget
+      - sector_community_engagement_and_accountability_people_assisted
       - sector_community_engagement_and_accountability_people_targeted
       - sector_coordination_and_partnerships
       - sector_coordination_and_partnerships_budget
+      - sector_coordination_and_partnerships_people_assisted
       - sector_coordination_and_partnerships_people_targeted
       - sector_education
       - sector_education_budget
+      - sector_education_people_assisted
       - sector_education_people_targeted
       - sector_environmental_sustainability
       - sector_environmental_sustainability_budget
+      - sector_environmental_sustainability_people_assisted
       - sector_environmental_sustainability_people_targeted
       - sector_health
       - sector_health_budget
+      - sector_health_people_assisted
       - sector_health_people_targeted
       - sector_livelihoods
       - sector_livelihoods_budget
+      - sector_livelihoods_people_assisted
       - sector_livelihoods_people_targeted
       - sector_migration_and_displacement
       - sector_migration_and_displacement_budget
+      - sector_migration_and_displacement_people_assisted
       - sector_migration_and_displacement_people_targeted
       - sector_multi_purpose_cash_grants
       - sector_multi_purpose_cash_grants_budget
+      - sector_multi_purpose_cash_grants_people_assisted
       - sector_multi_purpose_cash_grants_people_targeted
       - sector_national_society_strengthening
       - sector_national_society_strengthening_budget
+      - sector_national_society_strengthening_people_assisted
       - sector_national_society_strengthening_people_targeted
       - sector_protection_gender_and_inclusion
       - sector_protection_gender_and_inclusion_budget
+      - sector_protection_gender_and_inclusion_people_assisted
       - sector_protection_gender_and_inclusion_people_targeted
       - sector_risk_reduction_climate_adaptation_and_recovery
       - sector_risk_reduction_climate_adaptation_and_recovery_budget
+      - sector_risk_reduction_climate_adaptation_and_recovery_people_assisted
       - sector_risk_reduction_climate_adaptation_and_recovery_people_targeted
       - sector_secretariat_services
       - sector_secretariat_services_budget
+      - sector_secretariat_services_people_assisted
       - sector_secretariat_services_people_targeted
       - sector_shelter_and_basic_household_items
       - sector_shelter_and_basic_household_items_budget
+      - sector_shelter_and_basic_household_items_people_assisted
       - sector_shelter_and_basic_household_items_people_targeted
       - sector_water_sanitation_and_hygiene
       - sector_water_sanitation_and_hygiene_budget
+      - sector_water_sanitation_and_hygiene_people_assisted
       - sector_water_sanitation_and_hygiene_people_targeted
       - stage
       - start_date_of_operation
