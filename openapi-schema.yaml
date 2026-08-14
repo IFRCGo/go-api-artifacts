@@ -7019,6 +7019,10 @@ components:
           nullable: true
           title: Lessons learned [en]
           type: string
+        needs_identified:
+          nullable: true
+          title: Needs identified [en]
+          type: string
         operational_strategy:
           nullable: true
           title: Operational strategy [en]
