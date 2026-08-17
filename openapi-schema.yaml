@@ -33906,6 +33906,14 @@ paths:
         name: operation_status
         schema:
           type: string
+      - description: Case-insensitive substring match on `hazard_date_and_location`,
+          the free-text answer to "when and where is the hazard expected to happen?".
+          Searches the field in the request's active language. A blank term is ignored.
+          Constrains Application rows only; rows of other stages are unaffected.
+        in: query
+        name: hazard_date_and_location
+        schema:
+          type: string
       - description: 'Lower bound (inclusive) on each stage''s own start date: `date_of_approval`
           for applications, `new_operational_start_date` for operational updates,
           `operation_start_date` for final reports.'
@@ -34020,19 +34028,19 @@ paths:
         schema:
           format: date
           type: string
-      - description: Lower bound on `hazard_date_and_location`, compared as text rather
-          than as a date. Constrains Application rows only; rows of other stages are
-          unaffected.
+      - description: Lower bound (inclusive) on `hazard_date`. Constrains Application
+          rows only; rows of other stages are unaffected.
         in: query
-        name: hazard_date_and_location_from
+        name: hazard_date_from
         schema:
+          format: date
           type: string
-      - description: Upper bound on `hazard_date_and_location`, compared as text rather
-          than as a date. Constrains Application rows only; rows of other stages are
-          unaffected.
+      - description: Upper bound (inclusive) on `hazard_date`. Constrains Application
+          rows only; rows of other stages are unaffected.
         in: query
-        name: hazard_date_and_location_to
+        name: hazard_date_to
         schema:
+          format: date
           type: string
       - description: Lower bound (inclusive) on `end_date`. Constrains Application
           rows only; rows of other stages are unaffected.
