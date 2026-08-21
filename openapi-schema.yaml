@@ -33873,6 +33873,13 @@ paths:
           - csv
           - json
           type: string
+      - description: The `appeal_id` of a row, i.e. its `appeal_code` (case-insensitive,
+          exact). Matches every stage of that appeal, so it returns the whole row
+          group.
+        in: query
+        name: appeal_id
+        schema:
+          type: string
       - description: Rows whose `appeal_code` starts with this value (case-sensitive).
         in: query
         name: appeal_code_prefix
@@ -33888,23 +33895,16 @@ paths:
         name: country_iso3
         schema:
           type: string
-      - description: 'DREF type (`type_of_dref`): `0` Imminent, `1` Assessment, `2`
-          Response, `3` Loan.'
+      - description: 'Appeal type as returned in the `appeal_type` field: `i-DREF`
+          (Imminent), `DREF` (Assessment, Response), `EA` (Loan). Case-insensitive;
+          an unrecognised value yields an empty result.'
         in: query
         name: appeal_type
         schema:
           enum:
-          - 0
-          - 1
-          - 2
-          - 3
-          type: integer
-      - description: Status as an id, label or name (`1` Draft, `2` Finalizing, `3`
-          Finalized, `4` Approved, `5` Failed), e.g. `4` or `Approved`. Unrecognised
-          values are ignored.
-        in: query
-        name: operation_status
-        schema:
+          - DREF
+          - EA
+          - i-DREF
           type: string
       - description: Case-insensitive substring match on `hazard_date_and_location`,
           the free-text answer to "when and where is the hazard expected to happen?".
@@ -34064,14 +34064,18 @@ paths:
         name: stage
         schema:
           type: string
-      - description: Primary key of a Dref, DrefOperationalUpdate or DrefFinalReport
-          (probed in that order). Resolved to that record's `appeal_code` and applied
-          as an appeal_code filter, so it returns the whole group. A pk that resolves
-          to no appeal_code yields an empty result.
+      - description: 'Operation status as returned in the `operation_status` field,
+          derived from the row''s own dates: `active` is `start_date_of_operation`
+          <= today <= `end_date_of_operation`, `closed` is any row with both dates
+          that is not active. Rows missing either date serialize as null and match
+          neither. Case-insensitive; an unrecognised value yields an empty result.'
         in: query
-        name: appeal_id
+        name: operation_status
         schema:
-          type: integer
+          enum:
+          - active
+          - closed
+          type: string
       - description: Comma-separated composite row ids as returned in the `id` field,
           e.g. `Dref-6,DrefOperationalUpdate-4,DrefFinalReport-1`. Malformed tokens
           are ignored; a present param matching nothing yields an empty result.
