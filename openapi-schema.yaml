@@ -133,6 +133,27 @@ components:
       - dref
       - users
       type: object
+    Admin1:
+      properties:
+        description:
+          nullable: true
+          type: string
+        district:
+          type: integer
+        district_details:
+          allOf:
+          - $ref: '#/components/schemas/MiniDistrict'
+          readOnly: true
+        id:
+          type: integer
+        previous_id:
+          readOnly: true
+          type: integer
+      required:
+      - district
+      - district_details
+      - previous_id
+      type: object
     Admin2:
       description: |-
         A mixin class to encapsulate common methods
@@ -7261,6 +7282,10 @@ components:
     EAPRegistration:
       description: Mixin adds update nested feature
       properties:
+        appeal_code:
+          nullable: true
+          readOnly: true
+          type: string
         approved_at:
           description: Timestamp when the EAP was approved.
           format: date-time
@@ -7342,6 +7367,11 @@ components:
             time it will take to deliver the application.Leave blank if not sure.
           format: date
           nullable: true
+          type: string
+        final_review_checklist_file:
+          format: uri
+          nullable: true
+          readOnly: true
           type: string
         full_eap_details:
           items:
@@ -7466,6 +7496,7 @@ components:
           readOnly: true
           type: string
       required:
+      - appeal_code
       - country
       - country_details
       - created_at
@@ -7474,6 +7505,7 @@ components:
       - disaster_type
       - disaster_type_details
       - eap_type_display
+      - final_review_checklist_file
       - full_eap_details
       - id
       - latest_full_eap
@@ -7515,15 +7547,18 @@ components:
           readOnly: true
           type: integer
         source_link:
-          format: uri
-          maxLength: 255
-          type: string
+          nullable: true
+          oneOf:
+          - format: uri
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         source_name:
           maxLength: 255
           type: string
       required:
       - previous_id
-      - source_link
       - source_name
       type: object
     EAPStatus:
@@ -7534,6 +7569,11 @@ components:
           allOf:
           - $ref: '#/components/schemas/UserName'
           readOnly: true
+        final_review_checklist_file:
+          format: uri
+          nullable: true
+          type: string
+          writeOnly: true
         id:
           readOnly: true
           type: integer
@@ -11824,6 +11864,10 @@ components:
           nullable: true
           title: EAP Diff PDF file
           type: string
+        districts:
+          items:
+            $ref: '#/components/schemas/Admin1'
+          type: array
         dref_focal_point_email:
           maxLength: 255
           nullable: true
@@ -12042,9 +12086,10 @@ components:
             $ref: '#/components/schemas/KeyActor'
           type: array
         lead_time:
-          maxLength: 255
+          maximum: 2147483647
+          minimum: -2147483648
           nullable: true
-          type: string
+          type: integer
         lead_timeframe_unit:
           allOf:
           - $ref: '#/components/schemas/EapTimeframeEnumKey'
@@ -21793,6 +21838,10 @@ components:
     PatchedEAPRegistration:
       description: Mixin adds update nested feature
       properties:
+        appeal_code:
+          nullable: true
+          readOnly: true
+          type: string
         approved_at:
           description: Timestamp when the EAP was approved.
           format: date-time
@@ -21874,6 +21923,11 @@ components:
             time it will take to deliver the application.Leave blank if not sure.
           format: date
           nullable: true
+          type: string
+        final_review_checklist_file:
+          format: uri
+          nullable: true
+          readOnly: true
           type: string
         full_eap_details:
           items:
@@ -23200,6 +23254,10 @@ components:
           nullable: true
           title: EAP Diff PDF file
           type: string
+        districts:
+          items:
+            $ref: '#/components/schemas/Admin1'
+          type: array
         dref_focal_point_email:
           maxLength: 255
           nullable: true
@@ -23418,9 +23476,10 @@ components:
             $ref: '#/components/schemas/KeyActor'
           type: array
         lead_time:
-          maxLength: 255
+          maximum: 2147483647
+          minimum: -2147483648
           nullable: true
-          type: string
+          type: integer
         lead_timeframe_unit:
           allOf:
           - $ref: '#/components/schemas/EapTimeframeEnumKey'
@@ -24653,6 +24712,10 @@ components:
           nullable: true
           title: EAP Diff PDF file
           type: string
+        districts:
+          items:
+            $ref: '#/components/schemas/Admin1'
+          type: array
         dref_focal_point_email:
           maxLength: 255
           nullable: true
@@ -24684,6 +24747,10 @@ components:
           nullable: true
           title: Experience or Capacity to implement Early Action.
           type: string
+        early_actions:
+          items:
+            $ref: '#/components/schemas/EAPAction'
+          type: array
         enabling_approaches:
           items:
             $ref: '#/components/schemas/SimplifiedEnablingApproach'
@@ -24818,6 +24885,10 @@ components:
         potential_geographical_high_risk_areas:
           nullable: true
           type: string
+        potential_risks:
+          items:
+            $ref: '#/components/schemas/PotentialRisk'
+          type: array
         pre_positioning_budget:
           maximum: 2147483647
           minimum: 0
@@ -25951,6 +26022,21 @@ components:
       - readiness_activities
       - sector
       - sector_display
+      type: object
+    PotentialRisk:
+      properties:
+        id:
+          type: integer
+        previous_id:
+          readOnly: true
+          type: integer
+        risk:
+          maxLength: 255
+          title: Potential Risk
+          type: string
+      required:
+      - previous_id
+      - risk
       type: object
     PrepositioningOperationActivity:
       description: 'Full EAP prepositioning_activities: timeframe/time_value optional,
@@ -28390,6 +28476,10 @@ components:
           nullable: true
           title: EAP Diff PDF file
           type: string
+        districts:
+          items:
+            $ref: '#/components/schemas/Admin1'
+          type: array
         dref_focal_point_email:
           maxLength: 255
           nullable: true
@@ -28421,6 +28511,10 @@ components:
           nullable: true
           title: Experience or Capacity to implement Early Action.
           type: string
+        early_actions:
+          items:
+            $ref: '#/components/schemas/EAPAction'
+          type: array
         enabling_approaches:
           items:
             $ref: '#/components/schemas/SimplifiedEnablingApproach'
@@ -28555,6 +28649,10 @@ components:
         potential_geographical_high_risk_areas:
           nullable: true
           type: string
+        potential_risks:
+          items:
+            $ref: '#/components/schemas/PotentialRisk'
+          type: array
         pre_positioning_budget:
           maximum: 2147483647
           minimum: 0
@@ -28659,6 +28757,7 @@ components:
       - created_at
       - created_by_details
       - eap_registration
+      - early_actions
       - id
       - is_locked
       - modified_by_details
@@ -28666,6 +28765,7 @@ components:
       - national_society_contact_name
       - national_society_contact_title
       - partners_details
+      - potential_risks
       - seap_lead_timeframe_unit_display
       - seap_timeframe
       - updated_checklist_file_details
