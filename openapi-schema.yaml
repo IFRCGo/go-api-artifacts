@@ -29142,7 +29142,6 @@ components:
       - id
       - key
       - language
-      - page_name
       - value
       type: object
     StypeEnum:
