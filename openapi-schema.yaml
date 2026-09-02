@@ -5065,9 +5065,13 @@ components:
         amount_approved:
           readOnly: true
           type: string
-        appeal_id:
+        appeal_code:
           readOnly: true
           type: string
+        appeal_id:
+          nullable: true
+          readOnly: true
+          type: integer
         appeal_type:
           readOnly: true
           type: string
@@ -5345,6 +5349,7 @@ components:
       - allocation
       - allocation_type
       - amount_approved
+      - appeal_code
       - appeal_id
       - appeal_type
       - approved
@@ -35438,11 +35443,20 @@ paths:
           - csv
           - json
           type: string
-      - description: The `appeal_id` of a row, i.e. its `appeal_code` (case-insensitive,
-          exact). Matches every stage of that appeal, so it returns the whole row
-          group.
+      - description: Comma-separated `appeal_code` values as returned in the `appeal_code`
+          field (case-insensitive, exact per code), e.g. `MDRAM010,MDRTJ032`. Matches
+          every stage of those appeals, so it returns whole row groups. A code no
+          row carries yields an empty result.
         in: query
-        name: appeal_id
+        name: appeal_codes
+        schema:
+          type: string
+      - description: Comma-separated Appeal ids as returned in the `appeal_id` field,
+          e.g. `3621,3622`. Each id is resolved to that Appeal's code and matched
+          like `appeal_codes`. Non-numeric tokens are ignored; ids with no Appeal
+          yield an empty result.
+        in: query
+        name: appeal_ids
         schema:
           type: string
       - description: Rows whose `appeal_code` starts with this value (case-sensitive).
