@@ -1314,11 +1314,12 @@ components:
           allOf:
           - $ref: '#/components/schemas/MiniDref'
           readOnly: true
-        glide_code:
-          maxLength: 255
-          nullable: true
+        glide_codes:
+          items:
+            maxLength: 18
+            type: string
           title: Glide number
-          type: string
+          type: array
         id:
           readOnly: true
           type: integer
@@ -4497,11 +4498,12 @@ components:
           minimum: -2147483648
           nullable: true
           type: integer
-        glide_code:
-          maxLength: 255
-          nullable: true
+        glide_codes:
+          items:
+            maxLength: 18
+            type: string
           title: Glide number
-          type: string
+          type: array
         government_requested_assistance:
           description: Has government requested assistance
           nullable: true
@@ -5710,11 +5712,12 @@ components:
           minimum: -2147483648
           nullable: true
           type: integer
-        glide_code:
-          maxLength: 255
-          nullable: true
+        glide_codes:
+          items:
+            maxLength: 18
+            type: string
           title: Glide number
-          type: string
+          type: array
         government_requested_assistance:
           description: Has government requested assistance
           nullable: true
@@ -6467,11 +6470,12 @@ components:
           minimum: -2147483648
           nullable: true
           type: integer
-        glide_code:
-          maxLength: 255
-          nullable: true
+        glide_codes:
+          items:
+            maxLength: 18
+            type: string
           title: Glide number
-          type: string
+          type: array
         government_requested_assistance:
           description: Has government requested assistance
           nullable: true
@@ -8364,11 +8368,12 @@ components:
           allOf:
           - $ref: '#/components/schemas/EmergencyDrefFinalReport'
           readOnly: true
-        glide_code:
-          maxLength: 255
-          nullable: true
+        glide_codes:
+          items:
+            maxLength: 18
+            type: string
           title: Glide number
-          type: string
+          type: array
         government_requested_assistance:
           description: Has government requested assistance
           nullable: true
@@ -8627,11 +8632,12 @@ components:
         event_scope:
           nullable: true
           type: string
-        glide_code:
-          maxLength: 255
-          nullable: true
+        glide_codes:
+          items:
+            maxLength: 18
+            type: string
           title: Glide number
-          type: string
+          type: array
         government_requested_assistance:
           description: Has government requested assistance
           nullable: true
@@ -8807,11 +8813,12 @@ components:
         event_scope:
           nullable: true
           type: string
-        glide_code:
-          maxLength: 255
-          nullable: true
+        glide_codes:
+          items:
+            maxLength: 18
+            type: string
           title: Glide number
-          type: string
+          type: array
         government_requested_assistance:
           description: Has government requested assistance
           nullable: true
@@ -19763,11 +19770,12 @@ components:
           minimum: -2147483648
           nullable: true
           type: integer
-        glide_code:
-          maxLength: 255
-          nullable: true
+        glide_codes:
+          items:
+            maxLength: 18
+            type: string
           title: Glide number
-          type: string
+          type: array
         government_requested_assistance:
           description: Has government requested assistance
           nullable: true
@@ -20735,11 +20743,12 @@ components:
           minimum: -2147483648
           nullable: true
           type: integer
-        glide_code:
-          maxLength: 255
-          nullable: true
+        glide_codes:
+          items:
+            maxLength: 18
+            type: string
           title: Glide number
-          type: string
+          type: array
         government_requested_assistance:
           description: Has government requested assistance
           nullable: true
@@ -21378,11 +21387,12 @@ components:
           minimum: -2147483648
           nullable: true
           type: integer
-        glide_code:
-          maxLength: 255
-          nullable: true
+        glide_codes:
+          items:
+            maxLength: 18
+            type: string
           title: Glide number
-          type: string
+          type: array
         government_requested_assistance:
           description: Has government requested assistance
           nullable: true
