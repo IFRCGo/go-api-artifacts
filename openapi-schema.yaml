@@ -31447,6 +31447,10 @@ paths:
         name: insight_component_id
         schema:
           type: number
+      - in: query
+        name: event_id
+        schema:
+          type: integer
       - description: A search term.
         in: query
         name: search
