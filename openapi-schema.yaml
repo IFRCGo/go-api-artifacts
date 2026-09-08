@@ -35465,7 +35465,8 @@ paths:
         name: appeal_code_prefix
         schema:
           type: string
-      - description: Region id of the national society.
+      - description: Region id of the national society. A value that is not an id
+          matches nothing.
         in: query
         name: region
         schema:
@@ -35496,7 +35497,8 @@ paths:
           type: string
       - description: 'Lower bound (inclusive) on each stage''s own start date: `date_of_approval`
           for applications, `new_operational_start_date` for operational updates,
-          `operation_start_date` for final reports.'
+          `operation_start_date` for final reports. A value that is not a date matches
+          nothing.'
         in: query
         name: start_date_of_operation
         schema:
@@ -35504,132 +35506,150 @@ paths:
           type: string
       - description: 'Upper bound (inclusive) on each stage''s own end date: `end_date`
           for applications, `new_operational_end_date` for operational updates, `operation_end_date`
-          for final reports.'
+          for final reports. A value that is not a date matches nothing.'
         in: query
         name: end_date_of_operation
         schema:
           format: date
           type: string
-      - description: Lower bound (inclusive) on `event_date`. Constrains Application
+      - description: Lower bound (inclusive) on `event_date`, as `YYYY-MM-DD`. A value
+          that is not a date names no date and matches nothing. Constrains Application
           rows only; rows of other stages are unaffected.
         in: query
         name: event_date_from
         schema:
           format: date
           type: string
-      - description: Upper bound (inclusive) on `event_date`. Constrains Application
+      - description: Upper bound (inclusive) on `event_date`, as `YYYY-MM-DD`. A value
+          that is not a date names no date and matches nothing. Constrains Application
           rows only; rows of other stages are unaffected.
         in: query
         name: event_date_to
         schema:
           format: date
           type: string
-      - description: Lower bound (inclusive) on `ns_respond_date`. Constrains Application
-          rows only; rows of other stages are unaffected.
+      - description: Lower bound (inclusive) on `ns_respond_date`, as `YYYY-MM-DD`.
+          A value that is not a date names no date and matches nothing. Constrains
+          Application rows only; rows of other stages are unaffected.
         in: query
         name: ns_respond_date_from
         schema:
           format: date
           type: string
-      - description: Upper bound (inclusive) on `ns_respond_date`. Constrains Application
-          rows only; rows of other stages are unaffected.
+      - description: Upper bound (inclusive) on `ns_respond_date`, as `YYYY-MM-DD`.
+          A value that is not a date names no date and matches nothing. Constrains
+          Application rows only; rows of other stages are unaffected.
         in: query
         name: ns_respond_date_to
         schema:
           format: date
           type: string
-      - description: Lower bound (inclusive) on `government_requested_assistance_date`.
+      - description: Lower bound (inclusive) on `government_requested_assistance_date`,
+          as `YYYY-MM-DD`. A value that is not a date names no date and matches nothing.
           Constrains Application rows only; rows of other stages are unaffected.
         in: query
         name: government_requested_assistance_date_from
         schema:
           format: date
           type: string
-      - description: Upper bound (inclusive) on `government_requested_assistance_date`.
+      - description: Upper bound (inclusive) on `government_requested_assistance_date`,
+          as `YYYY-MM-DD`. A value that is not a date names no date and matches nothing.
           Constrains Application rows only; rows of other stages are unaffected.
         in: query
         name: government_requested_assistance_date_to
         schema:
           format: date
           type: string
-      - description: Lower bound (inclusive) on `ns_request_date`. Constrains Application
-          rows only; rows of other stages are unaffected.
+      - description: Lower bound (inclusive) on `ns_request_date`, as `YYYY-MM-DD`.
+          A value that is not a date names no date and matches nothing. Constrains
+          Application rows only; rows of other stages are unaffected.
         in: query
         name: ns_request_date_from
         schema:
           format: date
           type: string
-      - description: Upper bound (inclusive) on `ns_request_date`. Constrains Application
-          rows only; rows of other stages are unaffected.
+      - description: Upper bound (inclusive) on `ns_request_date`, as `YYYY-MM-DD`.
+          A value that is not a date names no date and matches nothing. Constrains
+          Application rows only; rows of other stages are unaffected.
         in: query
         name: ns_request_date_to
         schema:
           format: date
           type: string
-      - description: Lower bound (inclusive) on `submission_to_geneva`. Constrains
+      - description: Lower bound (inclusive) on `submission_to_geneva`, as `YYYY-MM-DD`.
+          A value that is not a date names no date and matches nothing. Constrains
           Application rows only; rows of other stages are unaffected.
         in: query
         name: submission_to_geneva_from
         schema:
           format: date
           type: string
-      - description: Upper bound (inclusive) on `submission_to_geneva`. Constrains
+      - description: Upper bound (inclusive) on `submission_to_geneva`, as `YYYY-MM-DD`.
+          A value that is not a date names no date and matches nothing. Constrains
           Application rows only; rows of other stages are unaffected.
         in: query
         name: submission_to_geneva_to
         schema:
           format: date
           type: string
-      - description: Lower bound (inclusive) on `date_of_approval`. Constrains Application
-          rows only; rows of other stages are unaffected.
+      - description: Lower bound (inclusive) on `date_of_approval`, as `YYYY-MM-DD`.
+          A value that is not a date names no date and matches nothing. Constrains
+          Application rows only; rows of other stages are unaffected.
         in: query
         name: date_of_approval_from
         schema:
           format: date
           type: string
-      - description: Upper bound (inclusive) on `date_of_approval`. Constrains Application
-          rows only; rows of other stages are unaffected.
+      - description: Upper bound (inclusive) on `date_of_approval`, as `YYYY-MM-DD`.
+          A value that is not a date names no date and matches nothing. Constrains
+          Application rows only; rows of other stages are unaffected.
         in: query
         name: date_of_approval_to
         schema:
           format: date
           type: string
-      - description: Lower bound (inclusive) on `publishing_date`. Constrains Application
-          rows only; rows of other stages are unaffected.
+      - description: Lower bound (inclusive) on `publishing_date`, as `YYYY-MM-DD`.
+          A value that is not a date names no date and matches nothing. Constrains
+          Application rows only; rows of other stages are unaffected.
         in: query
         name: publishing_date_from
         schema:
           format: date
           type: string
-      - description: Upper bound (inclusive) on `publishing_date`. Constrains Application
-          rows only; rows of other stages are unaffected.
+      - description: Upper bound (inclusive) on `publishing_date`, as `YYYY-MM-DD`.
+          A value that is not a date names no date and matches nothing. Constrains
+          Application rows only; rows of other stages are unaffected.
         in: query
         name: publishing_date_to
         schema:
           format: date
           type: string
-      - description: Lower bound (inclusive) on `hazard_date`. Constrains Application
+      - description: Lower bound (inclusive) on `hazard_date`, as `YYYY-MM-DD`. A
+          value that is not a date names no date and matches nothing. Constrains Application
           rows only; rows of other stages are unaffected.
         in: query
         name: hazard_date_from
         schema:
           format: date
           type: string
-      - description: Upper bound (inclusive) on `hazard_date`. Constrains Application
+      - description: Upper bound (inclusive) on `hazard_date`, as `YYYY-MM-DD`. A
+          value that is not a date names no date and matches nothing. Constrains Application
           rows only; rows of other stages are unaffected.
         in: query
         name: hazard_date_to
         schema:
           format: date
           type: string
-      - description: Lower bound (inclusive) on `end_date`. Constrains Application
+      - description: Lower bound (inclusive) on `end_date`, as `YYYY-MM-DD`. A value
+          that is not a date names no date and matches nothing. Constrains Application
           rows only; rows of other stages are unaffected.
         in: query
         name: end_date_from
         schema:
           format: date
           type: string
-      - description: Upper bound (inclusive) on `end_date`. Constrains Application
+      - description: Upper bound (inclusive) on `end_date`, as `YYYY-MM-DD`. A value
+          that is not a date names no date and matches nothing. Constrains Application
           rows only; rows of other stages are unaffected.
         in: query
         name: end_date_to
@@ -35639,7 +35659,7 @@ paths:
       - description: 'Comma-separated list of stages to include. Case-insensitive,
           accepts aliases: `application`/`app`/`dref`, `operational_update`/`operationalupdate`/`op_update`/`op`/`update`,
           `final_report`/`finalreport`/`final`/`report`. Unknown tokens are ignored;
-          if none are recognised the filter is not applied.'
+          if none are recognised the value names no stage and the result is empty.'
         in: query
         name: stage
         schema:
