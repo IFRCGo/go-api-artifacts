@@ -5817,11 +5817,6 @@ components:
           minimum: 0
           nullable: true
           type: integer
-        indirect_expenditure_cost:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
         is_dref_imminent_v2:
           readOnly: true
           title: Is DREF Imminent V2?
@@ -6056,17 +6051,7 @@ components:
           minimum: 0
           nullable: true
           type: integer
-        sub_total_expenditure_cost:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
         surge_deployment_cost:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
-        surge_deployment_expenditure_cost:
           maximum: 2147483647
           minimum: 0
           nullable: true
@@ -6089,11 +6074,6 @@ components:
         total_dref_allocation:
           maximum: 2147483647
           minimum: -2147483648
-          nullable: true
-          type: integer
-        total_expenditure_cost:
-          maximum: 2147483647
-          minimum: 0
           nullable: true
           type: integer
         total_operation_timeframe:
@@ -10597,17 +10577,6 @@ components:
             $ref: '#/components/schemas/ExternalPartner'
           readOnly: true
           type: array
-        external_source:
-          description: External source system from which this field report created.
-          maxLength: 100
-          nullable: true
-          type: string
-        external_source_id:
-          description: Unique identifier of this field report in the external source
-            system.
-          maxLength: 100
-          nullable: true
-          type: string
         fact:
           allOf:
           - $ref: '#/components/schemas/ApiFieldReportBulletinEnumKey'
@@ -20859,11 +20828,6 @@ components:
           minimum: 0
           nullable: true
           type: integer
-        indirect_expenditure_cost:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
         is_dref_imminent_v2:
           readOnly: true
           title: Is DREF Imminent V2?
@@ -21098,17 +21062,7 @@ components:
           minimum: 0
           nullable: true
           type: integer
-        sub_total_expenditure_cost:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
         surge_deployment_cost:
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          type: integer
-        surge_deployment_expenditure_cost:
           maximum: 2147483647
           minimum: 0
           nullable: true
@@ -21131,11 +21085,6 @@ components:
         total_dref_allocation:
           maximum: 2147483647
           minimum: -2147483648
-          nullable: true
-          type: integer
-        total_expenditure_cost:
-          maximum: 2147483647
-          minimum: 0
           nullable: true
           type: integer
         total_operation_timeframe:
@@ -22608,17 +22557,6 @@ components:
             $ref: '#/components/schemas/ExternalPartner'
           readOnly: true
           type: array
-        external_source:
-          description: External source system from which this field report created.
-          maxLength: 100
-          nullable: true
-          type: string
-        external_source_id:
-          description: Unique identifier of this field report in the external source
-            system.
-          maxLength: 100
-          nullable: true
-          type: string
         fact:
           allOf:
           - $ref: '#/components/schemas/ApiFieldReportBulletinEnumKey'
@@ -26954,13 +26892,6 @@ components:
           readOnly: true
           type: string
         total_budget:
-          type: integer
-        total_expenditure:
-          description: Total expenditure for the proposed action
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-          title: Expenditure
           type: integer
       required:
       - proposed_type
