@@ -4268,7 +4268,7 @@ components:
           type: string
         amount_requested:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         anticipatory_actions:
@@ -4290,7 +4290,7 @@ components:
         boys:
           description: Boys under 18
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         budget_file:
@@ -4380,6 +4380,8 @@ components:
         disability_people_per:
           description: Estimated % people disability
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         disaster_category:
@@ -4410,7 +4412,7 @@ components:
         displaced_people:
           description: Estimated number of displaced people
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         district:
@@ -4445,22 +4447,22 @@ components:
           type: string
         estimated_number_of_affected_boys_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_female:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_girls_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_male:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         event:
@@ -4495,7 +4497,7 @@ components:
         girls:
           description: Girls under 18
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         glide_codes:
@@ -4572,9 +4574,13 @@ components:
           title: Ifrc [en]
           type: string
         ifrc_appeal_manager_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_appeal_manager_name:
           maxLength: 255
           nullable: true
@@ -4588,9 +4594,13 @@ components:
           nullable: true
           type: string
         ifrc_emergency_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_emergency_name:
           maxLength: 255
           nullable: true
@@ -4604,9 +4614,13 @@ components:
           nullable: true
           type: string
         ifrc_project_manager_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_project_manager_name:
           maxLength: 255
           nullable: true
@@ -4671,9 +4685,13 @@ components:
           title: Major coordination mechanism [en]
           type: string
         media_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         media_contact_name:
           maxLength: 255
           nullable: true
@@ -4688,7 +4706,7 @@ components:
           type: string
         men:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         modified_at:
@@ -4713,9 +4731,13 @@ components:
             $ref: '#/components/schemas/NationalSocietyAction'
           type: array
         national_society_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         national_society_contact_name:
           maxLength: 255
           nullable: true
@@ -4733,9 +4755,13 @@ components:
           nullable: true
           type: string
         national_society_integrity_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         national_society_integrity_contact_name:
           maxLength: 255
           nullable: true
@@ -4767,13 +4793,13 @@ components:
           type: string
         num_affected:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of affected
           type: integer
         num_assisted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of assisted
           type: integer
@@ -4784,12 +4810,12 @@ components:
           type: string
         operation_timeframe:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         operation_timeframe_imminent:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Operation timeframe for imminent type
           type: integer
@@ -4799,9 +4825,13 @@ components:
           readOnly: true
           type: array
         originator_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         originator_name:
           maxLength: 255
           nullable: true
@@ -4824,23 +4854,27 @@ components:
           type: string
         people_in_need:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         people_per_local:
           description: Estimated % people Rural
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         people_per_urban:
           description: Estimated % people Urban
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         people_targeted_with_early_actions:
           description: Number of persons targeted with early actions
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         planned_interventions:
@@ -4861,9 +4895,13 @@ components:
           nullable: true
           type: string
         regional_focal_point_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         regional_focal_point_name:
           maxLength: 255
           nullable: true
@@ -4962,7 +5000,6 @@ components:
           readOnly: true
         title:
           maxLength: 255
-          nullable: true
           title: Title [en]
           type: string
         title_prefix:
@@ -4978,7 +5015,7 @@ components:
         total_targeted_population:
           description: Estimated number of targeted people
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         translation_module_original_language:
@@ -4994,7 +5031,6 @@ components:
           - $ref: '#/components/schemas/DrefDrefDrefTypeEnumKey'
           maximum: 2147483647
           minimum: -2147483648
-          nullable: true
           title: Dref type
         type_of_dref_display:
           readOnly: true
@@ -5004,7 +5040,6 @@ components:
           - $ref: '#/components/schemas/DrefDrefOnsetTypeEnumKey'
           maximum: 2147483647
           minimum: -2147483648
-          nullable: true
           title: Onset type
         type_of_onset_display:
           readOnly: true
@@ -5020,7 +5055,7 @@ components:
           type: array
         women:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
       required:
@@ -5049,6 +5084,7 @@ components:
       - status_display
       - supporting_document_details
       - targeting_strategy_support_file_details
+      - title
       - translation_module_original_language
       - type_of_dref_display
       - type_of_onset_display
@@ -5535,32 +5571,32 @@ components:
           readOnly: true
         assisted_num_of_boys_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of boys under 18 assisted
           type: integer
         assisted_num_of_girls_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of girls under 18 assisted
           type: integer
         assisted_num_of_men:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of men assisted
           type: integer
         assisted_num_of_women:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of women assisted
           type: integer
         boys:
           description: Boys under 18
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         change_in_operational_strategy:
@@ -5610,6 +5646,8 @@ components:
           type: boolean
         disability_people_per:
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         disaster_category:
@@ -5630,7 +5668,7 @@ components:
           readOnly: true
         displaced_people:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         district:
@@ -5650,22 +5688,22 @@ components:
           type: string
         estimated_number_of_affected_boys_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_female:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_girls_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_male:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         event_date:
@@ -5709,7 +5747,7 @@ components:
         girls:
           description: Girls under 18
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         glide_codes:
@@ -5760,9 +5798,13 @@ components:
           title: Ifrc [en]
           type: string
         ifrc_appeal_manager_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_appeal_manager_name:
           maxLength: 255
           nullable: true
@@ -5776,9 +5818,13 @@ components:
           nullable: true
           type: string
         ifrc_emergency_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_emergency_name:
           maxLength: 255
           nullable: true
@@ -5792,9 +5838,13 @@ components:
           nullable: true
           type: string
         ifrc_project_manager_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_project_manager_name:
           maxLength: 255
           nullable: true
@@ -5838,9 +5888,13 @@ components:
           title: Major coordination mechanism [en]
           type: string
         media_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         media_contact_name:
           maxLength: 255
           nullable: true
@@ -5855,7 +5909,7 @@ components:
           type: string
         men:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         mitigation_efforts_and_achievements:
@@ -5889,9 +5943,13 @@ components:
           title: National Society conducted description [en]
           type: string
         national_society_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         national_society_contact_name:
           maxLength: 255
           nullable: true
@@ -5909,9 +5967,13 @@ components:
           nullable: true
           type: string
         national_society_integrity_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         national_society_integrity_contact_name:
           maxLength: 255
           nullable: true
@@ -5935,18 +5997,18 @@ components:
           type: string
         num_assisted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of assisted
           type: integer
         number_of_people_affected:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         number_of_people_targeted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         operation_end_date:
@@ -5971,20 +6033,24 @@ components:
           type: string
         people_in_need:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         people_per_local:
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         people_per_urban:
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         people_targeted_with_early_actions:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         photos_file:
@@ -6001,9 +6067,13 @@ components:
             $ref: '#/components/schemas/ProposedAction'
           type: array
         regional_focal_point_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         regional_focal_point_name:
           maxLength: 255
           nullable: true
@@ -6073,23 +6143,23 @@ components:
           type: integer
         total_dref_allocation:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         total_operation_timeframe:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         total_operation_timeframe_imminent:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Total operation timeframe for imminent type
           type: integer
         total_targeted_population:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         translation_module_original_language:
@@ -6133,7 +6203,7 @@ components:
           type: boolean
         women:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
       required:
@@ -6256,7 +6326,7 @@ components:
       properties:
         additional_allocation:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         anticipatory_actions:
@@ -6282,7 +6352,7 @@ components:
         boys:
           description: Boys under 18
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         budget_file:
@@ -6359,6 +6429,8 @@ components:
         disability_people_per:
           description: Estimated % people disability
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         disaster_category:
@@ -6379,7 +6451,7 @@ components:
           readOnly: true
         displaced_people:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         district:
@@ -6395,7 +6467,7 @@ components:
           type: integer
         dref_allocated_so_far:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         emergency_appeal_planned:
@@ -6407,22 +6479,22 @@ components:
           type: string
         estimated_number_of_affected_boys_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_female:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_girls_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_male:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         event_date:
@@ -6447,7 +6519,7 @@ components:
         girls:
           description: Girls under 18
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         glide_codes:
@@ -6514,9 +6586,13 @@ components:
           title: Ifrc [en]
           type: string
         ifrc_appeal_manager_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_appeal_manager_name:
           maxLength: 255
           nullable: true
@@ -6530,9 +6606,13 @@ components:
           nullable: true
           type: string
         ifrc_emergency_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_emergency_name:
           maxLength: 255
           nullable: true
@@ -6546,9 +6626,13 @@ components:
           nullable: true
           type: string
         ifrc_project_manager_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_project_manager_name:
           maxLength: 255
           nullable: true
@@ -6598,9 +6682,13 @@ components:
           title: Major coordination mechanism [en]
           type: string
         media_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         media_contact_name:
           maxLength: 255
           nullable: true
@@ -6615,7 +6703,7 @@ components:
           type: string
         men:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         modified_at:
@@ -6641,9 +6729,13 @@ components:
             $ref: '#/components/schemas/NationalSocietyAction'
           type: array
         national_society_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         national_society_contact_name:
           maxLength: 255
           nullable: true
@@ -6661,9 +6753,13 @@ components:
           nullable: true
           type: string
         national_society_integrity_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         national_society_integrity_contact_name:
           maxLength: 255
           nullable: true
@@ -6700,12 +6796,12 @@ components:
           type: string
         number_of_people_affected:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         number_of_people_targeted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         operation_objective:
@@ -6726,22 +6822,26 @@ components:
           type: string
         people_in_need:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         people_per_local:
           description: Estimated % people Rural
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         people_per_urban:
           description: Estimated % people Urban
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         people_targeted_with_early_actions:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         photos_file:
@@ -6759,9 +6859,13 @@ components:
           title: Pmer [en]
           type: string
         regional_focal_point_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         regional_focal_point_name:
           maxLength: 255
           nullable: true
@@ -6848,17 +6952,17 @@ components:
           type: string
         total_dref_allocation:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         total_operation_timeframe:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         total_targeted_population:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         translation_module_original_language:
@@ -6904,7 +7008,7 @@ components:
           type: array
         women:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
       required:
@@ -8253,7 +8357,7 @@ components:
       properties:
         amount_requested:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         appeal_code:
@@ -8263,7 +8367,7 @@ components:
         boys:
           description: Boys under 18
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         country_details:
@@ -8314,22 +8418,22 @@ components:
           type: string
         estimated_number_of_affected_boys_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_female:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_girls_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_male:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         event_date:
@@ -8377,7 +8481,7 @@ components:
           type: integer
         men:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         needs_identified:
@@ -8387,13 +8491,13 @@ components:
           type: array
         num_affected:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of affected
           type: integer
         num_assisted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of assisted
           type: integer
@@ -8407,7 +8511,7 @@ components:
         people_targeted_with_early_actions:
           description: Number of persons targeted with early actions
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         planned_interventions:
@@ -8448,7 +8552,7 @@ components:
         total_targeted_population:
           description: Estimated number of targeted people
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         type_of_dref:
@@ -8463,7 +8567,7 @@ components:
           type: string
         women:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
       required:
@@ -8514,32 +8618,32 @@ components:
           type: string
         assisted_num_of_boys_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of boys under 18 assisted
           type: integer
         assisted_num_of_girls_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of girls under 18 assisted
           type: integer
         assisted_num_of_men:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of men assisted
           type: integer
         assisted_num_of_women:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of women assisted
           type: integer
         boys:
           description: Boys under 18
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         country_details:
@@ -8583,22 +8687,22 @@ components:
           type: array
         estimated_number_of_affected_boys_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_female:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_girls_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_male:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         event_date:
@@ -8627,7 +8731,7 @@ components:
           type: integer
         men:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         modified_at:
@@ -8641,18 +8745,18 @@ components:
           type: array
         num_assisted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of assisted
           type: integer
         number_of_people_affected:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         number_of_people_targeted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         operation_end_date:
@@ -8668,7 +8772,7 @@ components:
           type: string
         people_targeted_with_early_actions:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         planned_interventions:
@@ -8694,17 +8798,17 @@ components:
           type: string
         total_dref_allocation:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         total_targeted_population:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         women:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
       required:
@@ -8729,7 +8833,7 @@ components:
         boys:
           description: Boys under 18
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         country_details:
@@ -8765,22 +8869,22 @@ components:
           type: array
         estimated_number_of_affected_boys_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_female:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_girls_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_male:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         event_date:
@@ -8808,7 +8912,7 @@ components:
           type: integer
         men:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         needs_identified:
@@ -8828,12 +8932,12 @@ components:
           type: string
         number_of_people_affected:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         number_of_people_targeted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         operational_update_number:
@@ -8846,7 +8950,7 @@ components:
           type: string
         people_targeted_with_early_actions:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         planned_interventions:
@@ -8871,12 +8975,12 @@ components:
           type: string
         total_dref_allocation:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         total_targeted_population:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         update_date:
@@ -8885,7 +8989,7 @@ components:
           type: string
         women:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
       required:
@@ -19520,7 +19624,7 @@ components:
           type: string
         amount_requested:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         anticipatory_actions:
@@ -19542,7 +19646,7 @@ components:
         boys:
           description: Boys under 18
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         budget_file:
@@ -19632,6 +19736,8 @@ components:
         disability_people_per:
           description: Estimated % people disability
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         disaster_category:
@@ -19662,7 +19768,7 @@ components:
         displaced_people:
           description: Estimated number of displaced people
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         district:
@@ -19697,22 +19803,22 @@ components:
           type: string
         estimated_number_of_affected_boys_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_female:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_girls_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_male:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         event:
@@ -19747,7 +19853,7 @@ components:
         girls:
           description: Girls under 18
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         glide_codes:
@@ -19824,9 +19930,13 @@ components:
           title: Ifrc [en]
           type: string
         ifrc_appeal_manager_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_appeal_manager_name:
           maxLength: 255
           nullable: true
@@ -19840,9 +19950,13 @@ components:
           nullable: true
           type: string
         ifrc_emergency_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_emergency_name:
           maxLength: 255
           nullable: true
@@ -19856,9 +19970,13 @@ components:
           nullable: true
           type: string
         ifrc_project_manager_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_project_manager_name:
           maxLength: 255
           nullable: true
@@ -19923,9 +20041,13 @@ components:
           title: Major coordination mechanism [en]
           type: string
         media_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         media_contact_name:
           maxLength: 255
           nullable: true
@@ -19940,7 +20062,7 @@ components:
           type: string
         men:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         modified_at:
@@ -19965,9 +20087,13 @@ components:
             $ref: '#/components/schemas/NationalSocietyAction'
           type: array
         national_society_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         national_society_contact_name:
           maxLength: 255
           nullable: true
@@ -19985,9 +20111,13 @@ components:
           nullable: true
           type: string
         national_society_integrity_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         national_society_integrity_contact_name:
           maxLength: 255
           nullable: true
@@ -20019,13 +20149,13 @@ components:
           type: string
         num_affected:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of affected
           type: integer
         num_assisted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of assisted
           type: integer
@@ -20036,12 +20166,12 @@ components:
           type: string
         operation_timeframe:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         operation_timeframe_imminent:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Operation timeframe for imminent type
           type: integer
@@ -20051,9 +20181,13 @@ components:
           readOnly: true
           type: array
         originator_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         originator_name:
           maxLength: 255
           nullable: true
@@ -20076,23 +20210,27 @@ components:
           type: string
         people_in_need:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         people_per_local:
           description: Estimated % people Rural
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         people_per_urban:
           description: Estimated % people Urban
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         people_targeted_with_early_actions:
           description: Number of persons targeted with early actions
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         planned_interventions:
@@ -20113,9 +20251,13 @@ components:
           nullable: true
           type: string
         regional_focal_point_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         regional_focal_point_name:
           maxLength: 255
           nullable: true
@@ -20214,7 +20356,6 @@ components:
           readOnly: true
         title:
           maxLength: 255
-          nullable: true
           title: Title [en]
           type: string
         title_prefix:
@@ -20230,7 +20371,7 @@ components:
         total_targeted_population:
           description: Estimated number of targeted people
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         translation_module_original_language:
@@ -20246,7 +20387,6 @@ components:
           - $ref: '#/components/schemas/DrefDrefDrefTypeEnumKey'
           maximum: 2147483647
           minimum: -2147483648
-          nullable: true
           title: Dref type
         type_of_dref_display:
           readOnly: true
@@ -20256,7 +20396,6 @@ components:
           - $ref: '#/components/schemas/DrefDrefOnsetTypeEnumKey'
           maximum: 2147483647
           minimum: -2147483648
-          nullable: true
           title: Onset type
         type_of_onset_display:
           readOnly: true
@@ -20272,7 +20411,7 @@ components:
           type: array
         women:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
       type: object
@@ -20546,32 +20685,32 @@ components:
           readOnly: true
         assisted_num_of_boys_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of boys under 18 assisted
           type: integer
         assisted_num_of_girls_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of girls under 18 assisted
           type: integer
         assisted_num_of_men:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of men assisted
           type: integer
         assisted_num_of_women:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of women assisted
           type: integer
         boys:
           description: Boys under 18
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         change_in_operational_strategy:
@@ -20621,6 +20760,8 @@ components:
           type: boolean
         disability_people_per:
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         disaster_category:
@@ -20641,7 +20782,7 @@ components:
           readOnly: true
         displaced_people:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         district:
@@ -20661,22 +20802,22 @@ components:
           type: string
         estimated_number_of_affected_boys_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_female:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_girls_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_male:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         event_date:
@@ -20720,7 +20861,7 @@ components:
         girls:
           description: Girls under 18
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         glide_codes:
@@ -20771,9 +20912,13 @@ components:
           title: Ifrc [en]
           type: string
         ifrc_appeal_manager_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_appeal_manager_name:
           maxLength: 255
           nullable: true
@@ -20787,9 +20932,13 @@ components:
           nullable: true
           type: string
         ifrc_emergency_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_emergency_name:
           maxLength: 255
           nullable: true
@@ -20803,9 +20952,13 @@ components:
           nullable: true
           type: string
         ifrc_project_manager_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_project_manager_name:
           maxLength: 255
           nullable: true
@@ -20849,9 +21002,13 @@ components:
           title: Major coordination mechanism [en]
           type: string
         media_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         media_contact_name:
           maxLength: 255
           nullable: true
@@ -20866,7 +21023,7 @@ components:
           type: string
         men:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         mitigation_efforts_and_achievements:
@@ -20900,9 +21057,13 @@ components:
           title: National Society conducted description [en]
           type: string
         national_society_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         national_society_contact_name:
           maxLength: 255
           nullable: true
@@ -20920,9 +21081,13 @@ components:
           nullable: true
           type: string
         national_society_integrity_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         national_society_integrity_contact_name:
           maxLength: 255
           nullable: true
@@ -20946,18 +21111,18 @@ components:
           type: string
         num_assisted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Number of assisted
           type: integer
         number_of_people_affected:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         number_of_people_targeted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         operation_end_date:
@@ -20982,20 +21147,24 @@ components:
           type: string
         people_in_need:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         people_per_local:
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         people_per_urban:
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         people_targeted_with_early_actions:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         photos_file:
@@ -21012,9 +21181,13 @@ components:
             $ref: '#/components/schemas/ProposedAction'
           type: array
         regional_focal_point_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         regional_focal_point_name:
           maxLength: 255
           nullable: true
@@ -21084,23 +21257,23 @@ components:
           type: integer
         total_dref_allocation:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         total_operation_timeframe:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         total_operation_timeframe_imminent:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           title: Total operation timeframe for imminent type
           type: integer
         total_targeted_population:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         translation_module_original_language:
@@ -21144,7 +21317,7 @@ components:
           type: boolean
         women:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
       type: object
@@ -21153,7 +21326,7 @@ components:
       properties:
         additional_allocation:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         anticipatory_actions:
@@ -21179,7 +21352,7 @@ components:
         boys:
           description: Boys under 18
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         budget_file:
@@ -21256,6 +21429,8 @@ components:
         disability_people_per:
           description: Estimated % people disability
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         disaster_category:
@@ -21276,7 +21451,7 @@ components:
           readOnly: true
         displaced_people:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         district:
@@ -21292,7 +21467,7 @@ components:
           type: integer
         dref_allocated_so_far:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         emergency_appeal_planned:
@@ -21304,22 +21479,22 @@ components:
           type: string
         estimated_number_of_affected_boys_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_female:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_girls_under_18:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         estimated_number_of_affected_male:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         event_date:
@@ -21344,7 +21519,7 @@ components:
         girls:
           description: Girls under 18
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         glide_codes:
@@ -21411,9 +21586,13 @@ components:
           title: Ifrc [en]
           type: string
         ifrc_appeal_manager_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_appeal_manager_name:
           maxLength: 255
           nullable: true
@@ -21427,9 +21606,13 @@ components:
           nullable: true
           type: string
         ifrc_emergency_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_emergency_name:
           maxLength: 255
           nullable: true
@@ -21443,9 +21626,13 @@ components:
           nullable: true
           type: string
         ifrc_project_manager_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         ifrc_project_manager_name:
           maxLength: 255
           nullable: true
@@ -21495,9 +21682,13 @@ components:
           title: Major coordination mechanism [en]
           type: string
         media_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         media_contact_name:
           maxLength: 255
           nullable: true
@@ -21512,7 +21703,7 @@ components:
           type: string
         men:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         modified_at:
@@ -21538,9 +21729,13 @@ components:
             $ref: '#/components/schemas/NationalSocietyAction'
           type: array
         national_society_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         national_society_contact_name:
           maxLength: 255
           nullable: true
@@ -21558,9 +21753,13 @@ components:
           nullable: true
           type: string
         national_society_integrity_contact_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         national_society_integrity_contact_name:
           maxLength: 255
           nullable: true
@@ -21597,12 +21796,12 @@ components:
           type: string
         number_of_people_affected:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         number_of_people_targeted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         operation_objective:
@@ -21623,22 +21822,26 @@ components:
           type: string
         people_in_need:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         people_per_local:
           description: Estimated % people Rural
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         people_per_urban:
           description: Estimated % people Urban
           format: double
+          maximum: 100
+          minimum: 0
           nullable: true
           type: number
         people_targeted_with_early_actions:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         photos_file:
@@ -21656,9 +21859,13 @@ components:
           title: Pmer [en]
           type: string
         regional_focal_point_email:
-          maxLength: 255
           nullable: true
-          type: string
+          oneOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - maxLength: 0
+            type: string
         regional_focal_point_name:
           maxLength: 255
           nullable: true
@@ -21745,17 +21952,17 @@ components:
           type: string
         total_dref_allocation:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         total_operation_timeframe:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         total_targeted_population:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         translation_module_original_language:
@@ -21801,7 +22008,7 @@ components:
           type: array
         women:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
       type: object
@@ -25838,7 +26045,7 @@ components:
       properties:
         budget:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         challenges:
@@ -25851,7 +26058,7 @@ components:
           type: string
         female:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         id:
@@ -25869,7 +26076,7 @@ components:
           type: string
         male:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         narrative_description_of_achievements:
@@ -25878,12 +26085,12 @@ components:
           type: string
         person_assisted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         person_targeted:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         progress_towards_outcome:
@@ -25915,14 +26122,14 @@ components:
       properties:
         actual:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         id:
           type: integer
         target:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         title:
@@ -26892,6 +27099,7 @@ components:
           readOnly: true
           type: string
         total_budget:
+          minimum: 0
           type: integer
       required:
       - proposed_type
@@ -29445,12 +29653,12 @@ components:
           type: string
         total_dref_allocation:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
         total_targeted_population:
           maximum: 2147483647
-          minimum: -2147483648
+          minimum: 0
           nullable: true
           type: integer
       required:
