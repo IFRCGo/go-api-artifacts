@@ -4492,27 +4492,6 @@ components:
           allOf:
           - $ref: '#/components/schemas/MiniDrefFinalReport'
           readOnly: true
-        final_report_due_date:
-          format: date
-          nullable: true
-          type: string
-        final_report_implementation_end_alert_sent_at:
-          format: date-time
-          nullable: true
-          type: string
-        final_report_overdue_alert_sent_at:
-          format: date-time
-          nullable: true
-          type: string
-        final_report_recurring_overdue_alert_sent_at:
-          format: date-time
-          nullable: true
-          title: Final report recurring overdue alert last sent at
-          type: string
-        final_report_reminder_alert_sent_at:
-          format: date-time
-          nullable: true
-          type: string
         girls:
           description: Girls under 18
           maximum: 2147483647
@@ -19846,27 +19825,6 @@ components:
           allOf:
           - $ref: '#/components/schemas/MiniDrefFinalReport'
           readOnly: true
-        final_report_due_date:
-          format: date
-          nullable: true
-          type: string
-        final_report_implementation_end_alert_sent_at:
-          format: date-time
-          nullable: true
-          type: string
-        final_report_overdue_alert_sent_at:
-          format: date-time
-          nullable: true
-          type: string
-        final_report_recurring_overdue_alert_sent_at:
-          format: date-time
-          nullable: true
-          title: Final report recurring overdue alert last sent at
-          type: string
-        final_report_reminder_alert_sent_at:
-          format: date-time
-          nullable: true
-          type: string
         girls:
           description: Girls under 18
           maximum: 2147483647
@@ -27893,6 +27851,9 @@ components:
             $ref: '#/components/schemas/SearchSurgeDeployment'
           nullable: true
           type: array
+        url:
+          nullable: true
+          type: string
       type: object
     SearchCountry:
       properties:
@@ -27950,6 +27911,9 @@ components:
           type: string
         funding_requirements:
           type: string
+        glide:
+          nullable: true
+          type: string
         id:
           type: integer
         name:
@@ -27980,6 +27944,9 @@ components:
     SearchMiniAppeal:
       properties:
         atype:
+          type: string
+        code:
+          nullable: true
           type: string
         id:
           type: integer
