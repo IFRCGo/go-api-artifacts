@@ -27851,9 +27851,10 @@ components:
             $ref: '#/components/schemas/SearchSurgeDeployment'
           nullable: true
           type: array
-        url:
-          nullable: true
-          type: string
+        urls:
+          items:
+            type: string
+          type: array
       type: object
     SearchCountry:
       properties:
