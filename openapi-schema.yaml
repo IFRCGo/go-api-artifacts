@@ -27851,10 +27851,6 @@ components:
             $ref: '#/components/schemas/SearchSurgeDeployment'
           nullable: true
           type: array
-        urls:
-          items:
-            type: string
-          type: array
       type: object
     SearchCountry:
       properties:
@@ -27912,9 +27908,6 @@ components:
           type: string
         funding_requirements:
           type: string
-        glide:
-          nullable: true
-          type: string
         id:
           type: integer
         name:
@@ -27945,9 +27938,6 @@ components:
     SearchMiniAppeal:
       properties:
         atype:
-          type: string
-        code:
-          nullable: true
           type: string
         id:
           type: integer
@@ -29737,20 +29727,38 @@ paths:
           - csv
           - json
           type: string
-      - in: query
+      - description: |-
+          * `appeal` - appeal
+          * `event` - event
+          * `fieldreport` - fieldreport
+          * `heop` - heop
+        in: query
+        name: model_type
+        required: true
+        schema:
+          enum:
+          - appeal
+          - event
+          - fieldreport
+          - heop
+          minLength: 1
+          type: string
+      - description: |-
+          * `month` - month
+          * `year` - year
+        in: query
         name: unit
         schema:
+          default: year
+          enum:
+          - month
+          - year
           minLength: 1
           type: string
       - in: query
         name: start_date
         schema:
-          format: date-time
-          type: string
-      - in: query
-        name: mtype
-        schema:
-          minLength: 1
+          format: date
           type: string
       - in: query
         name: country
@@ -29760,6 +29768,36 @@ paths:
         name: region
         schema:
           type: integer
+      - description: |-
+          * `0` - DREF
+          * `1` - Emergency Appeal
+          * `2` - International Appeal
+          * `3` - Forecast Based Action
+        in: query
+        name: filter_atype
+        schema:
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          type: integer
+      - description: '* `amount_funded` - amount_funded'
+        in: query
+        name: sum_amount_funded
+        schema:
+          enum:
+          - amount_funded
+          minLength: 1
+          type: string
+      - description: '* `num_beneficiaries` - num_beneficiaries'
+        in: query
+        name: sum_beneficiaries
+        schema:
+          enum:
+          - num_beneficiaries
+          minLength: 1
+          type: string
       responses:
         '200':
           content:
