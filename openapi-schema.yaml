@@ -27851,10 +27851,6 @@ components:
             $ref: '#/components/schemas/SearchSurgeDeployment'
           nullable: true
           type: array
-        urls:
-          items:
-            $ref: '#/components/schemas/SearchPredefinedLink'
-          type: array
       type: object
     SearchCountry:
       properties:
@@ -27964,16 +27960,6 @@ components:
       required:
       - id
       - name
-      type: object
-    SearchPredefinedLink:
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-      required:
-      - name
-      - url
       type: object
     SearchProjects:
       properties:
