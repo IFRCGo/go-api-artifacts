@@ -4492,27 +4492,6 @@ components:
           allOf:
           - $ref: '#/components/schemas/MiniDrefFinalReport'
           readOnly: true
-        final_report_due_date:
-          format: date
-          nullable: true
-          type: string
-        final_report_implementation_end_alert_sent_at:
-          format: date-time
-          nullable: true
-          type: string
-        final_report_overdue_alert_sent_at:
-          format: date-time
-          nullable: true
-          type: string
-        final_report_recurring_overdue_alert_sent_at:
-          format: date-time
-          nullable: true
-          title: Final report recurring overdue alert last sent at
-          type: string
-        final_report_reminder_alert_sent_at:
-          format: date-time
-          nullable: true
-          type: string
         girls:
           description: Girls under 18
           maximum: 2147483647
@@ -19846,27 +19825,6 @@ components:
           allOf:
           - $ref: '#/components/schemas/MiniDrefFinalReport'
           readOnly: true
-        final_report_due_date:
-          format: date
-          nullable: true
-          type: string
-        final_report_implementation_end_alert_sent_at:
-          format: date-time
-          nullable: true
-          type: string
-        final_report_overdue_alert_sent_at:
-          format: date-time
-          nullable: true
-          type: string
-        final_report_recurring_overdue_alert_sent_at:
-          format: date-time
-          nullable: true
-          title: Final report recurring overdue alert last sent at
-          type: string
-        final_report_reminder_alert_sent_at:
-          format: date-time
-          nullable: true
-          type: string
         girls:
           description: Girls under 18
           maximum: 2147483647
@@ -29775,20 +29733,38 @@ paths:
           - csv
           - json
           type: string
-      - in: query
+      - description: |-
+          * `appeal` - appeal
+          * `event` - event
+          * `fieldreport` - fieldreport
+          * `heop` - heop
+        in: query
+        name: model_type
+        required: true
+        schema:
+          enum:
+          - appeal
+          - event
+          - fieldreport
+          - heop
+          minLength: 1
+          type: string
+      - description: |-
+          * `month` - month
+          * `year` - year
+        in: query
         name: unit
         schema:
+          default: year
+          enum:
+          - month
+          - year
           minLength: 1
           type: string
       - in: query
         name: start_date
         schema:
-          format: date-time
-          type: string
-      - in: query
-        name: mtype
-        schema:
-          minLength: 1
+          format: date
           type: string
       - in: query
         name: country
@@ -29798,6 +29774,36 @@ paths:
         name: region
         schema:
           type: integer
+      - description: |-
+          * `0` - DREF
+          * `1` - Emergency Appeal
+          * `2` - International Appeal
+          * `3` - Forecast Based Action
+        in: query
+        name: filter_atype
+        schema:
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          type: integer
+      - description: '* `amount_funded` - amount_funded'
+        in: query
+        name: sum_amount_funded
+        schema:
+          enum:
+          - amount_funded
+          minLength: 1
+          type: string
+      - description: '* `num_beneficiaries` - num_beneficiaries'
+        in: query
+        name: sum_beneficiaries
+        schema:
+          enum:
+          - num_beneficiaries
+          minLength: 1
+          type: string
       responses:
         '200':
           content:
