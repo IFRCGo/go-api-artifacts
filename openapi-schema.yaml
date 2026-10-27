@@ -7483,6 +7483,9 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        include_rcrc_climate_center:
+          title: Include RCRC Climate Center.
+          type: boolean
         latest_full_eap:
           nullable: true
           readOnly: true
@@ -8328,7 +8331,6 @@ components:
           default: false
           type: boolean
         activity:
-          maxLength: 255
           type: string
         id:
           type: integer
@@ -16686,7 +16688,6 @@ components:
           readOnly: true
           type: boolean
         activity:
-          maxLength: 255
           type: string
         id:
           type: integer
@@ -21820,6 +21821,9 @@ components:
           maxLength: 255
           nullable: true
           type: string
+        include_rcrc_climate_center:
+          title: Include RCRC Climate Center.
+          type: boolean
         latest_full_eap:
           nullable: true
           readOnly: true
@@ -25916,7 +25920,6 @@ components:
           default: false
           type: boolean
         activity:
-          maxLength: 255
           type: string
         id:
           type: integer
