@@ -25049,6 +25049,196 @@ components:
       - partially_exists
       - does_not_exist
       type: string
+    PerDashboardComponent:
+      properties:
+        area_id:
+          nullable: true
+          type: integer
+        area_name:
+          nullable: true
+          type: string
+        area_num:
+          nullable: true
+          type: integer
+        assessments:
+          items:
+            $ref: '#/components/schemas/PerDashboardComponentAssessment'
+          type: array
+        component_id:
+          type: integer
+        component_letter:
+          nullable: true
+          type: string
+        component_name:
+          nullable: true
+          type: string
+        component_num:
+          type: integer
+        is_parent:
+          type: boolean
+      required:
+      - area_id
+      - area_name
+      - area_num
+      - assessments
+      - component_id
+      - component_letter
+      - component_name
+      - component_num
+      - is_parent
+      type: object
+    PerDashboardComponentAssessment:
+      properties:
+        assessment_id:
+          type: integer
+        assessment_method:
+          nullable: true
+          type: string
+        assessment_number:
+          nullable: true
+          type: integer
+        country_id:
+          nullable: true
+          type: integer
+        country_iso3:
+          nullable: true
+          type: string
+        country_name:
+          nullable: true
+          type: string
+        date_of_assessment:
+          format: date
+          nullable: true
+          type: string
+        process_id:
+          nullable: true
+          type: integer
+        rating_title:
+          nullable: true
+          type: string
+        rating_value:
+          nullable: true
+          type: integer
+        region_id:
+          nullable: true
+          type: integer
+        type_of_assessment:
+          nullable: true
+          type: integer
+        updated_at:
+          format: date-time
+          nullable: true
+          type: string
+      required:
+      - assessment_id
+      - assessment_method
+      - assessment_number
+      - country_id
+      - country_iso3
+      - country_name
+      - date_of_assessment
+      - process_id
+      - rating_title
+      - rating_value
+      - region_id
+      - type_of_assessment
+      - updated_at
+      type: object
+    PerDashboardCountryAssessment:
+      properties:
+        assessment_id:
+          nullable: true
+          type: integer
+        assessment_method:
+          nullable: true
+          type: string
+        assessment_number:
+          type: integer
+        country_id:
+          nullable: true
+          type: integer
+        country_iso3:
+          nullable: true
+          type: string
+        country_name:
+          nullable: true
+          type: string
+        date:
+          format: date
+          nullable: true
+          type: string
+        date_of_assessment:
+          format: date
+          nullable: true
+          type: string
+        phase:
+          nullable: true
+          type: integer
+        process_id:
+          type: integer
+        region_id:
+          nullable: true
+          type: integer
+        type_of_assessment:
+          nullable: true
+          type: integer
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - assessment_id
+      - assessment_method
+      - assessment_number
+      - country_id
+      - country_iso3
+      - country_name
+      - date
+      - date_of_assessment
+      - phase
+      - process_id
+      - region_id
+      - type_of_assessment
+      - updated_at
+      type: object
+    PerDashboardData:
+      properties:
+        assessments:
+          items:
+            $ref: '#/components/schemas/PerDashboardComponent'
+          type: array
+        countryAssessments:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/PerDashboardCountryAssessment'
+            type: array
+          type: object
+      required:
+      - assessments
+      - countryAssessments
+      type: object
+    PerDashboardPrioritizedComponent:
+      properties:
+        areaNum:
+          nullable: true
+          type: integer
+        areaTitle:
+          nullable: true
+          type: string
+        componentId:
+          type: integer
+        componentTitle:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+      required:
+      - areaNum
+      - areaTitle
+      - componentId
+      - componentTitle
+      - description
+      type: object
     PerDocumentUpload:
       properties:
         country:
@@ -25133,6 +25323,101 @@ components:
       - 1
       - 2
       type: integer
+    PerMapData:
+      properties:
+        processes:
+          items:
+            $ref: '#/components/schemas/PerMapDataProcess'
+          type: array
+      required:
+      - processes
+      type: object
+    PerMapDataProcess:
+      properties:
+        assessment_method:
+          nullable: true
+          type: string
+        assessment_number:
+          type: integer
+        climate_environmental_considerations:
+          nullable: true
+          type: boolean
+        country_id:
+          nullable: true
+          type: integer
+        country_iso3:
+          nullable: true
+          type: string
+        country_name:
+          nullable: true
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        date_of_assessment:
+          format: date
+          nullable: true
+          type: string
+        epi_considerations:
+          nullable: true
+          type: boolean
+        id:
+          type: integer
+        latitude:
+          format: double
+          nullable: true
+          type: number
+        longitude:
+          format: double
+          nullable: true
+          type: number
+        migration_considerations:
+          nullable: true
+          type: boolean
+        national_society_name:
+          nullable: true
+          type: string
+        phase:
+          nullable: true
+          type: integer
+        prioritized_components:
+          items:
+            $ref: '#/components/schemas/PerDashboardPrioritizedComponent'
+          type: array
+        region_id:
+          nullable: true
+          type: integer
+        type_of_assessment:
+          nullable: true
+          type: integer
+        updated_at:
+          format: date-time
+          type: string
+        urban_considerations:
+          nullable: true
+          type: boolean
+      required:
+      - assessment_method
+      - assessment_number
+      - climate_environmental_considerations
+      - country_id
+      - country_iso3
+      - country_name
+      - created_at
+      - date_of_assessment
+      - epi_considerations
+      - id
+      - latitude
+      - longitude
+      - migration_considerations
+      - national_society_name
+      - phase
+      - prioritized_components
+      - region_id
+      - type_of_assessment
+      - updated_at
+      - urban_considerations
+      type: object
     PerMiniUser:
       properties:
         email:
@@ -44847,7 +45132,14 @@ paths:
           type: string
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerDashboardData'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PerDashboardData'
+          description: ''
       security:
       - tokenAuth: []
       - basicAuth: []
@@ -45724,9 +46016,9 @@ paths:
   /api/v2/per-map-data:
     get:
       description: |-
-        Public consolidated PER map data.
+        Public PER map data.
 
-        Joins latest Overview per country with minimal country info and normalized phase display.
+        Every PER process (Overview) with its country, phase, considerations and prioritized components.
       operationId: api_v2_per_map_data_retrieve
       parameters:
       - in: query
@@ -45738,7 +46030,14 @@ paths:
           type: string
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerMapData'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PerMapData'
+          description: ''
       security:
       - tokenAuth: []
       - basicAuth: []
