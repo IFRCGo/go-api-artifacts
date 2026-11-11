@@ -1070,6 +1070,9 @@ components:
         amount_funded:
           format: double
           type: number
+        amount_potential_funding:
+          format: double
+          type: number
         amount_requested:
           format: double
           type: number
@@ -27607,6 +27610,9 @@ components:
           title: Appeal ID
           type: string
         amount_funded:
+          format: double
+          type: number
+        amount_potential_funding:
           format: double
           type: number
         amount_requested:
